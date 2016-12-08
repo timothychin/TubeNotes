@@ -1,12 +1,10 @@
 <!-- assume watch controller has been set -->
 <div id="video-player">
-  <iframe id="ytplayer" type="text/html" width="800" height="450"
-    src={{getUrl()}}
-    frameborder="0">    
-  </iframe>
-
+  <!-- iFrame for video player will be inserted in the below div -->
+  <iframe class="video" width="800" height="450" 
+          src={{currentVideoUrl}} frameborder="0" allowfullscreen></iframe>
   <div>
-    <div>Time:</div>
+    <div>Time: </div>
     <form name="userNote" ng-submit="postNote(title, note)">
       <input placeholder="Enter Title..." ng-model="title"/>
       <div id="noteTaker">
