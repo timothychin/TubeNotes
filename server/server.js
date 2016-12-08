@@ -6,10 +6,13 @@ var bodyParser = require('body-parser');
 
 var db = require('./schemas');
 
+app.use(express.static(path.join(__dirname, '../public')));
+
 // API - require username
 app.get('/videos', function (req, res) {
+  // req.query.username is passed in from the get request
   var results = [];
-  db.User.findOne({where: {username: req.body.username}}).then(function (user) {
+  db.User.findOne({where: {username: req.query.username}}).then(function (user) {
     db.Video.findAll({where: {userId: user.get('id')}}).then(function (videos) {
       for (var i = 0; i < videos.length; i++) {
         var video = videos[i];
@@ -29,13 +32,12 @@ app.get('/videos', function (req, res) {
   });
 });
 
-
 app.post('/comment-video', function (req, res) {
   db.User.findOrCreate({where: {username: req.body.username}})
     .then(function (user) {
-      db.Video.findOrCreate({where: { url: req.body.url, title: req.body.title, userId: user[0].get('id') }})
+      db.Video.findOrCreate({where: { url: req.body.url, title: req.body.title, UserId: user[0].get('id') }})
         .then(function (video) {
-          db.Comment.findOrCreate({ where: { title: req.body.title, text: req.body.text, userId: user[0].get('id'), videoId: video[0].get('id') }});
+          db.Comment.findOrCreate({ where: { title: req.body.title, text: req.body.text, UserId: user[0].get('id'), VideoId: video[0].get('id') }});
         });
     });
   res.status(201).send('sent');

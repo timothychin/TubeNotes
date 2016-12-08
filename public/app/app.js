@@ -5,6 +5,20 @@ angular.module('tubenotes', [
   'ngRoute'
 ])
 
+.factory('AppFactory', function() {
+  var addNote = function() {
+
+  };
+
+  var globalObj = {
+    videoLibrary: [],
+    currentVideo: {},
+    addNote: addNote
+  };
+
+  return globalObj;
+})
+
 .controller('appController', function($scope) {
   $scope.currentVideo = "https://www.youtube.com/embed/4ZAEBxGipoA";
 })

@@ -3,4 +3,8 @@
   <p>SEARCH HTML IS LOADED</p>
   <button ng-click="searchYoutube()">CLICK ME</button>
 
+  <ul class='video-library' ng-repeat='video in userVideos'>
+    <li ng-click='redirectToWatch(video.url)'>{{video.title}} <br> {{video.url}} <br> Number of Comments: {{video.comments.length}}</li>
+  </ul>
+
 </div>
