@@ -22,7 +22,7 @@ var Comment = database.define('Comment', {
 User.hasMany(Comment);
 Comment.belongsTo(User);
 Comment.belongsTo(Video);
-VIdeo.belongsTo(User);
+Video.belongsTo(User);
 
 // Create tables in mySQL if they don't exist
 User.sync();
