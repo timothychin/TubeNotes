@@ -4,4 +4,15 @@
     src={{getUrl()}}
     frameborder="0">    
   </iframe>
+
+  <div>
+    <div>Time:</div>
+    <form name="userNote" ng-submit="postNote(title, note)">
+      <input placeholder="Enter Title..." ng-model="title"/>
+      <div id="noteTaker">
+        <input placeholder="Enter Note..." ng-model="note"/>
+      </div>
+      <button>Post Note</button>
+    </form>
+  </div>
 </div>
