@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var database = new Sequelize('tubenotes');
+var database = new Sequelize('tubenotes', 'root', '');
 
 // Define a user schema
 var User = database.define('User', {
@@ -8,7 +8,8 @@ var User = database.define('User', {
 
 // Define a video schema
 var Video = database.define('Video', {
-  url: Sequelize.STRING
+  url: Sequelize.STRING,
+  title: Sequelize.STRING
 });
 
 // Define a comment schema
@@ -19,10 +20,10 @@ var Comment = database.define('Comment', {
 });
 
 // Create associations between users, comments, and videos
-User.hasMany(Comment);
 Comment.belongsTo(User);
 Comment.belongsTo(Video);
 Video.belongsTo(User);
+User.hasMany(Comment);
 
 // Create tables in mySQL if they don't exist
 User.sync();
