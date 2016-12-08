@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE>
+<html ng-app="TubeNotes">
 <head>
-  <title></title>
+  <meta charset="utf-8"/>
+  <title>TubeNotes</title>
+  <link rel="stylesheet" type="text/css" href="styles/style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
 </head>
 <body>
+  <h1>TubeNotes</h1>
 
+    <div class="navigation">
+      <ul>
+        <li><a href="#search" class="searchLink">Search</a></li>
+        <li><a href="#watch" class="create">Watch</a></li>
+        <li><a href="" class="logout">Logout</a></li>
+      </ul>
+    </div>
+
+  <div ng-view></div>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+
+  <script src="app/search/search.js"></script>
+  <script src="app/watch/watch.js"></script>
+  <script src="app/app.js"></script>
 </body>
 </html>

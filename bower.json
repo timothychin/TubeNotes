@@ -1,0 +1,22 @@
+{
+  "name": "TubeNotes",
+  "version": "1.0.0",
+  "authors": [
+    "Anton Arboleda",
+    "Nick Wang",
+    "Adam Jung"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib"
+  ],
+  "dependencies": {
+    "angular": "~1.3.16",
+    "angular-route": "~1.3.16",
+    "angular-mocks": "~1.3.16"
+  }
+}
