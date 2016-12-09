@@ -1,11 +1,19 @@
 angular.module('tubenotes.search', [])
 
-.controller('SearchController', function($scope, $http) {
+.controller('SearchController', function($scope, $http, AppFactory, $location) {
   $scope.message = 'SEARCH CONTROLLER';
   $scope.videos = [];
   $scope.userVideos = [];
 
   console.log('search controller is loaded');
+
+  $scope.setCurrentVideo = function (video) {
+    AppFactory.currentVideo = {
+      title: video.snippet.title,
+      id: video.id.videoId
+    }
+    $location.path('/watch');
+  };
 
   // Every time search.html is loaded, do a get request to the server's /videos route
   // Make sure username is sent in the get request
@@ -20,7 +28,6 @@ angular.module('tubenotes.search', [])
 
   $scope.searchYoutube = function(msg) {
     console.log('SEARCH YOUTUBE');
-    // var testSearch = 'cats';
 
     $http.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
