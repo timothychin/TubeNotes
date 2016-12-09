@@ -5,7 +5,7 @@
   <title>TubeNotes</title>
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
   <script src="app/config/youtube.js"></script>
-  <script src="https://www.youtube.com/iframe_api"></script>
+ <!--  <script src="https://www.youtube.com/iframe_api"></script> -->
 </head>
 <body ng-controller="appController">
   <h1>TubeNotes</h1>
@@ -27,5 +27,14 @@
   <script src="app/search/search.js"></script>
   <script src="app/watch/watch.js"></script>
   <script src="app/app.js"></script>
+
+  <script>
+    // load youtube iframe api
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  </script>
 </body>
 </html>
