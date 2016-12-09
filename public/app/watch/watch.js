@@ -3,12 +3,14 @@ angular.module('tubenotes.watch', [])
 .controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var intervalPromise;
   $scope.currentVideoTime = 0;
+  $scope.currentVideoId = (AppFactory.currentVideo) ? 'dQw4w9WgXcQ':AppFactory.currentVideo.id;
 
   window.onYouTubeIframeAPIReady = function() {
+    console.log('CALLED');
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
-      videoId: $scope.getUrl(),
+      videoId: AppFactory.currentVideo.id || 'dQw4w9WgXcQ',
       events: {
         // 'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -40,8 +42,24 @@ angular.module('tubenotes.watch', [])
   }
 
   $scope.getUrl = function() {
-    var currentVideoUrl = "htttps://www.youtube.com/embed/" + AppFactory.currentVideo.id;
+    var currentVideoUrl = "htttps://www.youtube.com/embed/" + videoId;
+    
+    console.log('GET URL CALLED', currentVideoUrl);
+    window.player = new YT.Player('player', {
+      width: '800',
+      height: '450',
+      videoId: $sce.trustAsResourceUrl(currentVideoUrl),
+      events: {
+        // 'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+    
     return $sce.trustAsResourceUrl(currentVideoUrl);
+  }
+
+  $scope.updateVideo = function() {
+
   }
 
   $scope.getVideoTime = function() {
