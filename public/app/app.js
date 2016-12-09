@@ -1,7 +1,6 @@
 angular.module('tubenotes', [
   'tubenotes.search',
   'tubenotes.watch',
-  'tubenotes.services',
   'ngRoute'
 ])
 
