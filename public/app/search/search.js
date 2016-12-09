@@ -10,7 +10,7 @@ angular.module('tubenotes.search', [])
   $scope.setCurrentVideo = function (video) {
     AppFactory.currentVideo = {
       title: video.snippet.title,
-      etag: video.etag
+      id: video.id.videoId
     }
     $location.path('/watch');
   };
