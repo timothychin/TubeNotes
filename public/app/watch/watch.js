@@ -1,15 +1,14 @@
 angular.module('tubenotes.watch', [])
 
 .controller('WatchController', function($scope, $sce, $interval, AppFactory) {
-  var interval;
+  var intervalPromise;
   $scope.currentVideoTime = 0;
 
-  // var player;
   window.onYouTubeIframeAPIReady = function() {
     window.player = new YT.Player('player', {
-      height: '390',
-      width: '640',
-      videoId: 'M7lc1UVf-VE',
+      width: '800',
+      height: '450',
+      videoId: $scope.getUrl(),
       events: {
         // 'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -21,27 +20,28 @@ angular.module('tubenotes.watch', [])
     // if video is playing, update 
     if (event.data === YT.PlayerState.PLAYING) {
       // set video to current time
-      console.log('player.getCurrentTime() is', player.getCurrentTime());
       $scope.currentVideoTime = Math.floor(player.getCurrentTime());
-      console.log('currentVideoTime is', $scope.currentVideoTime);
       // set interval for time setting
-      interval = $interval(() => ($scope.currentVideoTime = Math.floor(player.getCurrentTime()))
+      intervalPromise = $interval(() => {$scope.currentVideoTime = 
+                                         Math.floor(player.getCurrentTime());}
       , 100);
     } else if (event.data === YT.PlayerState.ENDED || 
        event.data === YT.PlayerState.PAUSED) {
-
+      $interval.cancel(intervalPromise);
     }
   }
 
   $scope.postNote = function(title, note) {
-    // $scope.changeUrl('https://www.youtube.com/embed/dQw4w9WgXcQ');
-    console.log(Math.floor(window.player.getCurrentTime()));
+    // post note to server
+    var newNote = { user: username,
+                    title: title,
+                    note: note };
+    AppFactory.addNote(newNote);
   }
 
   $scope.getUrl = function() {
     var currentVideoUrl = "htttps://www.youtube.com/embed/" + AppFactory.currentVideo.id;
     return $sce.trustAsResourceUrl(currentVideoUrl);
-    // $scope.currentVideoUrl = $sce.trustAsResourceUrl(url);
   }
 
   $scope.getVideoTime = function() {
