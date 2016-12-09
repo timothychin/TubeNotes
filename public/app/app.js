@@ -11,6 +11,7 @@ angular.module('tubenotes', [
   var globalObj = {
     videoLibrary: [],
     currentVideo: {},
+    currentLibraryVideo: {},
     addNote: addNote
   };
 

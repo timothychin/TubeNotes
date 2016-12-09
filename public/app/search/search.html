@@ -10,8 +10,8 @@
     </li>
   </ul>
 
-  <ul class='video-library' ng-repeat='video in userVideos'>
-    <li ng-click='redirectToWatch(video.url)'>{{video.title}} <br> {{video.url}} <br> Number of Comments: {{video.comments.length}}</li>
+  <ul class='video-library' ng-repeat='libVideo in userVideos'>
+    <li ng-click='setCurrentLibraryVideo(libVideo)'>{{libVideo.title}} <br> {{libVideo.url}} <br> Number of Comments: {{libVideo.comments.length}}</li>
   </ul>
 
 </div>
