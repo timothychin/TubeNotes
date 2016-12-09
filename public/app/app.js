@@ -7,7 +7,7 @@ angular.module('tubenotes', [
 
 .factory('AppFactory', function() {
   var addNote = function() {
-
+    
   };
 
   var globalObj = {

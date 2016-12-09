@@ -3,7 +3,7 @@
   <input ng-init="message='cats'" ng-model="message" >
   <button ng-click="searchYoutube(message);">Search Video</button>
   <ul class="example-animate-container">
-    <li ng-click="test()" class="animate-repeat" ng-repeat="video in videos">
+    <li class="animate-repeat" ng-click="setCurrentVideo(video)" ng-repeat="video in videos">
       <img src={{video.snippet.thumbnails.default.url}}>
       {{$index + 1}} {{video.snippet.title}} 
       <div>{{video.snippet.description}}</div>
