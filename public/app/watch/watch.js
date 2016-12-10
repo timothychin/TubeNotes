@@ -2,7 +2,7 @@ angular.module('tubenotes.watch', [])
 
 .controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var intervalPromise;
-  $scope.currentVideoTime = 0;
+  $scope.currentVideoTime = '00:00';
   $scope.currentVideoId = (AppFactory.currentVideo) ? 'dQw4w9WgXcQ':AppFactory.currentVideo.id;
 
   window.onYouTubeIframeAPIReady = function() {
@@ -22,15 +22,26 @@ angular.module('tubenotes.watch', [])
     // if video is playing, update 
     if (event.data === YT.PlayerState.PLAYING) {
       // set video to current time
-      $scope.currentVideoTime = Math.floor(player.getCurrentTime());
+      var seconds = Math.floor(player.getCurrentTime());
+      $scope.currentVideoTime = $scope.formatTime(seconds);
       // set interval for time setting
-      intervalPromise = $interval(() => {$scope.currentVideoTime = 
-                                         Math.floor(player.getCurrentTime());}
+      intervalPromise = $interval(() => 
+        ($scope.currentVideoTime = $scope.formatTime(Math.floor(player.getCurrentTime())))
       , 100);
     } else if (event.data === YT.PlayerState.ENDED || 
        event.data === YT.PlayerState.PAUSED) {
       $interval.cancel(intervalPromise);
     }
+  }
+
+  $scope.formatTime = function(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    var seconds = seconds % 60;
+
+    minutes = (minutes < 10) ? `0${minutes}`:`${minutes}`;
+    seconds = (seconds < 10) ? `0${seconds}`:`${seconds}`;
+
+    return `${minutes}:${seconds}`
   }
 
   $scope.postNote = function(title, note) {
