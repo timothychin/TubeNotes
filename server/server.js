@@ -6,7 +6,9 @@ var bodyParser = require('body-parser');
 
 var db = require('./schemas');
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.urlencoded({'extended': 'true'}));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // API - require username
 app.get('/videos', function (req, res) {
@@ -35,18 +37,17 @@ app.get('/videos', function (req, res) {
 app.post('/comment-video', function (req, res) {
   db.User.findOrCreate({where: {username: req.body.username}})
     .then(function (user) {
-      db.Video.findOrCreate({where: { url: req.body.url, title: req.body.title, UserId: user[0].get('id') }})
+      db.Video.findOrCreate({where: { videoUrl: req.body.videoUrl, videoTitle: req.body.videoTitle, UserId: user[0].get('id') }})
         .then(function (video) {
-          db.Comment.findOrCreate({ where: { title: req.body.title, text: req.body.text, UserId: user[0].get('id'), VideoId: video[0].get('id') }});
+          db.Comment.findOrCreate({ where: { commentTitle: req.body.commentTitle, commentText: req.body.commentText, UserId: user[0].get('id'), VideoId: video[0].get('id') }});
         });
     });
   res.status(201).send('sent');
 });
 
+app.use(express.static(path.join(__dirname, '../public')));
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
-app.use(bodyParser.urlencoded({'extended': 'true'}));
-app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
