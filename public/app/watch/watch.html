@@ -2,6 +2,8 @@
 <div id="video-player">
   <!-- iFrame for video player will be inserted in the below div -->
   <div id="player"></div>
+
+  <!-- User note taking window -->
   <div>
     <div>Time: {{currentVideoTime}} </div>
     <form name="userNote" ng-submit="postNote(title, note)">
@@ -11,5 +13,16 @@
       </div>
       <button>Post Note</button>
     </form>
+  </div>
+
+  <!-- Video notes window -->
+  <div>
+    <div>Notes:</div>
+    <ul class="notes" ng-repeat="comment in videoComments">
+      <li class="note">
+        <div>Title: {{comment.title}}</div>
+        <div>Note: {{comment.text}}</div>
+      </li>
+    </ul>
   </div>
 </div>

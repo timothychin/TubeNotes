@@ -3,33 +3,35 @@ angular.module('tubenotes.watch', [])
 .controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
-  $scope.currentVideoId = (AppFactory.currentVideo) ? 'dQw4w9WgXcQ': AppFactory.currentVideo.id;
+  $scope.videoComments = AppFactory.currentVideo.comments;
 
   window.onYouTubeIframeAPIReady = function() {
-    console.log('CALLED');
+    // append youtube iframe to html element with id of 'player'
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
-      videoId: AppFactory.currentVideo.id || 'dQw4w9WgXcQ',
+      videoId: AppFactory.currentVideo.id,
       events: {
-        // 'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
       }
     });
+    $scope.currentVideo = AppFactory.currentVideo;
   }
 
   window.onPlayerStateChange = function(event) {
-    // if video is playing, update 
+    // when video is playing, show the video's time 
+    // on user's note taking window
     if (event.data === YT.PlayerState.PLAYING) {
-      // set video to current time
       var seconds = Math.floor(player.getCurrentTime());
+      // convert timestamp in seconds to a mm:ss string
       $scope.currentVideoTime = $scope.formatTime(seconds);
-      // set interval for time setting
+      // update time on interval of 100ms (not ideal performance)
       intervalPromise = $interval(() => 
-        ($scope.currentVideoTime = $scope.formatTime(Math.floor(player.getCurrentTime())))
-      , 100);
+        ($scope.currentVideoTime = 
+            $scope.formatTime(Math.floor(player.getCurrentTime()))), 100);
     } else if (event.data === YT.PlayerState.ENDED || 
        event.data === YT.PlayerState.PAUSED) {
+      // clear interval on video pause
       $interval.cancel(intervalPromise);
     }
   }
@@ -45,39 +47,22 @@ angular.module('tubenotes.watch', [])
   }
 
   $scope.postNote = function(title, note) {
-    // post note to server
-    var newNote = { user: username,
-                    title: title,
-                    note: note };
-    AppFactory.addNote(newNote);
+    var timestamp = Math.floor(player.getCurrentTime());
+    // add note to current video's comments array
+    AppFactory.currentVideo.comments.push(
+      { title: title,
+        text: note,
+        timestamp: timestamp });
+
+    // update scope variable to make comments render on page
+    $scope.videoComments = AppFactory.currentVideo.comments;
+
+    // call update to server for the current video
+    AppFactory.addNote(title, note, timestamp);
   }
 
-  $scope.getUrl = function() {
-    var currentVideoUrl = "htttps://www.youtube.com/embed/" + videoId;
-    
-    console.log('GET URL CALLED', currentVideoUrl);
-    window.player = new YT.Player('player', {
-      width: '800',
-      height: '450',
-      videoId: $sce.trustAsResourceUrl(currentVideoUrl),
-      events: {
-        // 'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-    
-    return $sce.trustAsResourceUrl(currentVideoUrl);
-  }
-
-  $scope.updateVideo = function() {
-
-  }
-
-  $scope.getVideoTime = function() {
-    if (window.player){
-      return window.player.getCurrentTime();
-    } else {
-      return 0;
-    }
+  $scope.clickNote = function() {
+    // when note is clicked
+    // start playing video at note's timestamp
   }
 });
