@@ -4,9 +4,18 @@ angular.module('tubenotes', [
   'ngRoute'
 ])
 
-.factory('AppFactory', function() {
-  var addNote = function() {
-    
+.factory('AppFactory', function($http) {
+  var addNote = function(note) {
+    // note needs to be:
+    // note = {
+    //   username: '',
+    //   videoUrl: '',
+    //   videoTitle: '',
+    //   commentTitle: '',
+    //   commentText: ''
+    // };
+
+    $http.post('/comment-video', note);
   };
   
   var globalObj = {
