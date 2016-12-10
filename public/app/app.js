@@ -5,18 +5,6 @@ angular.module('tubenotes', [
 ])
 
 .factory('AppFactory', function($http) {
-  var addNote = function(note) {
-    // note needs to be:
-    // note = {
-    //   username: '',
-    //   videoUrl: '',
-    //   videoTitle: '',
-    //   commentTitle: '',
-    //   commentText: ''
-    // };
-
-    $http.post('/comment-video', note);
-  };
   
   var globalObj = {
     videoLibrary: [],
@@ -24,6 +12,19 @@ angular.module('tubenotes', [
     currentLibraryVideo: {},
     addNote: addNote
   };
+
+  var addNote = function(commentTitle, commentText) {
+    note = {
+      username: 'Dummy',
+      videoUrl: 'youtube.com/embed/' + globalObj.currentVideo.id,
+      videoTitle: globalObj.currentVideo.title,
+      commentTitle: commentTitle,
+      commentText: commentText
+    };
+
+    $http.post('/comment-video', note);
+  };
+  
 
   return globalObj;
 })
