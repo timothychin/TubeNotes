@@ -8,6 +8,7 @@ angular.module('tubenotes', [
   var addNote = function() {
     
   };
+  
   var globalObj = {
     videoLibrary: [],
     currentVideo: {},

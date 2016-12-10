@@ -13,7 +13,10 @@ angular.module('tubenotes.search', [])
       title: video.snippet.title,
       id: video.id.videoId
     };
+
     $location.path('/watch');
+    // make asynchronous call to onYouTubeIframeAPIReady
+    setTimeout(window.onYouTubeIframeAPIReady, 0);
   };
 
   // This is to set the current video to a video that you have already annotated

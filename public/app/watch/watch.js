@@ -3,7 +3,7 @@ angular.module('tubenotes.watch', [])
 .controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
-  $scope.currentVideoId = (AppFactory.currentVideo) ? 'dQw4w9WgXcQ':AppFactory.currentVideo.id;
+  $scope.currentVideoId = (AppFactory.currentVideo) ? 'dQw4w9WgXcQ': AppFactory.currentVideo.id;
 
   window.onYouTubeIframeAPIReady = function() {
     console.log('CALLED');
