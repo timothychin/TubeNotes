@@ -13,14 +13,15 @@ angular.module('tubenotes.services', [])
   };
 
   var signup = function (user) {
-    return $http({
+    console.log('signup', user);
+    $http({
       method: 'POST',
       url: '/users/signup',
       data: user
     })
-    .then(function (resp) {
-      return resp.data.token;
-    });
+    // .then(function (resp) {
+    //   return resp.data.token;
+    // });
   };
 
   var isAuth = function () {
