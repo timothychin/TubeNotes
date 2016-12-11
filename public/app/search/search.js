@@ -1,7 +1,6 @@
 angular.module('tubenotes.search', [])
 
 .controller('SearchController', function($scope, $http, AppFactory, $location) {
-  $scope.message = 'SEARCH CONTROLLER';
   $scope.videos = [];
   $scope.userVideos = [];
 
