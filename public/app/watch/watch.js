@@ -13,7 +13,7 @@ angular.module('tubenotes.watch', [])
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
-      videoId: AppFactory.currentVideo.id,
+      videoId: AppFactory.currentVideo.id || 'uxpDa-c-4Mc',
       events: {
         'onStateChange': onPlayerStateChange
       }
@@ -84,8 +84,8 @@ angular.module('tubenotes.watch', [])
     $scope.videoComments = AppFactory.currentVideo.comments;
 
     // call update to server for the current video
-    AppFactory.addNote(title, note, timestamp);
-    var startTime = 0;
+    AppFactory.addNote(title, note, startTime);
+    $scope.resetNote();
   }
 
   $scope.clickNote = function(comment) {

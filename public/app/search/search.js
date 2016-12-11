@@ -4,13 +4,12 @@ angular.module('tubenotes.search', [])
   $scope.videos = [];
   $scope.userVideos = [];
 
-  console.log('search controller is loaded');
-
   // This is to set the current video from the YouTube search
   $scope.setCurrentVideo = function (video) {
     AppFactory.currentVideo = {
       title: video.snippet.title,
-      id: video.id.videoId
+      id: video.id.videoId,
+      comments: []
     };
 
     $location.path('/watch');
@@ -38,12 +37,9 @@ angular.module('tubenotes.search', [])
     // Store the results of the get request in $scope.userVideos
     $scope.userVideos = response.data;
     AppFactory.videoLibrary = response.data;
-    console.log('videoLIbrary: ', AppFactory.videoLibrary);
   });
 
   $scope.searchYoutube = function(msg) {
-    console.log('SEARCH YOUTUBE');
-
     $http.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         key: window.YOUTUBE_API_KEY,
@@ -54,9 +50,7 @@ angular.module('tubenotes.search', [])
       }
     })
     .success(function(data) {
-      console.log('youtube get successful: ', data);
       $scope.videos = data.items;
-      console.log('videos is now', $scope.videos);
     })
     .error(function() {
       console.log('ERROR');

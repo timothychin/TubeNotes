@@ -12,14 +12,7 @@ angular.module('tubenotes', [
 //as the second argument.
 
 .factory('AppFactory', function($http) {
-
-  var globalObj = {
-    videoLibrary: [],
-    currentVideo: {},
-    currentLibraryVideo: {},
-    addNote: addNote
-  };
-
+  
   var addNote = function(commentTitle, commentText, timestamp) {
     note = {
       username: 'Dummy',
@@ -33,6 +26,12 @@ angular.module('tubenotes', [
     $http.post('/comment-video', note);
   };
   
+  var globalObj = {
+    videoLibrary: [],
+    currentVideo: {},
+    currentLibraryVideo: {},
+    addNote: addNote
+  };
 
   return globalObj;
 })
