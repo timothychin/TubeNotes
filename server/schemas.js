@@ -16,7 +16,7 @@ var Video = database.define('Video', {
 var Comment = database.define('Comment', {
   title: Sequelize.STRING,
   text: Sequelize.STRING,
-  timestamp: Sequelize.STRING
+  timestamp: Sequelize.INTEGER
 });
 
 // Create associations between users, comments, and videos

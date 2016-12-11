@@ -37,9 +37,9 @@ app.get('/videos', function (req, res) {
 app.post('/comment-video', function (req, res) {
   db.User.findOrCreate({where: {username: req.body.username}})
     .then(function (user) {
-      db.Video.findOrCreate({where: { videoUrl: req.body.videoUrl, videoTitle: req.body.videoTitle, UserId: user[0].get('id') }})
+      db.Video.findOrCreate({where: { url: req.body.videoUrl, title: req.body.videoTitle, UserId: user[0].get('id') }})
         .then(function (video) {
-          db.Comment.findOrCreate({ where: { commentTitle: req.body.commentTitle, commentText: req.body.commentText, UserId: user[0].get('id'), VideoId: video[0].get('id') }});
+          db.Comment.findOrCreate({ where: { title: req.body.commentTitle, text: req.body.commentText, timestamp: req.body.timestamp, UserId: user[0].get('id'), VideoId: video[0].get('id') }});
         });
     });
   res.status(201).send('sent');

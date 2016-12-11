@@ -1,27 +1,21 @@
 <div id="video-player">
 
-  <input ng-init="message='cats'" ng-model="message" >
-  <button ng-click="searchYoutube(message);">Search Video</button>
-  <ul class="example-animate-container">
-    <li class="animate-repeat" ng-click="setCurrentVideo(video)" ng-repeat="video in videos">
-      <img src={{video.snippet.thumbnails.default.url}}>
-      {{$index + 1}} {{video.snippet.title}} 
-      <div>{{video.snippet.description}}</div>
-    </li>
-  </ul>
+  <div class='search'>
+    <input ng-init="message='cats'" ng-model="message" >
+    <button ng-click="searchYoutube(message);">Search Video</button>
+    <ul class="example-animate-container">
+      <li class="animate-repeat" ng-click="setCurrentVideo(video)" ng-repeat="video in videos">
+        <img src={{video.snippet.thumbnails.default.url}}>
+        {{$index + 1}} {{video.snippet.title}} 
+        <div>{{video.snippet.description}}</div>
+      </li>
+    </ul>
+  </div>
 
-  <ul class='video-library' ng-repeat='libVideo in userVideos'>
-    <li ng-click='setCurrentLibraryVideo(libVideo)'>{{libVideo.title}} <br> {{libVideo.url}} <br> Number of Comments: {{libVideo.comments.length}}</li>
-  </ul>
+  <div class='video-library'>Video Library
+    <ul ng-repeat='libVideo in userVideos'>
+      <li ng-click='setCurrentLibraryVideo(libVideo)'>{{libVideo.title}} <br> {{libVideo.url}} <br> Number of Comments: {{libVideo.comments.length}}</li>
+    </ul>
+  </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
