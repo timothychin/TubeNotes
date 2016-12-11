@@ -1,7 +1,8 @@
 angular.module('tubenotes', [
   'tubenotes.search',
   'tubenotes.watch',
-  'tubenotes.auth', // this is where the error is however, in client/app/auth/auth.js a tubenotes.auth module exists
+  'tubenotes.services',
+  'tubenotes.auth', 
   'ngRoute'
 ])
 

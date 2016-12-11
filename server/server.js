@@ -46,18 +46,17 @@ app.post('/comment-video', function (req, res) {
 });
 
 app.post('/users/signup', function (req, res) {
-  db.User.create({})
-
-
+  db.User.create({
+    
+  })
   //send them back a response token
   res.send();
 })
 
 app.post('/users/login', function (req, res) {
   db.User.findOne({
-
+    
   })
-  
   //send them back a response token
   res.send();
 })
