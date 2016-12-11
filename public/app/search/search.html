@@ -1,21 +1,51 @@
 <div id="video-player">
 
-  <div class='search'>
-    <input ng-init="message='cats'" ng-model="message" >
-    <button ng-click="searchYoutube(message);">Search Video</button>
-    <ul class="example-animate-container">
-      <li class="animate-repeat" ng-click="setCurrentVideo(video)" ng-repeat="video in videos">
-        <img src={{video.snippet.thumbnails.default.url}}>
-        {{$index + 1}} {{video.snippet.title}} 
-        <div>{{video.snippet.description}}</div>
-      </li>
-    </ul>
+  <div class="input-group">
+    <input type="text" ng-model="message" class="form-control" placeholder="Search">
+    <div class="input-group-btn">
+      <button ng-click="searchYoutube(message)" class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </div>
   </div>
 
-  <div class='video-library'>Video Library
-    <ul ng-repeat='libVideo in userVideos'>
-      <li ng-click='setCurrentLibraryVideo(libVideo)'>{{libVideo.title}} <br> {{libVideo.url}} <br> Number of Comments: {{libVideo.comments.length}}</li>
-    </ul>
+  <div class='container'>
+
+    <div class='row'>
+
+      <div class='search-results col-sm-8'>
+        <ul class="list-group">
+          <li class="list-group-item" ng-click="setCurrentVideo(video)" ng-repeat="video in videos">
+            <img src={{video.snippet.thumbnails.default.url}}>
+            {{$index + 1}} {{video.snippet.title}} 
+            <div>{{video.snippet.description}}</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class='video-library col-sm-4'>
+        <h2>Video Library</h2>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Number of Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat='libVideo in userVideos'>
+              <td>{{libVideo.title}}</td>
+              <td>{{libVideo.comments.length}}</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
   </div>
+
 
 </div>

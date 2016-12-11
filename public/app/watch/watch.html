@@ -1,31 +1,39 @@
 <!-- assume watch controller has been set -->
 <div id="video-player">
   <!-- iFrame for video player will be inserted in the below div -->
-  <div id="player"></div>
 
-  <!-- User note taking window -->
-  <div>
-    <div>{{currentVideoTime}} </div>
-    <div>Start Time: {{noteTimestamp}}</div>
-    <form name="userNote">
-      <input type="text" name="title" placeholder="Enter Title..." ng-model="title"/>
-      <div id="noteTaker">
-        <input type="text" name="note" placeholder="Enter Note..." 
-               ng-model="note" ng-keypress="setTimestamp()"/>
+  <div class='container'>
+
+    <div class='row'>
+      <!-- User note taking window -->
+      <div class='col-sm-9'>
+        <div id="player"></div>
+        <div>{{currentVideoTime}} </div>
+        <div>Start Time: {{noteTimestamp}}</div>
+        <form name="userNote">
+          <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/>
+          <div id="noteTaker">
+            <textarea class='form-control' type="text" name="note" placeholder="Enter Note..." 
+                   ng-model="note" ng-keypress="setTimestamp()"/>
+          </div>
+          <button class='btn' ng-click="postNote(title, note)">Post</button>
+          <button class='btn' ng-click="resetNote()">Reset</button>
+        </form>
       </div>
-      <button ng-click="postNote(title, note)">Post</button>
-      <button ng-click="resetNote()">Reset</button>
-    </form>
+
+      <!-- Video notes window -->
+      <div class='col-sm-3'>
+        <h3>Notes:</h3>
+        <ul class="notes list-group" ng-repeat="comment in videoComments">
+          <li class="note list-group-item" ng-click="clickNote(comment)">
+            <div>Title: {{comment.title}}</div>
+            <div>Note: {{comment.note}}</div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- Video notes window -->
-  <div>
-    <div>Notes:</div>
-    <ul class="notes" ng-repeat="comment in videoComments">
-      <li class="note" ng-click="clickNote(comment)">
-        <div>Title: {{comment.title}}</div>
-        <div>Note: {{comment.note}}</div>
-      </li>
-    </ul>
-  </div>
 </div>
