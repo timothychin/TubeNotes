@@ -19,3 +19,7 @@
 .title {
   width: 350px;
 }
+
+#logout {
+  float: right;
+}
