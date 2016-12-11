@@ -45,6 +45,24 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
+app.post('/users/signup', function (req, res) {
+  db.User.create({})
+
+
+  //send them back a response token
+  res.send();
+})
+
+app.post('/users/login', function (req, res) {
+  db.User.findOne({
+
+  })
+  
+  //send them back a response token
+  res.send();
+})
+
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(3000, function () {

@@ -1,9 +1,14 @@
 angular.module('tubenotes', [
   'tubenotes.search',
   'tubenotes.watch',
-  'tubenotes.auth',
+  'tubenotes.auth', // this is where the error is however, in client/app/auth/auth.js a tubenotes.auth module exists
   'ngRoute'
 ])
+
+//Error: [$injector:modulerr] Failed to instantiate module tubenotes.auth due to:
+//Error: [$injector:nomod] Module 'tubenotes.auth' is not available! You either misspelled 
+//the module name or forgot to load it. If registering a module ensure that you specify the dependencies 
+//as the second argument.
 
 .factory('AppFactory', function($http) {
 
@@ -35,10 +40,10 @@ angular.module('tubenotes', [
   $scope.currentVideo = "https://www.youtube.com/embed/4ZAEBxGipoA";
 })
 
-.config(function($routeProvider) {
+.config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/user/login.html',
+      templateUrl: 'app/auth/login.html',
       controller: ''
     })
     .when('/watch', {

@@ -4,7 +4,7 @@ angular.module('tubenotes.services', [])
   var login = function (user) {
     return $http({
       method: 'POST',
-      url: '/api/users/login',
+      url: '/users/login',
       data: user
     })
     .then(function (resp) {
@@ -15,7 +15,7 @@ angular.module('tubenotes.services', [])
   var signup = function (user) {
     return $http({
       method: 'POST',
-      url: '/api/users/signup',
+      url: '/users/signup',
       data: user
     })
     .then(function (resp) {
