@@ -92,7 +92,7 @@ angular.module('tubenotes.watch', [])
     // when note is clicked
     // start playing video at note's timestamp
     if (window.player) {
-      window.player.seekTo(comment.timestamp, false);
+      window.player.seekTo(comment.timestamp, true);
     }
   }
 });
