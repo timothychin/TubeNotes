@@ -5,13 +5,16 @@
 
   <!-- User note taking window -->
   <div>
-    <div>Time: {{currentVideoTime}} </div>
-    <form name="userNote" ng-submit="postNote(title, note)">
-      <input placeholder="Enter Title..." ng-model="title"/>
+    <div>{{currentVideoTime}} </div>
+    <div>Start Time: {{noteTimestamp}}</div>
+    <form name="userNote">
+      <input type="text" name="title" placeholder="Enter Title..." ng-model="title"/>
       <div id="noteTaker">
-        <input placeholder="Enter Note..." ng-model="note"/>
+        <input type="text" name="note" placeholder="Enter Note..." 
+               ng-model="note" ng-keypress="setTimestamp()"/>
       </div>
-      <button>Post Note</button>
+      <button ng-click="postNote(title, note)">Post</button>
+      <button ng-click="resetNote()">Reset</button>
     </form>
   </div>
 
@@ -19,7 +22,7 @@
   <div>
     <div>Notes:</div>
     <ul class="notes" ng-repeat="comment in videoComments">
-      <li class="note">
+      <li class="note" ng-click="clickNote(comment)">
         <div>Title: {{comment.title}}</div>
         <div>Note: {{comment.text}}</div>
       </li>
