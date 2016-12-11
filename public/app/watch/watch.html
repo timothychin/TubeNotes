@@ -13,7 +13,7 @@
         <form name="userNote">
           <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/>
           <div id="noteTaker">
-            <textarea class='form-control' type="text" name="note" placeholder="Enter Note..." 
+            <textarea class='form-control' twype="text" name="note" placeholder="Enter Note..." 
                    ng-model="note" ng-keypress="setTimestamp()"/>
           </div>
           <button class='btn' ng-click="postNote(title, note)">Post</button>
