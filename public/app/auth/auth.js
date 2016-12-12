@@ -22,6 +22,7 @@ angular.module('tubenotes.auth', [])
     window.username = $scope.user.username;
     Auth.signup($scope.user)
       .then(function (token) {
+        console.log(token, 'TOKEN SIGNUP SUCCESSFUL')
         $window.localStorage.setItem('com.tubenotes', token);
         $location.path('/search');
       })

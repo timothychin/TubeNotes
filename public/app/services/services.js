@@ -10,8 +10,8 @@ angular.module('tubenotes.services', [])
       data: user
     })
     .then(function (resp) {
-      console.log(resp.data, 'SERVICES 13')
-      return resp;
+      console.log(resp.data.token, 'SERVICES 13')
+      return resp.data.token;
     });
   };
 
