@@ -1,24 +1,29 @@
 angular.module('tubenotes.services', [])
 
 .factory('Auth', function ($http, $location, $window) {
+  var username = '';
   var login = function (user) {
+    console.log('clicked', user)
     return $http({
       method: 'POST',
       url: '/users/login',
       data: user
     })
     .then(function (resp) {
+      console.log(resp.data.token, 'SERVICES 13')
       return resp.data.token;
     });
   };
 
   var signup = function (user) {
+    console.log(user);
     return $http({
       method: 'POST',
       url: '/users/signup',
       data: user
     })
     .then(function (resp) {
+      console.log(resp)
       return resp.data.token;
     });
   };
@@ -36,6 +41,7 @@ angular.module('tubenotes.services', [])
     login: login,
     signup: signup,
     isAuth: isAuth,
-    signout: signout
+    signout: signout,
+    username: username
   };
 });

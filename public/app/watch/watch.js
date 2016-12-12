@@ -73,7 +73,7 @@ angular.module('tubenotes.watch', [])
 
   $scope.postNote = function(title, note) {
     // var timestamp = Math.floor(player.getCurrentTime());
-    console.log('comment timestamp is', startTime);
+    // console.log('comment timestamp is', startTime);
     // add note to current video's comments array
     console.log(AppFactory.currentVideo);
     AppFactory.currentVideo.comments.push(

@@ -6,17 +6,12 @@ angular.module('tubenotes', [
   'ngRoute'
 ])
 
-//Error: [$injector:modulerr] Failed to instantiate module tubenotes.auth due to:
-//Error: [$injector:nomod] Module 'tubenotes.auth' is not available! You either misspelled 
-//the module name or forgot to load it. If registering a module ensure that you specify the dependencies 
-//as the second argument.
-
 .factory('AppFactory', function($http) {
   
   // This factory function will do a post request to our server to store a note in our database
   var addNote = function(commentTitle, commentText, timestamp) {
     note = {
-      username: 'Dummy',
+      username: window.username,
       videoUrl: 'youtube.com/embed/' + globalObj.currentVideo.id,
       videoTitle: globalObj.currentVideo.title,
       commentTitle: commentTitle,
@@ -30,7 +25,8 @@ angular.module('tubenotes', [
   // This will be accessed in all of our controllers as AppFactory
   var globalObj = {
     currentVideo: {},
-    addNote: addNote
+    addNote: addNote,
+    username: ''
   };
 
   return globalObj;

@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var jwt = require('jwt-simple');
+var userControllers = require('./users/userControllers.js');
 
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -60,21 +62,9 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
-// app.post('/users/signup', function (req, res) {
-//   db.User.create({
-//     {where: {username: req.body.username}}
-//   })
-//   //send them back a response token
-//   res.send();
-// })
+app.post('/users/signup', userControllers.signup);
 
-app.post('/users/login', function (req, res) {
-  db.User.findOne({
-    
-  });
-  //send them back a response token
-  res.send();
-});
+app.post('/users/login', userControllers.login);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
