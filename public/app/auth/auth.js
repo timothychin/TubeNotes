@@ -17,11 +17,12 @@ angular.module('tubenotes.auth', [])
   };
 
   $scope.signup = function () {
+    console.log('sent!!');
     window.username = $scope.user.username;
     Auth.signup($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.tubenotes', token);
-        $location.path('/');
+        $location.path('/search');
       })
       .catch(function (error) {
         console.error(error);
