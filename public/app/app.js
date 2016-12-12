@@ -13,6 +13,7 @@ angular.module('tubenotes', [
 
 .factory('AppFactory', function($http) {
   
+  // This factory function will do a post request to our server to store a note in our database
   var addNote = function(commentTitle, commentText, timestamp) {
     note = {
       username: 'Dummy',
@@ -26,10 +27,9 @@ angular.module('tubenotes', [
     $http.post('/comment-video', note);
   };
   
+  // This will be accessed in all of our controllers as AppFactory
   var globalObj = {
-    videoLibrary: [],
     currentVideo: {},
-    currentLibraryVideo: {},
     addNote: addNote
   };
 
@@ -64,7 +64,7 @@ angular.module('tubenotes', [
     })
     .otherwise({
       redirectTo: '/search'
-    })
+    });
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
   $httpProvider.interceptors.push('AttachTokens');
