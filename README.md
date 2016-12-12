@@ -1,6 +1,6 @@
-# Project Name
+# TubeNotes
 
-> Pithy project description
+YouTube note taking app. Allowing users to annotate their favorite videos.  
 
 ## Team
 
