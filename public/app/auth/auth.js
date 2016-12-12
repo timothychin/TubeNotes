@@ -6,11 +6,10 @@ angular.module('tubenotes.auth', [])
   $scope.login = function () {
     Auth.login($scope.user)
       .then(function (token) {
-        console.log('successful')
         console.log(token, 'IS TOKEN');
         window.username = $scope.user.username;        
         $window.localStorage.setItem('com.tubenotes', token);
-        $location.path('/search');
+        $location.path('/watch');
       })
       .catch(function (error) {
         console.error(error);
@@ -24,7 +23,7 @@ angular.module('tubenotes.auth', [])
       .then(function (token) {
         console.log(token, 'TOKEN SIGNUP SUCCESSFUL')
         $window.localStorage.setItem('com.tubenotes', token);
-        $location.path('/search');
+        $location.path('/watch');
       })
       .catch(function (error) {
         console.error(error);
