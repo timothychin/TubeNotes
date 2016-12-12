@@ -14,32 +14,17 @@ module.exports = {
     var password = req.body.password;
     db.User.findOrCreate({where: {username: username, password: password}})
       .then(function (user) {
-        // console.log(user, 'is user created!')
+        //Once the user is created, send the client back a token 
         var token = jwt.encode(user, 'secret');        
         res.json({token: token})
       })
-
-    db.User.hook('beforeCreate', function (model, options) {
-      console.log('INSIDE')
+    // This method uses promises to store hashed passwords into the Database
+    db.User.hook('beforeCreate', function (model, options) {      
       return cipher(model.get('password'), null, null).bind(model)
         .then(function(hash) {
           model.set('password', hash);
         });
     })
-
-    // return cipher(model.get('password'), null, null).bind(model)
-    //   .then(function(hash) {
-    //     this.set('password', hash);
-    //   });
-      
-      // .then(function (hashedPassWord) {
-      //   db.User.create({username: username, password: hashedPassword})
-      //     .then(function (user) {
-      //       console.log(user, 'is user created!')
-      //       var token = jwt.encode(user, 'secret');        
-      //       res.json({token: token})
-      //     })
-      // })
   },
 
   login: function (req, res, next) {
