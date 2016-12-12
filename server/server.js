@@ -49,6 +49,9 @@ app.post('/users/signup', function (req, res) {
   console.log('TESTST')
   db.User.findOrCreate({where: {username: req.body.username, password: req.body.password}})
     .then(function (user){
+      // create token to send back for auth
+      var token = jwt.encode(user, 'secret');
+      res.json({token: token});
       res.send(user);
     })
   //send them back a response token
