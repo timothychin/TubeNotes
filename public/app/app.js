@@ -32,23 +32,29 @@ angular.module('tubenotes', [
   return globalObj;
 })
 
-.controller('appController', function($scope) {
+.controller('appController', function($scope, $window, $location, AppFactory, Auth) {
   $scope.currentVideo = "https://www.youtube.com/embed/4ZAEBxGipoA";
+  $scope.logout = function () {
+    Auth.logout();
+    window.username = '';
+  };
 })
 
 .config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'app/auth/login.html',
-      controller: ''
+      controller: '',
     })
     .when('/watch', {
       templateUrl: 'app/watch/watch.html',
-      controller: 'WatchController'
+      controller: 'WatchController',
+      authenticate: true
     })
     .when('/search', {
       templateUrl: 'app/search/search.html',
-      controller: 'SearchController'
+      controller: 'SearchController',
+      authenticate: true
     })   
     .when('/signup', {
       templateUrl: 'app/auth/signup.html',
@@ -59,7 +65,7 @@ angular.module('tubenotes', [
       controller: 'AuthController'
     })
     .otherwise({
-      redirectTo: '/search'
+      redirectTo: '/login'
     });
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
