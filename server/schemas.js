@@ -9,7 +9,7 @@ var User = database.define('User', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
 });
 
 // Define a video schema
@@ -39,3 +39,5 @@ Comment.sync();
 exports.User = User;
 exports.Video = Video;
 exports.Comment = Comment;
+
+
