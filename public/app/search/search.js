@@ -32,9 +32,10 @@ angular.module('tubenotes.search', [])
   $http({
     method: 'GET',
     url: '/videos',
-    params: {username: 'test'} // this will pass in the username to the request as request.query
+    params: {username: 'Dummy'} // this will pass in the username to the request as request.query
   }).then(function(response) {
     // Store the results of the get request in $scope.userVideos
+    console.log(response.data);
     $scope.userVideos = response.data;
     AppFactory.videoLibrary = response.data;
   });

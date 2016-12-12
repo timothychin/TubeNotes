@@ -16,17 +16,16 @@ app.get('/videos', function (req, res) {
   var results = [];
   db.User.findOne({where: {username: req.query.username}}).then(function (user) {
     db.Video.findAll({where: {userId: user.get('id')}}).then(function (videos) {
-      for (var i = 0; i < videos.length; i++) {
-        var video = videos[i];
-        db.Comment.findAll({where: {videoId: video.get('id')}}).then(function (comments) {
+      for (let i = 0; i < videos.length; i++) {
+        db.Comment.findAll({where: {videoId: videos[i].get('id')}}).then(function (comments) {
           var videoObject = {
-            url: video.url,
-            title: video.title,
+            url: videos[i].url,
+            title: videos[i].title,
             comments: comments
           };
           results.push(videoObject);
-          if (i === videos.length) {
-            res.status(200).send(results);
+          if (i === videos.length - 1) {
+            res.send(results);
           }
         });
       }
@@ -45,13 +44,13 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
-app.post('/users/signup', function (req, res) {
-  db.User.create({
-    {where: {username: req.body.username}}
-  })
-  //send them back a response token
-  res.send();
-})
+// app.post('/users/signup', function (req, res) {
+//   db.User.create({
+//     {where: {username: req.body.username}}
+//   })
+//   //send them back a response token
+//   res.send();
+// })
 
 app.post('/users/login', function (req, res) {
   db.User.findOne({
