@@ -3,8 +3,13 @@ var database = new Sequelize('tubenotes', 'root', '');
 
 // Define a user schema
 var User = database.define('User', {
-  username: Sequelize.STRING,
-  password: Sequelize.STRING
+  username: {
+    type: Sequelize.STRING
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 });
 
 // Define a video schema

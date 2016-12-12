@@ -1,5 +1,7 @@
 var db = require('../schemas');
 var jwt = require('jwt-simple');
+var bcrypt = require('bcrypt-nodejs');
+var Promise = require('bluebird');
 
 
 
@@ -15,13 +17,16 @@ module.exports = {
         var token = jwt.encode(user, 'secret');        
         res.json({token: token})
       })
-
-      db.User.beforeCreate(function(username, options) {
-        console.log('inside');
-        return hashPassword(password).then(function (hashedPw) {
-          user.password = hashedPw;
-        });
-      })
+    // db.User.beforeCreate(function (model, done) {
+    //     bcrypt.genSalt(10, function (err, salt) {
+    //         bcrypt.hash(model.password, salt, null, function (err, encrypted) {
+    //             console.log('Using beforeCreate to generate encrypted password');
+    //             if (err) return done(err);
+    //             model.password = encrypted;
+    //             done();
+    //         });     
+    //     })
+    // })
       
       // .then(function (hashedPassWord) {
       //   db.User.create({username: username, password: hashedPassword})
@@ -45,12 +50,23 @@ module.exports = {
             // create token to send back for auth
         var token = jwt.encode(currentUser, 'secret');
         res.json({token: token});
-      }
-      
+      }      
     })
     .catch(function () {
       res.send(500);
     })
+  },
+  comparePassword: function(attemptedPassword, callback) {
+    bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
+      callback(isMatch);
+    });
+  },
+  hashPassword: function(password) {
+    var cipher = Promise.promisify(bcrypt.hash);
+    return cipher(password, null, null).bind(this)
+      .then(function(hash) {
+        this.set('password', hash); //could be conflicting
+      });
   }
 };
 
