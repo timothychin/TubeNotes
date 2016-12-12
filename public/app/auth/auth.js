@@ -6,9 +6,14 @@ angular.module('tubenotes.auth', [])
   $scope.login = function () {
     Auth.login($scope.user)
       .then(function (token) {
-        window.username = $scope.user.username;        
-        $window.localStorage.setItem('com.tubenotes', token);
-        $location.path('/watch');
+
+        if(!token) {
+          $location.path('/login')
+        } else {
+          window.username = $scope.user.username;        
+          $window.localStorage.setItem('com.tubenotes', token);
+          $location.path('/watch');
+        } 
       })
       .catch(function (error) {
         console.error(error);

@@ -35,7 +35,7 @@ module.exports = {
         if (!user) {
           res.send('User does not exist!');
         } else {
-        // If the current password matcheses, send them back a token 
+        // If the current password matches, send them back a token 
         var currentPassword = user.get('password');
           bcrypt.compare(password, currentPassword, function (err, isMatch) {
             if(isMatch) {
