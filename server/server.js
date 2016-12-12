@@ -52,33 +52,6 @@ app.post('/comment-video', function (req, res) {
 
 app.post('/users/signup', userControllers.signup);
 
-//function (req, res) {
-  // console.log('TESTST')
-  // //find one first if null, create one
-  // db.User.findOne({where: {username: req.body.username}})
-  //   .then(function (user) {
-  //     console.log(user, 'SIGNUP 57');
-  //     // the user doesn't exists, create the user
-  //     if (!user) {
-
-  //       db.User.create()
-  //     }
-  //     res.send(user);
-  //   })
-
-
-  // db.User.create({where: {username: req.body.username, password: req.body.password}})
-  //   .then(function (user){
-  //     // create token to send back for auth
-  //     console.log()
-  //     var token = jwt.encode(user, 'secret');
-  //     res.json({token: token});
-      
-  //     res.send(token);
-  //   })
-  //send them back a response token
-//}
-
 
 app.post('/users/login', function (req, res) {
   // this allows us to find a user and see if the user exists exists 
@@ -89,7 +62,9 @@ app.post('/users/login', function (req, res) {
       var token = jwt.encode(currentUser, 'secret');
       res.json({token: token});
       
-      res.send(token);
+    })
+    .catch(function (err) {
+      res.send(500);
     })
   //send them back a response token
 })

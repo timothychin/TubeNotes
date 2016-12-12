@@ -1,10 +1,7 @@
-var Q = require('q');
 var db = require('../schemas');
 var jwt = require('jwt-simple');
 
 
-var findUser = Q.nbind(db.User.findOne, db.User);
-var createUser = Q.nbind(db.User.create, db.User);
 
 
 module.exports = {
@@ -12,55 +9,32 @@ module.exports = {
   console.log('FINDING');    
     var username = req.body.username;
     var password = req.body.password;
-    findUser({where: {username: username}})
+    db.User.findOrCreate({where: {username: username}})
       .then(function (user) {
-        // the user doesn't exists, create the user
-        if (user) {
-          next(new Error('User already Exists!!'))
+        console.log(user, 'is user created!')
+        var token = jwt.encode(user, 'secret');        
+        res.json({token: token})
+      })
+  },
+
+  login: function (req, res, next) {
+    var username = req.body.username;
+    var password = req.body.password;
+    db.User.findOne({where: {username: req.body.username}})
+      .then(function (user) {
+        if (!user) {
+          res.send('User does not exist!');
         } else {
-          
-          createUser({
-            username: username,
-            password: password
-          })
-        }
-      })
-      .then(function (user) {
-        //create token to send back for auth
-        var token = jwt.encode(user, 'secret');
+        var currentUser = user.get('username')
+            // create token to send back for auth
+        var token = jwt.encode(currentUser, 'secret');
         res.json({token: token});
-      })
-      .fail(function (err) {
-        next(err);
-      })
+      }
+      
+    })
   }
 };
 
 
 
-  // signup: function (req, res, next) {
-  //   var username = req.body.username;
-  //   var password = req.body.password;
-
-  //   // check to see if user already exists
-  //   findUser({username: username})
-  //     .then(function (user) {
-  //       if (user) {
-  //         next(new Error('User already exist!'));
-  //       } else {
-  //         // make a new user if not one
-  //         return createUser({
-  //           username: username,
-  //           password: password
-  //         });
-  //       }
-  //     })
-  //     .then(function (user) {
-  //       // create token to send back for auth
-  //       var token = jwt.encode(user, 'secret');
-  //       res.json({token: token});
-  //     })
-  //     .fail(function (error) {
-  //       next(error);
-  //     });
-  // },
+  
