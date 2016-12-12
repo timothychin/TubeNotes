@@ -35,7 +35,6 @@ angular.module('tubenotes.search', [])
     params: {username: window.username} // this will pass in the username to the request as request.query
   }).then(function(response) {
     // Store the results of the get request in $scope.userVideos
-    console.log('GET', response.data);
     $scope.userVideos = response.data;
   });
 
