@@ -4,6 +4,7 @@ angular.module('tubenotes.search', [])
 .controller('SearchController', function($scope, $http, AppFactory, $location) {
   $scope.videos = [];
   $scope.userVideos = [];
+  console.log(window.username);
 
   // This is to set the current video from the YouTube search and the library
   $scope.setCurrentVideo = function (video, libVideo) {
@@ -32,7 +33,7 @@ angular.module('tubenotes.search', [])
   $http({
     method: 'GET',
     url: '/videos',
-    params: {username: 'Dummy'} // this will pass in the username to the request as request.query
+    params: {username: window.username} // this will pass in the username to the request as request.query
   }).then(function(response) {
     // Store the results of the get request in $scope.userVideos
     $scope.userVideos = response.data;
