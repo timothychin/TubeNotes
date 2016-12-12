@@ -3,14 +3,15 @@ angular.module('tubenotes.services', [])
 .factory('Auth', function ($http, $location, $window) {
   var username = '';
   var login = function (user) {
-    console.log('clicked')
+    console.log('clicked', user)
     return $http({
       method: 'POST',
       url: '/users/login',
       data: user
     })
     .then(function (resp) {
-      return resp.data.token;
+      console.log(resp.data, 'SERVICES 13')
+      return resp;
     });
   };
 

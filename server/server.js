@@ -55,11 +55,14 @@ app.post('/users/signup', function (req, res) {
 })
 
 app.post('/users/login', function (req, res) {
-  db.User.findOne({
-    
-  })
+  // this allows us to find a user and see if the user exists exists 
+  db.User.findOne({where: {username: req.body.username}})
+    .then(function (user) {
+      console.log(user.get('username'), 'GETTING USERNAME');
+      var currentUser = user.get('username')
+      res.send(currentUser);      
+    })
   //send them back a response token
-  res.send();
 })
 
 
