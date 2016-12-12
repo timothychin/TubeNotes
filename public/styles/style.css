@@ -20,6 +20,13 @@
   width: 350px;
 }
 
+.search-btn {
+  top: 3px;
+}
+
+.glyphicon {
+  height: 20px;
+}
 #logout {
   float: right;
 }
