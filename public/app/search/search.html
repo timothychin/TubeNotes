@@ -15,7 +15,7 @@
 
       <div class='search-results col-sm-8'>
         <ul class="list-group">
-          <li class="list-group-item" ng-click="setCurrentVideo(video)" ng-repeat="video in videos">
+          <li class="list-group-item" ng-click="setCurrentVideo(video, null)" ng-repeat="video in videos">
             <img src={{video.snippet.thumbnails.default.url}}>
             {{$index + 1}} {{video.snippet.title}} 
             <div>{{video.snippet.description}}</div>
@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat='libVideo in userVideos'>
+            <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
               <td>{{libVideo.title}}</td>
               <td>{{libVideo.comments.length}}</td>
             </tr>

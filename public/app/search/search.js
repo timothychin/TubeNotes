@@ -5,12 +5,20 @@ angular.module('tubenotes.search', [])
   $scope.userVideos = [];
 
   // This is to set the current video from the YouTube search
-  $scope.setCurrentVideo = function (video) {
-    AppFactory.currentVideo = {
-      title: video.snippet.title,
-      id: video.id.videoId,
-      comments: []
-    };
+  $scope.setCurrentVideo = function (video, libVideo) {
+    if (video) {
+      AppFactory.currentVideo = {
+        title: video.snippet.title,
+        id: video.id.videoId,
+        comments: []
+      };
+    } else if (libVideo) {
+      AppFactory.currentVideo = {
+        title: libVideo.title,
+        id: libVideo.url.slice(18),
+        comments: libVideo.comments
+      };
+    }
 
     $location.path('/watch');
     // make asynchronous call to onYouTubeIframeAPIReady
@@ -35,7 +43,6 @@ angular.module('tubenotes.search', [])
     params: {username: 'Dummy'} // this will pass in the username to the request as request.query
   }).then(function(response) {
     // Store the results of the get request in $scope.userVideos
-    console.log(response.data);
     $scope.userVideos = response.data;
     AppFactory.videoLibrary = response.data;
   });
