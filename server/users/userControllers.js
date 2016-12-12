@@ -3,7 +3,7 @@ var jwt = require('jwt-simple');
 
 
 
-
+//jwt is stands for json web tokens. We used it in the angular sprint
 module.exports = {
   signup: function (req, res, next) {
   console.log('FINDING');    
@@ -15,6 +15,22 @@ module.exports = {
         var token = jwt.encode(user, 'secret');        
         res.json({token: token})
       })
+
+      db.User.beforeCreate(function(username, options) {
+        console.log('inside');
+        return hashPassword(password).then(function (hashedPw) {
+          user.password = hashedPw;
+        });
+      })
+      
+      // .then(function (hashedPassWord) {
+      //   db.User.create({username: username, password: hashedPassword})
+      //     .then(function (user) {
+      //       console.log(user, 'is user created!')
+      //       var token = jwt.encode(user, 'secret');        
+      //       res.json({token: token})
+      //     })
+      // })
   },
 
   login: function (req, res, next) {
@@ -32,9 +48,19 @@ module.exports = {
       }
       
     })
+    .catch(function () {
+      res.send(500);
+    })
   }
 };
 
 
 
   
+
+// db.User.beforeCreate(function(user, options) {
+//   return hashPassword(user.password).then(function (hashedPw) {
+//     user.password = hashedPw;
+//   });
+// })
+

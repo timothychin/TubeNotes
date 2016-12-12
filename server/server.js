@@ -48,26 +48,11 @@ app.post('/comment-video', function (req, res) {
 });
 
 
-//We use token-based authentication so this application has the potential to scale
 
 app.post('/users/signup', userControllers.signup);
 
+app.post('/users/login', userControllers.login);
 
-app.post('/users/login', function (req, res) {
-  // this allows us to find a user and see if the user exists exists 
-  db.User.findOne({where: {username: req.body.username}})
-    .then(function (user) {
-      var currentUser = user.get('username')
-            // create token to send back for auth
-      var token = jwt.encode(currentUser, 'secret');
-      res.json({token: token});
-      
-    })
-    .catch(function (err) {
-      res.send(500);
-    })
-  //send them back a response token
-})
 
 
 app.use(express.static(path.join(__dirname, '../public')));
