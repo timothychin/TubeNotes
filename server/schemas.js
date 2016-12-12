@@ -1,4 +1,6 @@
+// Sequelize is used as the ORM for mysql and tubenotes is the database
 var Sequelize = require('sequelize');
+// When starting on this project, create the database 'tubenotes' in mysql
 var database = new Sequelize('tubenotes', 'root', '');
 
 // Define a user schema
@@ -9,7 +11,7 @@ var User = database.define('User', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  },
+  }
 });
 
 // Define a video schema

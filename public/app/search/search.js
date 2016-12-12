@@ -1,30 +1,30 @@
 angular.module('tubenotes.search', [])
 
+// AppFactory is from app.js to set the current video
 .controller('SearchController', function($scope, $http, AppFactory, $location) {
   $scope.videos = [];
   $scope.userVideos = [];
 
-  // This is to set the current video from the YouTube search
-  $scope.setCurrentVideo = function (video) {
-    AppFactory.currentVideo = {
-      title: video.snippet.title,
-      id: video.id.videoId,
-      comments: []
-    };
+  // This is to set the current video from the YouTube search and the library
+  $scope.setCurrentVideo = function (video, libVideo) {
+    if (video) {
+      AppFactory.currentVideo = {
+        title: video.snippet.title,
+        id: video.id.videoId,
+        comments: []
+      };
+    } else if (libVideo) {
+      AppFactory.currentVideo = {
+        title: libVideo.title,
+        id: libVideo.url.slice(18),
+        comments: libVideo.comments
+      };
+    }
 
+    // Redirect the page to the watch route
     $location.path('/watch');
     // make asynchronous call to onYouTubeIframeAPIReady
     setTimeout(window.onYouTubeIframeAPIReady, 0);
-  };
-
-  // This is to set the current video to a video that you have already annotated
-  $scope.setCurrentLibraryVideo = function (video) {
-    AppFactory.currentLibraryVideo = {
-      title: video.title,
-      url: video.url,
-      comments: video.comments
-    };
-    $location.path('/watch');
   };
 
   // Every time search.html is loaded, do a get request to the server's /videos route
@@ -32,13 +32,13 @@ angular.module('tubenotes.search', [])
   $http({
     method: 'GET',
     url: '/videos',
-    params: {username: 'test'} // this will pass in the username to the request as request.query
+    params: {username: 'Dummy'} // this will pass in the username to the request as request.query
   }).then(function(response) {
     // Store the results of the get request in $scope.userVideos
     $scope.userVideos = response.data;
-    AppFactory.videoLibrary = response.data;
   });
 
+  // Function for the API call to youtube
   $scope.searchYoutube = function(msg) {
     $http.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
@@ -55,11 +55,5 @@ angular.module('tubenotes.search', [])
     .error(function() {
       console.log('ERROR');
     });
-  };
-
-  $scope.redirectToWatch = function(url) {
-    console.log('URL', url);
-    // Use $location.path('/watch')
-    // Pass the url to compare against the db and load comments?
   };
 });
