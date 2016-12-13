@@ -35,7 +35,7 @@ Once the project moves into development, the press release can be used as a touc
   > Go to our site, search and watch a video, add a note at the time you want!
 
 ## Customer Quote ##
-  > ""
+  > "Now I can get to the good parts of this two hour Apple keynote!"
 
 ## Closing and Call to Action ##
   > Start saving notes today with TubeNotes
