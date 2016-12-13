@@ -16,28 +16,27 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Youtube Notes ##
+## TubeNotes ##
 
 ## Add notes to YouTube videos and share them. ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Ever watched a long video and wanted to bookmark only the important parts? TubeNotes does that for you!
 
 ## Problem ##
-  > When rewatching a video, you don't know where the important information was.
+  > Youtube comments are vague and disconnected from video content.
 
 ## Solution ##
-  > Add a timestamp along with notes feature to the video.
+  > Annotate videos in real-time, connect thoughts with on-screen content.
 
 ## Quote from You ##
   > ""
 
 ## How to Get Started ##
-  > Go to our site, search and watch a video, click on a time and add a timestamp with comments.
+  > Go to our site, search and watch a video, add a note at the time you want!
 
 ## Customer Quote ##
   > ""
 
 ## Closing and Call to Action ##
-  > Start saving notes today at youtube-notes.com
+  > Start saving notes today with TubeNotes
