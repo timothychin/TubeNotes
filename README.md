@@ -20,15 +20,14 @@ YouTube note taking app. Allowing users to annotate their favorite videos.
 
 ## Usage
 
-> Some usage instructions
+> Inside the root directory of the repo, run node or nodemon on server/server.js, then go to localhost:3000
 
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- mySQL
+- Sequelize
+- Angular
 
 ## Development
 
