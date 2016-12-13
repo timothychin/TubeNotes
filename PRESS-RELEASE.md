@@ -17,8 +17,7 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## TubeNotes ##
-
-## Add notes to YouTube videos and share them. ##
+  > Add notes to YouTube videos and share them.
 
 ## Summary ##
   > Ever watched a long video and wanted to bookmark only the important parts? TubeNotes does that for you!
