@@ -8,7 +8,6 @@ var cipher = Promise.promisify(bcrypt.hash);
 // User authentication => jwt is stands for json web tokens. We used it in the angular sprint
 module.exports = {
   signup: function (req, res, next) {
-  console.log('FINDING');    
     var username = req.body.username;
     var password = req.body.password;
     db.User.findOrCreate({where: {username: username, password: password}})
@@ -35,7 +34,7 @@ module.exports = {
         if (!user) {
           res.send('User does not exist!');
         } else {
-        // If the current password matches, send them back a token 
+        // If the current password matches, send them back a token
         var currentPassword = user.get('password');
           bcrypt.compare(password, currentPassword, function (err, isMatch) {
             if(isMatch) {

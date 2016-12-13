@@ -1,5 +1,6 @@
 angular.module('tubenotes.services', [])
 
+// Factory for handling authentication 
 .factory('Auth', function ($http, $location, $window) {
   var username = '';
   var login = function (user) {
@@ -28,16 +29,10 @@ angular.module('tubenotes.services', [])
     return !!$window.localStorage.getItem('com.tubenotes');
   };
 
-  var logout = function () {
-    $window.localStorage.removeItem('com.tubenotes');
-    $location.path('/login');
-  };
-
   return {
     login: login,
     signup: signup,
     isAuth: isAuth,
-    logout: logout,
     username: username
   };
 });
