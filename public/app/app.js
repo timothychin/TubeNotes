@@ -34,12 +34,13 @@ angular.module('tubenotes', [
 
 .controller('appController', function($scope, $window, $location, AppFactory, Auth) {
   $scope.currentVideo = "https://www.youtube.com/embed/4ZAEBxGipoA";
+  // Log the user out and reset the username to an empty street
   $scope.logout = function () {
     Auth.logout();
     window.username = '';
   };
 })
-
+// Routing for app
 .config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
@@ -70,7 +71,6 @@ angular.module('tubenotes', [
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
   $httpProvider.interceptors.push('AttachTokens');
-
 })
 
 .factory('AttachTokens', function ($window) {

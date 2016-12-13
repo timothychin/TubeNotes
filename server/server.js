@@ -62,8 +62,8 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
+// Look into the userContollers folder for the signup and login method
 app.post('/users/signup', userControllers.signup);
-
 app.post('/users/login', userControllers.login);
 
 app.use(express.static(path.join(__dirname, '../public')));
