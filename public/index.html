@@ -19,6 +19,16 @@
         <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">LogOut</a></li>        
       </ul>
     </div>
+    <!-- Search Bar -->
+    <div class="input-group">
+      <input type="text" ng-model="message" class="form-control" placeholder="Search for a video">
+      <div class="input-group-btn">
+        <!-- When the search button is pressed, call the searchYoutube function in search.js -->
+        <button ng-click="searchYoutube(message)" class="search-btn btn btn-default" type="submit">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <div ng-view></div>
@@ -31,14 +41,16 @@
   <script src="app/watch/watch.js"></script>
   <script src="app/services/services.js"></script>
   <script src="app/app.js"></script>
-
-  <script>
+  <script src="app/home/home.js"></script>  
+<!--   <script src="app/home/home.html"></script>
+ -->
+ <!--  <script>
     // load youtube iframe api
     var tag = document.createElement('script');
 
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  </script>
+  </script> -->
 </body>
 </html>

@@ -11,7 +11,7 @@ angular.module('tubenotes.auth', [])
         } else {
           window.username = $scope.user.username;        
           $window.localStorage.setItem('com.tubenotes', token);
-          $location.path('/watch');
+          $location.path('/home');
         } 
       })
       .catch(function (error) {
@@ -25,7 +25,7 @@ angular.module('tubenotes.auth', [])
         // Set the window username for sending data to the database
         window.username = $scope.user.username;
         $window.localStorage.setItem('com.tubenotes', token);
-        $location.path('/watch');
+        $location.path('/home');
       })
       .catch(function (error) {
         console.error(error);

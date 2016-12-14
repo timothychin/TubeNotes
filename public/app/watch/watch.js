@@ -10,6 +10,7 @@ angular.module('tubenotes.watch', [])
 
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'
+    console.log('onYTIframeReady', AppFactory.currentVideo)
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
