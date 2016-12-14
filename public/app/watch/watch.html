@@ -1,9 +1,5 @@
-<!-- assume watch controller has been set -->
 <div id="video-player">
-  <!-- iFrame for video player will be inserted in the below div -->
-
   <div class='container'>
-
     <div class='row'>
       <!-- User note taking window -->
       <div class='col-sm-9'>
@@ -14,7 +10,8 @@
           <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/>
           <div id="noteTaker">
             <textarea class='form-control' type="text" name="note" placeholder="Enter Note..." 
-                   ng-model="note" ng-keypress="setTimestamp()"/>
+            ng-model="note" ng-keypress="setTimestamp()"
+            />
           </div>
           <button class='btn' ng-click="postNote(title, note)">Post</button>
           <button class='btn' ng-click="resetNote()">Reset</button>
@@ -32,18 +29,15 @@
           </li>
         </ul>
       </div>
-
+      
     </div>
-
   </div>
-
 </div>
 
-  <script>
-    // load youtube iframe api
-    var tag = document.createElement('script');
-
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  </script>
+<script>
+  // load youtube iframe api
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+</script>

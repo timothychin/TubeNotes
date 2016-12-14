@@ -1,3 +1,23 @@
 <div>
   <h1>Welcome to the homepage</h1>
+    <!-- Video Library -->
+    <div class='video-library col-sm-4'>
+      <h2>Video Library</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Number of Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
+          <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
+            <td>{{libVideo.title}}</td>
+            <td>{{libVideo.comments.length}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
 </div>

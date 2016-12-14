@@ -35,19 +35,15 @@ angular.module('tubenotes', [
 })
 
 .controller('appController', function($scope, $http, $window, $location, AppFactory, Auth) {
-  $scope.currentVideo = "https://www.youtube.com/embed/4ZAEBxGipoA";
-  // Log the user out and reset the username to an empty street
+  $scope.currentVideo = 'https://www.youtube.com/embed/4ZAEBxGipoA';
+  // Log the user out and reset the username 
   $scope.logout = function () {
-    Auth.logout();
+    Auth.signout();
     window.username = '';
   };
-  $scope.videos = [];
-  $scope.userVideos = [];
-
-  
 
   // This is to set the current video from the YouTube search and the library
-    // 'video' comes from the youtube search and 'libVideo' comes from the users library of saved videos
+  // 'video' comes from the youtube search and 'libVideo' comes from the users library of saved videos
   $scope.setCurrentVideo = function (video, libVideo) {
     if (video) {
       AppFactory.currentVideo = {
@@ -67,16 +63,6 @@ angular.module('tubenotes', [
     // make asynchronous call to onYouTubeIframeAPIReady
     setTimeout(window.onYouTubeIframeAPIReady, 0);
   };
-  // Every time search.html is loaded, do a get request to the server's /videos route
-  // Make sure username is sent in the get request
-  $http({
-    method: 'GET',
-    url: '/videos',
-    params: {username: window.username} // this will pass in the username to the request as request.query
-  }).then(function(response) {
-    // Store the results of the get request in $scope.userVideos
-    $scope.userVideos = response.data;
-  });
 
   $scope.searchYoutube = function(msg) {
     $http.get('https://www.googleapis.com/youtube/v3/search', {
