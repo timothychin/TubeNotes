@@ -5,12 +5,11 @@ angular.module('tubenotes.watch', [])
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
   $scope.noteTimestamp = '';
-  // scope variable for user note input
   $scope.videoComments = AppFactory.currentVideo.comments;
 
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'
-    console.log('onYTIframeReady', AppFactory.currentVideo)
+    console.log('onYTIframeReady', AppFactory.currentVideo);
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
@@ -20,7 +19,7 @@ angular.module('tubenotes.watch', [])
       }
     });
     $scope.currentVideo = AppFactory.currentVideo;
-  }
+  };
 
   window.onPlayerStateChange = function(event) {
     // when video is playing, show the video's time 
@@ -38,7 +37,7 @@ angular.module('tubenotes.watch', [])
       // clear interval on video pause
       $interval.cancel(intervalPromise);
     }
-  }
+  };
 
   $scope.formatTime = function(seconds) {
     var minutes = Math.floor(seconds / 60);
@@ -47,8 +46,8 @@ angular.module('tubenotes.watch', [])
     minutes = (minutes < 10) ? `0${minutes}`:`${minutes}`;
     seconds = (seconds < 10) ? `0${seconds}`:`${seconds}`;
 
-    return `${minutes}:${seconds}`
-  }
+    return `${minutes}:${seconds}`;
+  };
 
   $scope.setTimestamp = function() {
     // only set time stamp on user's first input
@@ -56,7 +55,7 @@ angular.module('tubenotes.watch', [])
       startTime = Math.floor(player.getCurrentTime());   
       $scope.noteTimestamp = $scope.formatTime(startTime);   
     }
-  }
+  };
 
   $scope.resetNote = function() {
     // empty input fields
@@ -70,10 +69,9 @@ angular.module('tubenotes.watch', [])
     // reset startTime and $scope.noteTimestamp to initial values
     startTime = 0;
     $scope.noteTimestamp = '';
-  }
+  };
 
   $scope.postNote = function(title, note) {
-    
     // add note to current video's comments array
     AppFactory.currentVideo.comments.push(
       { title: title,
@@ -86,7 +84,7 @@ angular.module('tubenotes.watch', [])
     // call update to server for the current video
     AppFactory.addNote(title, note, startTime);
     $scope.resetNote();
-  }
+  };
 
   $scope.clickNote = function(comment) {
     // when note is clicked
@@ -94,5 +92,5 @@ angular.module('tubenotes.watch', [])
     if (window.player) {
       window.player.seekTo(comment.timestamp, true);
     }
-  }
+  };
 });

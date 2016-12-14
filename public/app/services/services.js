@@ -29,10 +29,16 @@ angular.module('tubenotes.services', [])
     return !!$window.localStorage.getItem('com.tubenotes');
   };
 
+  var signout = function () {
+    $window.localStorage.removeItem('com.tubenotes');
+    $location.path('/signin');
+  };
+
   return {
     login: login,
     signup: signup,
     isAuth: isAuth,
-    username: username
+    username: username,
+    signout: signout
   };
 });

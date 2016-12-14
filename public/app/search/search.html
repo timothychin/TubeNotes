@@ -1,22 +1,8 @@
 <!-- This is the page where users can search for a video then click on it to watch/take notes on it -->
 <!-- A user can also view the videos that they have already commented on to view it and its notes -->
 <div>
-
-  <!-- Search Bar (moved to index.html) --> 
-  <!-- <div class="input-group">
-    <input type="text" ng-model="message" class="form-control" placeholder="Search for a video">
-    <div class="input-group-btn">
-      When the search button is pressed, call the searchYoutube function in search.js
-      <button ng-click="searchYoutube(message)" class="search-btn btn btn-default" type="submit">
-        <span class="glyphicon glyphicon-search"></span>
-      </button>
-    </div>
-  </div> -->
-
   <div class='container'>
-
     <div class='row'>
-
       <div class='search-results col-sm-8'>
         <ul class="list-group">
           <!-- When an item in the search results is clicked, setCurrentVideo is called with only the first argument -->
@@ -27,32 +13,6 @@
           </li>
         </ul>
       </div>
-
-      <!-- Video Library -->
-      <div class='video-library col-sm-4'>
-        <h2>Video Library</h2>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Number of Comments</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
-            <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
-              <td>{{libVideo.title}}</td>
-              <td>{{libVideo.comments.length}}</td>
-            </tr>
-          </tbody>
-
-        </table>
-
-      </div>
-
     </div>
-
   </div>
-
-
 </div>
