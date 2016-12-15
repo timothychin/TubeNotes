@@ -32,16 +32,36 @@ var Comment = database.define('Comment', {
   timestamp: Sequelize.INTEGER
 });
 
+var Group = database.define('Group', {
+  groupname: Sequelize.STRING,
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+});
+
+var GroupUser = database.define('GroupUser', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  }
+});
+
 // Create associations between users, comments, and videos
 Comment.belongsTo(User);
 Comment.belongsTo(Video);
 Video.belongsTo(User);
 User.hasMany(Comment);
+User.belongsToMany(Group, {through: 'GroupUser'});
+Group.belongsToMany(User, {through: 'GroupUser'});
 
 // Create tables in mySQL if they don't exist
 User.sync();
 Video.sync();
 Comment.sync();
+Group.sync();
+GroupUser.sync();
 
 exports.User = User;
 exports.Video = Video;
