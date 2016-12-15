@@ -8,17 +8,23 @@
         <thead>
           <tr>
             <th></th>
-            <th>Title</th>
-            <th>Last Modified</th>
-            <!-- <th>Number of Comments</th> -->
+            <th>
+              <button ng-click="sortBy('title')">Name</button>
+              <!-- <span class="sortorder" ng-show="sortPropertyName === 'name'" ng-class="{reverse: reverse}"></span> -->
+            </th>
+            <th>
+              <button ng-click="sortBy('lastCommentDate')">Last Modified</button>
+              <!-- <span class="sortorder" ng-show="sortPropertyName === 'lastCommentDate'" ng-class="{reverse: reverse}"></span> -->
+            </th>
           </tr>
         </thead>
         <tbody>
           <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
-          <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
+          <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos
+            | orderBy:sortPropertyName:reverse' >
             <td><img ng-src="{{libVideo.image}}"></td>
             <td>{{libVideo.title}}</td>
-            <td>{{libVideo.comments[libVideo.comments.length - 1].updatedAt || libVideo.createdAt | amCalendar:referenceTime:formats}}</td>
+            <td>{{libVideo.lastCommentDate | amCalendar:referenceTime:formats}}</td>
             <!-- <td>{{libVideo.comments.length}}</td> -->
             <td>
           </tr>

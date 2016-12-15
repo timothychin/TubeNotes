@@ -4,6 +4,7 @@ angular.module('tubenotes.home', ['angularMoment'])
   // Every time search.html is loaded, do a get request to the server's /videos route
   // Make sure username is sent in the get request
   $scope.username = AppFactory.username;
+  $scope.userVideos = [];
 
   $scope.isLoggedIn = function() {
     if (AppFactory.username !== '') {
@@ -11,9 +12,7 @@ angular.module('tubenotes.home', ['angularMoment'])
     }
     return false;
   };
-
-  $scope.userVideos = [];
-
+  
   var initializeLibrary = function() {
     return $http({
       method: 'GET',
@@ -29,4 +28,12 @@ angular.module('tubenotes.home', ['angularMoment'])
   };
 
   initializeLibrary();
+
+  $scope.sortPropertyName = 'lastCommentDate';
+  $scope.reverse = true;
+  $scope.sortBy = function(sortPropertyName) {
+    $scope.reverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.reverse : false;
+    $scope.sortPropertyName = sortPropertyName;
+  };
+
 });

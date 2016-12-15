@@ -33,7 +33,8 @@ app.get('/videos', function (req, res) {
             title: videos[i].title,
             comments: comments,
             image: videos[i].image,
-            createdAt: videos[i].createdAt
+            createdAt: videos[i].createdAt, 
+            lastCommentDate: comments[comments.length - 1].createdAt
           };
           results.push(videoObject);
           // When we get to the end of the videos array, send the results array back to the client
