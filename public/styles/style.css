@@ -1,3 +1,25 @@
+/* * * * * * * *
+ *             *
+ *   Canvas    *
+ *             *
+ * * * * * * * */
+
+.canvas {
+  position: fixed;
+  left: 10.5%;
+  z-index: -10;
+}
+
+#canvasId > ul {
+  list-style: none;
+  z-index: 10;
+  position: fixed;
+  left: 10%;
+  top: 75%;
+}
+
+
+
 .navbar-brand {
   color: black !important;
   font-weight: 500;
