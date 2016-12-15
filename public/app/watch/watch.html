@@ -1,19 +1,13 @@
 <!-- side bar -->
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
-  <h3>Notes:</h3>
-  <div>Note: {{comment.text}}</div>
-  <div>Time: {{formatTime(comment.timestamp)}}</div>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-  <!-- <ul class="notes list-group" ng-repeat="comment in videoComments">
-    <li class="note list-group-item" ng-click="clickNote(comment)"> -->
-      <!-- <div>Title: {{comment.title}}</div>
-      <div>Time: {{formatTime(comment.timestamp)}}</div>
-      <div>Note: {{comment.text}}</div> -->
-    <!-- </li>
-  </ul> -->
+  <h3 style="color: white">Notes:</h3>
+    <div class="notes list-group" ng-repeat="comment in videoComments">
+      <div class="note list-group-item" ng-click="clickNote(comment)">
+        <div>Time: {{formatTime(comment.timestamp)}}</div>
+        <div>Note: {{comment.text}}</div>
+      </div>
+    </div>
 </div>
 
 <div id="main">
@@ -44,14 +38,13 @@
           <button class='btn' ng-click="resetNote()">Reset</button>
         </form>
       <!-- *** move into the side bar later -->
-        <h3>Notes:</h3>
+        <!-- <h3>Notes:</h3>
         <ul class="notes list-group" ng-repeat="comment in videoComments">
           <li class="note list-group-item" ng-click="clickNote(comment)">
-            <div>Title: {{comment.title}}</div>
             <div>Time: {{formatTime(comment.timestamp)}}</div>
             <div>Note: {{comment.text}}</div>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </div>
