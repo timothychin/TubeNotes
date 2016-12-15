@@ -73,7 +73,7 @@ angular.module('tubenotes.watch', [])
     $scope.noteTimestamp = '';
   };
 
-  $scope.postNote = function(title, note) {
+  $scope.postNote = function(note) {
     // add note to current video's comments array
     AppFactory.currentVideo.comments.push(
       { text: note,
@@ -84,7 +84,7 @@ angular.module('tubenotes.watch', [])
     $scope.videoComments = AppFactory.currentVideo.comments;
 
     // call update to server for the current video
-    AppFactory.addNote(title, note, startTime);
+    AppFactory.addNote(note, startTime);
     $scope.resetNote();
   };
 

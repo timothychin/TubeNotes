@@ -32,6 +32,11 @@
 }
 
 /* side bar */
+body {
+  font-family: "Lato", sans-serif;
+  transition: background-color .5s;
+}
+
 .sidenav {
   height: 100%;
   width: 0;
@@ -39,10 +44,13 @@
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: #111;
+  /*background-color: #111;*/
+  background-color: pink;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+  padding-left: 20px;
+  color: white;
 }
 
 .sidenav a {
