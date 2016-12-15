@@ -4,30 +4,31 @@
       <!-- User note taking window -->
       <div class='col-sm-9'>
         <div id="player"></div>
+      </div>
+
+      <!-- Video notes window -->
+      <div class='col-sm-3'>
         <div>{{currentVideoTime}} </div>
         <div>Start Time: {{noteTimestamp}}</div>
         <form name="userNote">
-          <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/>
+          <!-- <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/> -->
           <div id="noteTaker">
-            <textarea class='form-control' type="text" name="note" placeholder="Enter Note..." 
+            <textarea class='form-control' type="text" name="note" rows="15" cols="60" placeholder="Enter Note..." 
             ng-model="note" ng-keypress="setTimestamp()"
             />
           </div>
           <button class='btn' ng-click="postNote(title, note)">Post</button>
           <button class='btn' ng-click="resetNote()">Reset</button>
         </form>
-      </div>
-
-      <!-- Video notes window -->
-      <div class='col-sm-3'>
-        <h3>Notes:</h3>
+      <!-- *** move into the side bar later -->
+        <!-- <h3>Notes:</h3>
         <ul class="notes list-group" ng-repeat="comment in videoComments">
           <li class="note list-group-item" ng-click="clickNote(comment)">
             <div>Title: {{comment.title}}</div>
             <div>Time: {{formatTime(comment.timestamp)}}</div>
             <div>Note: {{comment.text}}</div>
           </li>
-        </ul>
+        </ul> -->
       </div>
       
     </div>
