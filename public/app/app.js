@@ -12,7 +12,8 @@ angular.module('tubenotes', [
   // This factory function will do a post request to our server to store a note in our database
   var addNote = function(commentTitle, commentText, timestamp) {
     note = {
-      username: window.username,
+      // username: window.username,
+      username: globalObj.username,
       videoUrl: 'youtube.com/embed/' + globalObj.currentVideo.id,
       videoTitle: globalObj.currentVideo.title,
       commentTitle: commentTitle,
@@ -36,10 +37,18 @@ angular.module('tubenotes', [
 
 .controller('appController', function($scope, $http, $window, $location, AppFactory, Auth) {
   $scope.currentVideo = 'https://www.youtube.com/embed/4ZAEBxGipoA';
+  $scope.isLoggedIn = function() {
+    if (AppFactory.username !== '') {
+      return true;
+    }
+    return false;
+  };
+
   // Log the user out and reset the username 
   $scope.logout = function () {
     Auth.signout();
-    window.username = '';
+    // window.username = '';
+    AppFactory.username = '';
   };
 
   // This is to set the current video from the YouTube search and the library
@@ -89,7 +98,7 @@ angular.module('tubenotes', [
   $routeProvider
     .when('/', {
       templateUrl: 'app/auth/login.html',
-      controller: '',
+      controller: 'AuthController',
     })
     .when('/home', {
       templateUrl: 'app/home/home.html',

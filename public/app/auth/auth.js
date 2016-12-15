@@ -1,6 +1,6 @@
 angular.module('tubenotes.auth', [])
 
-.controller('AuthController', function ($scope, $window, $location, Auth) {
+.controller('AuthController', function($scope, $window, $location, Auth, AppFactory) {
   $scope.user = {};
   $scope.login = function () {
     // If no token is sent back, the user is not authenticated
@@ -9,7 +9,10 @@ angular.module('tubenotes.auth', [])
         if (!token) {
           $location.path('/login');
         } else {
-          window.username = $scope.user.username;        
+          // window.username = $scope.user.username;  
+          // console.log($scope.user.username)
+          AppFactory.username = $scope.user.username;
+          console.log(AppFactory.username);
           $window.localStorage.setItem('com.tubenotes', token);
           $location.path('/home');
         } 
@@ -23,8 +26,9 @@ angular.module('tubenotes.auth', [])
     Auth.signup($scope.user)
       .then(function (token) {
         // Set the window username for sending data to the database
-        window.username = $scope.user.username;
-        // console.log(window.username);
+        // window.username = $scope.user.username;
+        AppFactory.username = $scope.user.username;
+        console.log(AppFactory.username);
         $window.localStorage.setItem('com.tubenotes', token);
         $location.path('/home');
       })
@@ -33,5 +37,5 @@ angular.module('tubenotes.auth', [])
       });
   };
 
-  
+
 });

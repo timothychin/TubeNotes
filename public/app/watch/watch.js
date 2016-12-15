@@ -24,18 +24,20 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
   window.onPlayerStateChange = function(event) {
     // when video is playing, show the video's time 
     // on user's note taking window
-    if (event.data === YT.PlayerState.PLAYING) {
-      var seconds = Math.floor(player.getCurrentTime());
-      // convert timestamp in seconds to a mm:ss string
-      $scope.currentVideoTime = $scope.formatTime(seconds);
-      // update time on interval of 100ms (not ideal performance)
-      intervalPromise = $interval(() => 
-        ($scope.currentVideoTime = 
-            $scope.formatTime(Math.floor(player.getCurrentTime()))), 100);
-    } else if (event.data === YT.PlayerState.ENDED || 
-       event.data === YT.PlayerState.PAUSED) {
-      // clear interval on video pause
-      $interval.cancel(intervalPromise);
+    if (player) {
+      if (event.data === YT.PlayerState.PLAYING) {
+        var seconds = Math.floor(player.getCurrentTime());
+        // convert timestamp in seconds to a mm:ss string
+        $scope.currentVideoTime = $scope.formatTime(seconds);
+        // update time on interval of 100ms (not ideal performance)
+        intervalPromise = $interval(() => 
+          ($scope.currentVideoTime = 
+              $scope.formatTime(Math.floor(player.getCurrentTime()))), 100);
+      } else if (event.data === YT.PlayerState.ENDED || 
+         event.data === YT.PlayerState.PAUSED) {
+        // clear interval on video pause
+        $interval.cancel(intervalPromise);
+      }
     }
   };
 
@@ -51,9 +53,11 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
 
   $scope.setTimestamp = function() {
     // only set time stamp on user's first input
-    if ($scope.userNote.note.$pristine) {
-      startTime = Math.floor(player.getCurrentTime());   
-      $scope.noteTimestamp = $scope.formatTime(startTime);   
+    if (player) {
+      if ($scope.userNote.note.$pristine) {
+        startTime = Math.floor(player.getCurrentTime());   
+        $scope.noteTimestamp = $scope.formatTime(startTime);   
+      }
     }
   };
 
@@ -76,7 +80,8 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
     AppFactory.currentVideo.comments.push(
       { title: title,
         text: note,
-        timestamp: startTime });
+        timestamp: startTime }
+    );
 
     // update scope variable to make comments render on page
     $scope.videoComments = AppFactory.currentVideo.comments;

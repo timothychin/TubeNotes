@@ -16,14 +16,15 @@
     <nav class="navbar navbar-default bg-faded">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
-          <a class="navbar-brand mb-0" href="#">TubeNotes</a>
+          <a class="navbar-brand mb-0" href="#home">TubeNotes</a>
           <!-- <li><a href="#watch" class="create">Watch</a></li> -->
           <!-- <li><a href="#search" class="searchLink">Search</a></li> -->
-          <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">LogOut</a></li>        
+          <li><a href="#login" id="login">Log In</a></li>        
+          <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">Log Out</a></li>        
         </ul>
       </div>
       <!-- Search Bar -->
-      <div class="input-group">
+      <div class="input-group" ng-if="isLoggedIn()">
         <input type="text" ng-model="message" class="form-control" placeholder="Search for a video">
         <div class="input-group-btn">
           <button ng-click="searchYoutube(message)" class="search-btn btn btn-default" type="submit">

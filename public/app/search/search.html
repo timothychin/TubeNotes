@@ -7,7 +7,7 @@
         <ul class="list-group">
           <!-- When an item in the search results is clicked, setCurrentVideo is called with only the first argument -->
           <li class="list-group-item" ng-click="setCurrentVideo(video, null)" ng-repeat="video in videos">
-            <img src={{video.snippet.thumbnails.default.url}}>
+            <img ng-src={{video.snippet.thumbnails.default.url}}>
             {{$index + 1}} {{video.snippet.title}} 
             <div>{{video.snippet.description}}</div>
           </li>
