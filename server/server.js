@@ -16,14 +16,14 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // This is the get request to get all the videos of a certain user, along with their comments
 app.get('/videos', function (req, res) {
   // Username is passed in from the get request as req.query.username
-
   // Initialize a results array to send back to the client
   var results = [];
-
   // Find a user in the database based on their username
+  console.log(req.query);
   db.User.findOne({where: {username: req.query.username}}).then(function (user) {
     // Find all the videos that the found user has written notes on
-    db.Video.findAll({where: {userId: user.get('id')}}).then(function (videos) {
+    console.log(user);
+    db.Video.findAll({where: {userId: user.id}}).then(function (videos) {
       // Loop through every found video
       for (let i = 0; i < videos.length; i++) {
         // Find all the comments on that certain video
@@ -35,7 +35,6 @@ app.get('/videos', function (req, res) {
             comments: comments
           };
           results.push(videoObject);
-
           // When we get to the end of the videos array, send the results array back to the client
           // (for async reasons)
           if (i === videos.length - 1) {

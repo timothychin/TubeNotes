@@ -2,7 +2,6 @@ angular.module('tubenotes.services', [])
 
 // Factory for handling authentication 
 .factory('Auth', function ($http, $location, $window) {
-  var username = '';
   var login = function (user) {
     return $http({
       method: 'POST',
@@ -38,7 +37,6 @@ angular.module('tubenotes.services', [])
     login: login,
     signup: signup,
     isAuth: isAuth,
-    username: username,
     signout: signout
   };
 });
