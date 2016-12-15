@@ -23,6 +23,7 @@ angular.module('tubenotes.home', [])
     }).then(function(response) {
       // Store the results of the get request in $scope.userVideos
       $scope.userVideos = response.data;
+      console.log(response.data)
     }).catch(function(err) {
       console.log(err);
     });
