@@ -1,6 +1,6 @@
-var watch = angular.module('tubenotes.watch', [])
+angular.module('tubenotes.watch', [])
 
-watch.controller('WatchController', function($scope, $sce, $interval, AppFactory) {
+.controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var startTime = 0;
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
