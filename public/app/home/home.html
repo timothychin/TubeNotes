@@ -1,20 +1,34 @@
-<div>
-  <h1>Welcome to the homepage</h1>
+<div ng-show='isLoggedIn()'>
+  <h1>Welcome {{username}}!</h1>
     <!-- Video Library -->
     <div class='video-library col-sm-4'>
       <h2>Video Library</h2>
+      
+ <!--      <ul>
+        <li ng-click="setCurrentVideo(null, libVideo)" 
+        ng-repeat='libVideo in userVideos'>
+          <img ng-src="{{libVideo.image}}">
+          {{libVideo.title}}
+        </li>
+      </ul> -->
+      
+
+
       <table class="table table-hover">
         <thead>
           <tr>
+            <th></th>
             <th>Title</th>
-            <th>Number of Comments</th>
+            <!-- <th>Number of Comments</th> -->
           </tr>
         </thead>
         <tbody>
           <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
           <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
+            <td><img ng-src="{{libVideo.image}}"></td>
             <td>{{libVideo.title}}</td>
-            <td>{{libVideo.comments.length}}</td>
+            <!-- <td>{{libVideo.comments.length}}</td> -->
+            <td>
           </tr>
         </tbody>
       </table>

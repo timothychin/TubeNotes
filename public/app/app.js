@@ -12,11 +12,10 @@ angular.module('tubenotes', [
   // This factory function will do a post request to our server to store a note in our database
   var addNote = function(commentTitle, commentText, timestamp) {
     note = {
-      // username: window.username,
       username: globalObj.username,
       videoUrl: 'youtube.com/embed/' + globalObj.currentVideo.id,
       videoTitle: globalObj.currentVideo.title,
-      commentTitle: commentTitle,
+      image: globalObj.currentVideo.image,
       commentText: commentText,
       timestamp: timestamp
     };
@@ -47,7 +46,6 @@ angular.module('tubenotes', [
   // Log the user out and reset the username 
   $scope.logout = function () {
     Auth.signout();
-    // window.username = '';
     AppFactory.username = '';
   };
 
@@ -58,13 +56,16 @@ angular.module('tubenotes', [
       AppFactory.currentVideo = {
         title: video.snippet.title,
         id: video.id.videoId,
-        comments: []
+        comments: [], 
+        image: video.snippet.thumbnails.default.url
       };
+      console.log('current vid', AppFactory.currentVideo);
     } else if (libVideo) {
       AppFactory.currentVideo = {
         title: libVideo.title,
         id: libVideo.url.slice(18),
-        comments: libVideo.comments
+        comments: libVideo.comments,
+        image: libVideo.image
       };
     }
     // Redirect the page to the watch route

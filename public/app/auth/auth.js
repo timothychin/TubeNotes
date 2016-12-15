@@ -36,6 +36,4 @@ angular.module('tubenotes.auth', [])
         console.error(error);
       });
   };
-
-
 });

@@ -6,7 +6,8 @@ var database = new Sequelize('tubenotes', 'root', '');
 // Define a user schema
 var User = database.define('User', {
   username: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   password: {
     type: Sequelize.STRING,
@@ -16,13 +17,17 @@ var User = database.define('User', {
 
 // Define a video schema
 var Video = database.define('Video', {
-  url: Sequelize.STRING,
-  title: Sequelize.STRING
+  url: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
+  title: Sequelize.STRING, 
+  image: Sequelize.STRING
 });
 
 // Define a comment schema
 var Comment = database.define('Comment', {
-  title: Sequelize.STRING,
   text: Sequelize.STRING,
   timestamp: Sequelize.INTEGER
 });

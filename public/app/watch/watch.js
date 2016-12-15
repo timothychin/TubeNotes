@@ -63,11 +63,9 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
 
   $scope.resetNote = function() {
     // empty input fields
-    $scope.title = '';
     $scope.note = '';
 
     // reset $pristine flags on form
-    $scope.userNote.title.$setPristine();
     $scope.userNote.note.$setPristine();
 
     // reset startTime and $scope.noteTimestamp to initial values
@@ -78,8 +76,7 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
   $scope.postNote = function(title, note) {
     // add note to current video's comments array
     AppFactory.currentVideo.comments.push(
-      { title: title,
-        text: note,
+      { text: note,
         timestamp: startTime }
     );
 
