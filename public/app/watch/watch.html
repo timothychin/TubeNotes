@@ -1,3 +1,20 @@
+<!-- side bar -->
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
+  <h3 style="color: white">Notes:</h3>
+    <div class="notes list-group" ng-repeat="comment in videoComments">
+      <div class="note list-group-item" ng-click="clickNote(comment)">
+        <div>Time: {{formatTime(comment.timestamp)}}</div>
+        <div>Note: {{comment.text}}</div>
+      </div>
+    </div>
+</div>
+
+<div id="main">
+  <span style="font-size:30px;cursor:pointer" ng-click="openNav()">&#9776; open</span>
+</div>
+
+<!-- video player -->
 <div id="video-player">
   <div class='container'>
     <div class='row'>
@@ -34,27 +51,28 @@
         <form name="userNote">
           <!-- <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/> -->
           <div id="noteTaker">
-            <textarea class='form-control' type="text" name="note" rows="15" cols="60" placeholder="Enter Note..." 
+            <textarea id='testnote' class='form-control' type="text" name="note" rows="15" cols="60" placeholder="Enter Note..."
             ng-model="note" ng-keypress="setTimestamp()"
             />
           </div>
-          <button class='btn' ng-click="postNote(title, note)">Post</button>
+          <button class='btn' ng-click="postNote(note)">Post</button>
           <button class='btn' ng-click="resetNote()">Reset</button>
         </form>
       <!-- *** move into the side bar later -->
-        <h3>Notes:</h3>
+        <!-- <h3>Notes:</h3>
         <ul class="notes list-group" ng-repeat="comment in videoComments">
           <li class="note list-group-item" ng-click="clickNote(comment)">
-            <div>Title: {{comment.title}}</div>
             <div>Time: {{formatTime(comment.timestamp)}}</div>
             <div>Note: {{comment.text}}</div>
           </li>
-        </ul>
+        </ul> -->
       </div>
-      
     </div>
   </div>
 </div>
+
+
+
 
 <script>
   // load youtube iframe api

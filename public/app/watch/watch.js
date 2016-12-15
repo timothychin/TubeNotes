@@ -1,6 +1,6 @@
-var watch = angular.module('tubenotes.watch', [])
+angular.module('tubenotes.watch', [])
 
-watch.controller('WatchController', function($scope, $sce, $interval, AppFactory) {
+.controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var startTime = 0;
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
@@ -73,8 +73,9 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
     $scope.noteTimestamp = '';
   };
 
-  $scope.postNote = function(title, note) {
+  $scope.postNote = function(note) {
     // add note to current video's comments array
+    console.log(note);
     AppFactory.currentVideo.comments.push(
       { text: note,
         timestamp: startTime }
@@ -84,7 +85,7 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
     $scope.videoComments = AppFactory.currentVideo.comments;
 
     // call update to server for the current video
-    AppFactory.addNote(title, note, startTime);
+    AppFactory.addNote(note, startTime);
     $scope.resetNote();
   };
 
@@ -184,6 +185,18 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
       canvas.freeDrawingBrush.shadowBlur = 0;
     }
   })()
+
+// nav bar
+  $scope.openNav = function() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  };
+
+  $scope.closeNav = function() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
 });
+
 
 
