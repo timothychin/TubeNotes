@@ -10,7 +10,7 @@ angular.module('tubenotes', [
 .factory('AppFactory', function($http) {
   
   // This factory function will do a post request to our server to store a note in our database
-  var addNote = function(commentTitle, commentText, timestamp) {
+  var addNote = function(commentText, timestamp) {
     note = {
       username: globalObj.username,
       videoUrl: 'youtube.com/embed/' + globalObj.currentVideo.id,
