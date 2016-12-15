@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 
 // Import the three collections from schemas
 var db = require('./schemas');
+var Sequelize = require('sequelize');
 
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
@@ -47,6 +48,7 @@ app.get('/videos', function (req, res) {
 
 // This is the post request for when a user submits a note on a video
 app.post('/comment-video', function (req, res) {
+  console.log('post');
   // Find a user in the database based on the passed in username
   db.User.findOrCreate({where: {username: req.body.username}})
     .then(function(user) {
@@ -57,10 +59,11 @@ app.post('/comment-video', function (req, res) {
         title: req.body.videoTitle,
         image: req.body.image
       }})
-        .then(function (video) {
-          // Create a new note to post to the database linked to that user and video
-          db.Comment.findOrCreate({where: {text: req.body.commentText, timestamp: req.body.timestamp, UserId: user[0].get('id'), VideoId: video[0].get('id') }});
-        });
+      .then(function (video) {
+        // Create a new note to post to the database linked to that user and video
+        // video[0].updateAttributes();
+        db.Comment.create({text: req.body.commentText, timestamp: req.body.timestamp, UserId: user[0].get('id'), VideoId: video[0].get('id') });
+      });
     });
   res.status(201).send('sent');
 });

@@ -59,7 +59,6 @@ angular.module('tubenotes', [
         comments: [], 
         image: video.snippet.thumbnails.default.url
       };
-      console.log('current vid', AppFactory.currentVideo);
     } else if (libVideo) {
       AppFactory.currentVideo = {
         title: libVideo.title,

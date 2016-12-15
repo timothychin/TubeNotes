@@ -19,6 +19,7 @@
           <tr>
             <th></th>
             <th>Title</th>
+            <th>Last Modified</th>
             <!-- <th>Number of Comments</th> -->
           </tr>
         </thead>
@@ -27,6 +28,7 @@
           <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
             <td><img ng-src="{{libVideo.image}}"></td>
             <td>{{libVideo.title}}</td>
+            <td>{{libVideo.comments[libVideo.comments.length - 1].updatedAt}}</td>
             <!-- <td>{{libVideo.comments.length}}</td> -->
             <td>
           </tr>

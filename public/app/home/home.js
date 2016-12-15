@@ -15,8 +15,6 @@ angular.module('tubenotes.home', [])
   $scope.userVideos = [];
 
   var initializeLibrary = function() {
-    console.log('initializing library');
-    console.log(AppFactory.username);
     return $http({
       method: 'GET',
       url: '/videos',
@@ -24,7 +22,6 @@ angular.module('tubenotes.home', [])
       // params: {username: window.username} // this will pass in the username to the request as request.query
     }).then(function(response) {
       // Store the results of the get request in $scope.userVideos
-      console.log(response.data)
       $scope.userVideos = response.data;
     }).catch(function(err) {
       console.log(err);
