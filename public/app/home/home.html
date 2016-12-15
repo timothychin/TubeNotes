@@ -4,16 +4,6 @@
     <div class='video-library col-sm-4'>
       <h2>Video Library</h2>
       
- <!--      <ul>
-        <li ng-click="setCurrentVideo(null, libVideo)" 
-        ng-repeat='libVideo in userVideos'>
-          <img ng-src="{{libVideo.image}}">
-          {{libVideo.title}}
-        </li>
-      </ul> -->
-      
-
-
       <table class="table table-hover">
         <thead>
           <tr>
@@ -28,7 +18,7 @@
           <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos'>
             <td><img ng-src="{{libVideo.image}}"></td>
             <td>{{libVideo.title}}</td>
-            <td>{{libVideo.comments[libVideo.comments.length - 1].updatedAt || libVideo.createdAt}}</td>
+            <td>{{libVideo.comments[libVideo.comments.length - 1].updatedAt || libVideo.createdAt | amCalendar:referenceTime:formats}}</td>
             <!-- <td>{{libVideo.comments.length}}</td> -->
             <td>
           </tr>

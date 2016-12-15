@@ -1,6 +1,6 @@
-angular.module('tubenotes.home', [])
+angular.module('tubenotes.home', ['angularMoment'])
 
-.controller('HomeController', function($http, $scope, AppFactory) {
+.controller('HomeController', function($http, $scope, AppFactory, moment) {
   // Every time search.html is loaded, do a get request to the server's /videos route
   // Make sure username is sent in the get request
   $scope.username = AppFactory.username;
@@ -23,7 +23,6 @@ angular.module('tubenotes.home', [])
     }).then(function(response) {
       // Store the results of the get request in $scope.userVideos
       $scope.userVideos = response.data;
-      console.log(response.data)
     }).catch(function(err) {
       console.log(err);
     });
