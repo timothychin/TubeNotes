@@ -1,4 +1,4 @@
-var watch = angular.module('tubenotes.watch', []);
+var watch = angular.module('tubenotes.watch', [])
 
 watch.controller('WatchController', function($scope, $sce, $interval, AppFactory) {
   var startTime = 0;
@@ -9,7 +9,7 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
 
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'
-    console.log('onYTIframeReady', AppFactory.currentVideo);
+    // console.log('onYTIframeReady', AppFactory.currentVideo);
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
@@ -95,6 +95,95 @@ watch.controller('WatchController', function($scope, $sce, $interval, AppFactory
       window.player.seekTo(comment.timestamp, true);
     }
   };
+
+
+
+  // Canvas overlay function, invoked at the end to render
+  (function() {
+     var _ = function(id){return document.getElementById(id)};
+
+     var canvas = this.__canvas = new fabric.Canvas('c', {
+       isDrawingMode: false
+     });
+     var storage = [];
+     var interval = 100;
+
+     fabric.Object.prototype.transparentCorners = false;
+
+     var drawingModeEl = _('drawing-mode'),
+         drawingOptionsEl = _('drawing-mode-options'),
+         drawingColorEl = _('drawing-color'),
+         drawingLineWidthEl = _('drawing-line-width'),
+         clearEl = _('clear-canvas'),
+         saveEl = _('save-canvas'),
+         replayEl = _('replay-canvas');
+
+     clearEl.onclick = function() { canvas.clear() };
+
+     var grabCanvas = function() {   
+
+       storage.push(JSON.stringify(canvas.toDatalessJSON()));
+       if (canvas.isDrawingMode) {
+         setTimeout(function() {
+           grabCanvas();
+         }, interval)
+       } else if (!canvas.isDrawingMode) {
+         return;
+       }
+     }
+
+     drawingModeEl.onclick = function() {
+       canvas.isDrawingMode = !canvas.isDrawingMode;
+       if (canvas.isDrawingMode) {
+         drawingModeEl.innerHTML = 'Cancel drawing mode';
+         drawingOptionsEl.style.display = '';
+         $('.canvas').css('z-index', '10');
+         console.log('hit');
+         grabCanvas();
+       }
+       else {
+         drawingModeEl.innerHTML = 'Enter drawing mode';
+         drawingOptionsEl.style.display = 'none';
+         $('.canvas').css('z-index', '-10');
+       }
+     };
+
+
+     drawingColorEl.onchange = function() {
+       canvas.freeDrawingBrush.color = this.value;
+     };
+
+     drawingLineWidthEl.onchange = function() {
+       canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+       this.previousSibling.innerHTML = this.value;
+     };
+
+     saveEl.onclick = function() {
+       // Save to database
+       console.log(storage);
+     }
+
+    replayEl.onclick = function() {
+      var i = 0;
+
+      var replay = setInterval(function() {
+        $('.canvas').css('z-index', '10');
+        i++;
+        canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
+
+        if (i === storage.length - 1) {
+          clearInterval(replay);
+        }
+      // $('.canvas').css('z-index', '-10');
+      }, interval);
+    }
+
+    if (canvas.freeDrawingBrush) {
+      canvas.freeDrawingBrush.color = drawingColorEl.value;
+      canvas.freeDrawingBrush.width = parseInt(drawingLineWidthEl.value, 10) || 1;
+      canvas.freeDrawingBrush.shadowBlur = 0;
+    }
+  })()
 });
 
 
