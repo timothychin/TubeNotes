@@ -10,6 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.1/fabric.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
+    
   </head>
 
   <body ng-controller="appController">
@@ -22,6 +23,7 @@
           <!-- <li><a href="#search" class="searchLink">Search</a></li> -->
           <li><a href="#login" id="login">Log In</a></li>        
           <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">Log Out</a></li>        
+          <li><a href="#groups" id="groups" class="searchLink">Groups</a></li>   
         </ul>
       </div>
       <!-- Search Bar -->
@@ -46,6 +48,10 @@
     <script src="app/services/services.js"></script>
     <script src="app/app.js"></script>
     <script src="app/home/home.js"></script>  
+    <script src="app/groups/groups.js"></script>
+    <script src="app/groups/groupVids.js"></script>      
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/angular-moment/angular-moment.js"></script>
    <!--  <script>
       // load youtube iframe api
       var tag = document.createElement('script');

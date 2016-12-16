@@ -1,7 +1,9 @@
 var express = require('express');
+var morgan = require('morgan');
 var app = express();
 var jwt = require('jwt-simple');
 var userControllers = require('./users/userControllers.js');
+var groupControllers = require('./groups/groupControllers.js');
 
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -13,6 +15,7 @@ var Sequelize = require('sequelize');
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(morgan('dev'));
 
 // This is the get request to get all the videos of a certain user, along with their comments
 app.get('/videos', function (req, res) {
@@ -33,7 +36,8 @@ app.get('/videos', function (req, res) {
             title: videos[i].title,
             comments: comments,
             image: videos[i].image,
-            createdAt: videos[i].createdAt
+            createdAt: videos[i].createdAt, 
+            lastCommentDate: comments[comments.length - 1].createdAt
           };
           results.push(videoObject);
           // When we get to the end of the videos array, send the results array back to the client
@@ -69,9 +73,17 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
-// Look into the userContollers folder for the signup and login method
+// Look into the userControllers folder for the signup and login method
 app.post('/users/signup', userControllers.signup);
 app.post('/users/login', userControllers.login);
+app.post('/groups', groupControllers.postGroup);
+app.get('/groups', groupControllers.getGroups);
+app.post('/groupUsers', groupControllers.joinGroup);
+app.get('/groupUsers', groupControllers.getUserGroups);
+
+app.post('/groupVids', groupControllers.postGroupVid);
+app.get('/groupVids', groupControllers.getGroupVids);
+
 
 app.use(express.static(path.join(__dirname, '../public')));
 

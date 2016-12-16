@@ -1,0 +1,18 @@
+<div ng-show='isLoggedIn()'>
+  <h1>Welcome to the groups page</h1>
+  <form name="userNote">
+    <input type="text" name="groupnameCreate" placeholder="Create a group" ng-model="groupnameCreate"/>
+    <button class='btn' ng-click="createGroup(groupnameCreate)">Create Group</button>
+    
+    <input type="text" name="groupnameSearch" placeholder="Enter your group..." ng-model="groupnameSearch"/>
+    <button class='btn' ng-click="searchGroups(groupnameSearch)">Search</button>
+  </form>
+
+  <ul ng-repeat="group in groups">
+    <li ng-click="setCurrentGroup(group)">
+      {{group.groupname}}
+    </li>
+  </ul>
+
+
+</div>
