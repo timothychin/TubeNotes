@@ -82,23 +82,74 @@ angular.module('tubenotes.watch', [])
   };
 
   $scope.activeInterval = true;
+  $scope.pausedTime = null;
 
   window.onPlayerStateChange = function(event) {
     // when video is playing, show the video's time
     // on user's note taking window
 
     if (event.data === YT.PlayerState.PLAYING) {
-      var grabCanvasNew = setInterval(function() {
-        console.log('inside setInterval');
-        storage.push(JSON.stringify(canvas.toDatalessJSON()));
-        if ($scope.activeInterval === false) {
-          console.log('clear setInterval now');
-          clearInterval(grabCanvasNew);
+      console.log('hit play!!!!');
+      console.log('activeInterval: ', $scope.activeInterval);
+      // if storage is empty, continue as usual
+      // if storage is not empty, create a new storage and splice on pause/end
+      if (storage.length > 0) {
+        console.log(player.getCurrentTime());
+        var startTime = player.getCurrentTime(); // units are in seconds
+        var editStorage = [];
+        var grabCanvasEdited = setInterval(function() {
+          console.log('inside setInterval edited');
+          editStorage.push(JSON.stringify(canvas.toDatalessJSON()));
+
+          // exit out of set Interval
+          if ($scope.activeInterval === false) {
+            console.log('clear setInterval now');
+            clearInterval(grabCanvasEdited);
+            console.log('check paused time persists inside setInterval: ', $scope.pauseTime);
+            $scope.activeInterval = true;
+            // splice into original array
+            // if my interval was 500ms, that's 500/1000 ms or 1/2. if my entire video is 30s, i'd have 60 elements in the array, or 30s / 1/2.
+            // to convert the second into the index position, it's (#ofSeconds * 1000 ms / s ) / interval
+            var editStartIndex = Math.floor(startTime * 1000 / interval);
+            var editPauseIndex = Math.floor($scope.pauseTime * 1000 / interval);
+            console.log('start edited Index: ', editStartIndex);
+            console.log('pause edited Index: ', editPauseIndex);
+            console.log('original storage: ', storage);
+            console.log('edited storage', editStorage);
+            storage = storage.slice(0, editStartIndex).concat(editStorage, storage.slice(editPauseIndex));
+            // storage.splice(editStartIndex, editPauseIndex - editStartIndex + 1, editStorage)
+          }
+        }, interval);
+        // }
+      } else {
+        var grabCanvasNew = setInterval(function() {
+            console.log('inside setInterval');
+            storage.push(JSON.stringify(canvas.toDatalessJSON()));
+            if ($scope.activeInterval === false) {
+              console.log('clear setInterval now');
+              clearInterval(grabCanvasNew);
+              $scope.activeInterval = true;
+            }
+          }, interval);
         }
-      }, interval);
-    }
+      } // end if PLAYING
+
+      // grab player.getcurrenttime() and convert to seconds, then convert to index
+
+    //   var grabCanvasNew = setInterval(function() {
+    //     console.log('inside setInterval');
+    //     storage.push(JSON.stringify(canvas.toDatalessJSON()));
+    //     if ($scope.activeInterval === false) {
+    //       console.log('clear setInterval now');
+    //       clearInterval(grabCanvasNew);
+    //       $scope.activeInterval === true;
+    //     }
+    //   }, interval);
+    // }
     if (event.data === YT.PlayerState.PAUSED) {
       console.log('paused');
+      console.log('paused at time: ', player.getCurrentTime());
+      $scope.pauseTime = player.getCurrentTime(); // units are in seconds
       $scope.activeInterval = false;
     }
 
@@ -114,7 +165,6 @@ angular.module('tubenotes.watch', [])
               $scope.formatTime(Math.floor(player.getCurrentTime()))), 100);
       } else if (event.data === YT.PlayerState.ENDED ||
          event.data === YT.PlayerState.PAUSED) {
-        console.log('hit ended or paused');
         // clear interval on video pause
         $interval.cancel(intervalPromise);
       }
