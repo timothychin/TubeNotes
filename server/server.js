@@ -5,6 +5,7 @@ var userControllers = require('./users/userControllers.js');
 
 var path = require('path');
 var bodyParser = require('body-parser');
+var stormpath = require('express-stormpath');
 
 // Import the three collections from schemas
 var db = require('./schemas');
@@ -13,6 +14,9 @@ var Sequelize = require('sequelize');
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(stormpath.init(app, {
+  website: true
+}));
 
 // This is the get request to get all the videos of a certain user, along with their comments
 app.get('/videos', function (req, res) {
@@ -75,7 +79,12 @@ app.post('/users/login', userControllers.login);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+app.on('stormpath.ready', function() {
+
+  app.listen(3000, function () {
+    console.log('Example app listening on port 3000!');
+  });
+  
+})
+
 
