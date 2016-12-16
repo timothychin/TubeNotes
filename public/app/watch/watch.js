@@ -1,11 +1,13 @@
 angular.module('tubenotes.watch', [])
 
-.controller('WatchController', function($scope, $sce, $interval, AppFactory) {
+.controller('WatchController', function($scope, $sce, $interval, AppFactory, GroupHandler) {
   var startTime = 0;
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
   $scope.noteTimestamp = '';
   $scope.videoComments = AppFactory.currentVideo.comments;
+  $scope.placeholder = 'Choose your group';
+  $scope.groupList = GroupHandler.groups;
 
   // nav bar
   var navOpen = false;

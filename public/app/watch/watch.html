@@ -15,6 +15,15 @@
   <span style="font-size:30px;cursor:pointer" ng-click="toggleNav()">&#9776; Bookmarks</span>
 </div>
 
+<div>
+  <select class='groupDropdown'>
+    <option ng-repeat='group in groupList'>
+      {{group.groupname}}
+    </option>
+  </select>
+  <button class='btn' ng-click="postGroupVid()">Post in Group</button>
+</div>
+
 <!-- video player -->
 
 <div id="video-player">
@@ -72,8 +81,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 <script>

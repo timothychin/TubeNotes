@@ -10,10 +10,7 @@ angular.module('tubenotes.groupVids', [])
   };
 
   $scope.joinGroup = function() {
-    GroupHandler.joinGroup(GroupHandler.currentGroup.id)
-    .then(function() {
-      
-    });
+    GroupHandler.joinGroup(GroupHandler.currentGroup.id);
   };
 
 });

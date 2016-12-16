@@ -150,5 +150,7 @@ body {
   content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
 }
 
-
+.groupDropdown {
+  float: right;
+}
 

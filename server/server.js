@@ -78,10 +78,9 @@ app.post('/users/signup', userControllers.signup);
 app.post('/users/login', userControllers.login);
 app.post('/groups', groupControllers.postGroup);
 app.get('/groups', groupControllers.getGroups);
-
 app.post('/groupUsers', groupControllers.joinGroup);
-
 app.get('/groupUsers', groupControllers.getUserGroups);
+
 app.post('/groupVids', groupControllers.postGroupVid);
 app.get('/groupVids', groupControllers.getGroupVids);
 

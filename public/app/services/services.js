@@ -77,7 +77,17 @@ angular.module('tubenotes.services', [])
 
   //post from the watch page
   var postGroupVid = function() {
+    //need to figure out how to post groupvideos
 
+    // return $http({
+    //   method: 'POST',
+    //   url: '/groupVids',
+    //   data: JSON.stringify({username: AppFactory.username, groupId: group})
+    // }).then(function(response) {
+    //   return response.data;
+    // }).catch(function(err) {
+    //   console.log(err);
+    // }); 
   };
 
   //get from the groupvids page
@@ -85,15 +95,12 @@ angular.module('tubenotes.services', [])
 
   };
 
-  //get from the home page
   var getUserGroups = function(user) {
     return $http({
       method: 'GET',
       url: '/groupUsers',
-      params: {username: user} // this will pass in the username to the request as request.query
-      // params: {username: window.username} // this will pass in the username to the request as request.query
+      params: {username: user} 
     }).then(function(response) {
-      // Store the results of the get request in $scope.userVideos
       return response.data;
     }).catch(function(err) {
       console.log(err);
@@ -102,6 +109,7 @@ angular.module('tubenotes.services', [])
 
   return {
     currentGroup: '',
+    groups: [],
 
     postGroup: postGroup,
     getGroups: getGroups,

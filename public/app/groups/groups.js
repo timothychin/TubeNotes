@@ -27,7 +27,8 @@ angular.module('tubenotes.groups', [])
   var initializeGroups = function() {
     GroupHandler.getGroups()
     .then(function(data) {
-      $scope.groups = data;
+      GroupHandler.groups = data;
+      $scope.groups = GroupHandler.groups;
     });
   };
 

@@ -1,4 +1,5 @@
 var db = require('../schemas');
+var Sequelize = require('sequelize');
 
 module.exports = {
   postGroup: function(req, res) {
@@ -33,27 +34,34 @@ module.exports = {
     });
   },
   postGroupVid: function(req, res) {
-
+    
   },
   getGroupVids: function(req, res) {
 
   },
   getUserGroups: function(req, res) {
-    // console.log(req.body.username)
-    // db.User.findOne({where: {username: req.body.username}})
-    // .then(function(user) {
-    //   if (!user) {
-    //     res.send('User does not exist!');
-    //   } else {
-    //     var userid = user.get('id');
-    //     db.GroupUser.findAll({where: {
-    //       UserId: userid
-    //     }})
-    //     .then(function(groups) {
-    //       console.log(groups);
-    //       res.status(200).send(JSON.stringify(groups));
-    //     });
-    //   }
-    // });
+    db.User.findOne({where: {username: req.query.username}})
+    .then(function(user) {
+      if (!user) {
+        res.send('User does not exist!');
+      } else {
+        var userid = user.get('id');
+        db.Group.findAll({
+          include: [{
+            model: db.User,
+            required: true,
+            through: {
+              where: {
+                UserId: userid,
+              }
+            }
+          }]
+        })
+        .then(function(groups) {
+          console.log(groups);
+          res.status(200).send(JSON.stringify(groups));
+        });
+      }
+    });
   }
 };

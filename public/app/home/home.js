@@ -38,11 +38,12 @@ angular.module('tubenotes.home', ['angularMoment'])
   };
 
   var initializeUserGroups = function() {
-    // GroupHandler.getUserGroups($scope.username)
-    // .then(function(groups) {
-    //   console.log('groups', groups);
-    //   $scope.userGroups = groups;
-    // });
+    GroupHandler.getUserGroups($scope.username)
+    .then(function(groups) {
+      console.log('groups', groups);
+      GroupHandler.groups = groups;
+      $scope.userGroups = GroupHandler.groups;
+    });
   };
 
   initializeUserGroups();
