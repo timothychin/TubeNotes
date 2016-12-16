@@ -1,7 +1,8 @@
 <!-- side bar -->
 <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a>
-  <h3 style="color: white">Notes:</h3>
+  <!-- uncomment below line to show the 'X' sign to close the side bar inside side bar -->
+  <!-- <a href="javascript:void(0)" class="closebtn" ng-click="closeNav()">&times;</a> -->
+  <!-- <h3 style="color: white">Notes:</h3> -->
     <div class="notes list-group" ng-repeat="comment in videoComments">
       <div class="note list-group-item" ng-click="clickNote(comment)">
         <div>Time: {{formatTime(comment.timestamp)}}</div>
@@ -11,7 +12,7 @@
 </div>
 
 <div id="main">
-  <span style="font-size:30px;cursor:pointer" ng-click="openNav()">&#9776; open</span>
+  <span style="font-size:30px;cursor:pointer" ng-click="toggleNav()">&#9776; Bookmarks</span>
 </div>
 
 <!-- video player -->
@@ -52,7 +53,7 @@
         <form name="userNote">
           <!-- <input class='form-control title' type="text" name="title" placeholder="Enter Title..." ng-model="title"/> -->
           <div id="noteTaker">
-            <textarea id='testnote' class='form-control' type="text" name="note" rows="15" cols="60" placeholder="Enter Note..."
+            <textarea id='testnote' class='form-control' type="text" name="note" rows="16" cols="60" placeholder="Enter Note..."
             ng-model="note" ng-keypress="setTimestamp()"
             />
           </div>
