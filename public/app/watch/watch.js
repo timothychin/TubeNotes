@@ -23,7 +23,7 @@ angular.module('tubenotes.watch', [])
   if ($scope.inGroupMode()) {  //if in group mode, grab group comments
     initializeGroupComments();
   }
-  
+
   // nav bar
   var navOpen = false;
   $scope.openNav = function() {
@@ -81,20 +81,40 @@ angular.module('tubenotes.watch', [])
     $scope.currentVideo = AppFactory.currentVideo;
   };
 
+  $scope.activeInterval = true;
+
   window.onPlayerStateChange = function(event) {
-    // when video is playing, show the video's time 
+    // when video is playing, show the video's time
     // on user's note taking window
+
+    if (event.data === YT.PlayerState.PLAYING) {
+      var grabCanvasNew = setInterval(function() {
+        console.log('inside setInterval');
+        storage.push(JSON.stringify(canvas.toDatalessJSON()));
+        if ($scope.activeInterval === false) {
+          console.log('clear setInterval now');
+          clearInterval(grabCanvasNew);
+        }
+      }, interval);
+    }
+    if (event.data === YT.PlayerState.PAUSED) {
+      console.log('paused');
+      $scope.activeInterval = false;
+    }
+
     if (player) {
       if (event.data === YT.PlayerState.PLAYING) {
+        console.log('interval: ', interval);
         var seconds = Math.floor(player.getCurrentTime());
         // convert timestamp in seconds to a mm:ss string
         $scope.currentVideoTime = $scope.formatTime(seconds);
         // update time on interval of 100ms (not ideal performance)
-        intervalPromise = $interval(() => 
-          ($scope.currentVideoTime = 
+        intervalPromise = $interval(() =>
+          ($scope.currentVideoTime =
               $scope.formatTime(Math.floor(player.getCurrentTime()))), 100);
-      } else if (event.data === YT.PlayerState.ENDED || 
+      } else if (event.data === YT.PlayerState.ENDED ||
          event.data === YT.PlayerState.PAUSED) {
+        console.log('hit ended or paused');
         // clear interval on video pause
         $interval.cancel(intervalPromise);
       }
@@ -115,8 +135,8 @@ angular.module('tubenotes.watch', [])
     // only set time stamp on user's first input
     if (player) {
       if ($scope.userNote.note.$pristine) {
-        startTime = Math.floor(player.getCurrentTime());   
-        $scope.noteTimestamp = $scope.formatTime(startTime);   
+        startTime = Math.floor(player.getCurrentTime());
+        $scope.noteTimestamp = $scope.formatTime(startTime);
       }
     }
   };
@@ -137,7 +157,7 @@ angular.module('tubenotes.watch', [])
     // add note to current video's comments array
     AppFactory.currentVideo.comments.push(
       { text: note,
-        timestamp: startTime, 
+        timestamp: startTime,
         username: AppFactory.username }
     );
      // update scope variable to make comments render on page
@@ -168,15 +188,20 @@ angular.module('tubenotes.watch', [])
 
 
 
+
+
+
+
+   var _ = function(id){return document.getElementById(id)};
+
+   var canvas = this.__canvas = new fabric.Canvas('c', {
+     isDrawingMode: false
+   });
+   var storage = [];
+   var interval = 1000;
   // Canvas overlay function, invoked at the end to render
   (function() {
      var _ = function(id) {return document.getElementById(id)};
-
-     var canvas = this.__canvas = new fabric.Canvas('c', {
-       isDrawingMode: false
-     });
-     var storage = [];
-     var interval = 100;
 
      fabric.Object.prototype.transparentCorners = false;
 
@@ -190,17 +215,18 @@ angular.module('tubenotes.watch', [])
 
      clearEl.onclick = function() { canvas.clear() };
 
-     var grabCanvas = function() {   
+     // var grabCanvas = function() {
 
-       storage.push(JSON.stringify(canvas.toDatalessJSON()));
-       if (canvas.isDrawingMode) {
-         setTimeout(function() {
-           grabCanvas();
-         }, interval);
-       } else if (!canvas.isDrawingMode) {
-         return;
-       }
-     }
+     //   storage.push(JSON.stringify(canvas.toDatalessJSON()));
+     //   if (canvas.isDrawingMode) {
+     //     setTimeout(function() {
+     //       grabCanvas();
+     //     }, interval)
+     //   } else if (!canvas.isDrawingMode) {
+     //     return;
+     //   }
+     // }
+
 
      drawingModeEl.onclick = function() {
        canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -209,7 +235,7 @@ angular.module('tubenotes.watch', [])
          drawingOptionsEl.style.display = '';
          $('.canvas').css('z-index', '10');
          console.log('hit');
-         grabCanvas();
+         // grabCanvas();
        }
        else {
          drawingModeEl.innerHTML = 'Enter drawing mode';
@@ -237,6 +263,7 @@ angular.module('tubenotes.watch', [])
       var i = 0;
 
       var replay = setInterval(function() {
+        console.log('test');
         $('.canvas').css('z-index', '10');
         i++;
         canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
