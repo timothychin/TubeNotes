@@ -1,10 +1,11 @@
 angular.module('tubenotes.home', ['angularMoment'])
 
-.controller('HomeController', function($http, $scope, AppFactory, moment) {
+.controller('HomeController', function($http, $scope, AppFactory, moment, GroupHandler) {
   // Every time search.html is loaded, do a get request to the server's /videos route
   // Make sure username is sent in the get request
   $scope.username = AppFactory.username;
   $scope.userVideos = [];
+  $scope.userGroups = [];
 
   $scope.isLoggedIn = function() {
     if (AppFactory.username !== '') {
@@ -35,5 +36,15 @@ angular.module('tubenotes.home', ['angularMoment'])
     $scope.reverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.reverse : false;
     $scope.sortPropertyName = sortPropertyName;
   };
+
+  var initializeUserGroups = function() {
+    // GroupHandler.getUserGroups($scope.username)
+    // .then(function(groups) {
+    //   console.log('groups', groups);
+    //   $scope.userGroups = groups;
+    // });
+  };
+
+  initializeUserGroups();
 
 });

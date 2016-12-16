@@ -19,7 +19,6 @@
 }
 
 
-
 .navbar-brand {
   color: black !important;
   font-weight: 500;
@@ -146,7 +145,10 @@ body {
 .sortorder:after {
   content: '\25b2';   // BLACK UP-POINTING TRIANGLE
 }
+
 .sortorder.reverse:after {
   content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
->>>>>>> add triangle pic to display video sort order on homepage
 }
+
+
+

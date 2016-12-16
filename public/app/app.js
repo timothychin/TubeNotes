@@ -6,7 +6,8 @@ angular.module('tubenotes', [
   'tubenotes.home',
   'ngRoute',
   'tubenotes.groups',
-  'angularMoment'
+  'angularMoment',
+  'tubenotes.groupVids'
 ])
 
 .factory('AppFactory', function($http) {
@@ -110,6 +111,11 @@ angular.module('tubenotes', [
     .when('/groups', {
       templateUrl: 'app/groups/groups.html',
       controller: 'GroupController',
+      authenticate: true
+    })
+    .when('/groupVids', {
+      templateUrl: 'app/groups/groupVids.html',
+      controller: 'GroupVidsController',
       authenticate: true
     })
     .when('/watch', {

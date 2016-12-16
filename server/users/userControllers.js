@@ -14,15 +14,15 @@ module.exports = {
       .then(function (user) {
         //Once the user is created, send the client back a token 
         var token = jwt.encode(user, 'secret');        
-        res.json({token: token})
-      })
+        res.json({token: token});
+      });
     // This method uses promises to store hashed passwords into the Database
     db.User.hook('beforeCreate', function (model, options) {      
       return cipher(model.get('password'), null, null).bind(model)
         .then(function(hash) {
           model.set('password', hash);
         });
-    })
+    });
   },
   // This function is authenticating the password in the Database
   login: function (req, res, next) {
@@ -35,19 +35,19 @@ module.exports = {
           res.send('User does not exist!');
         } else {
         // If the current password matches, send them back a token
-        var currentPassword = user.get('password');
+          var currentPassword = user.get('password');
           bcrypt.compare(password, currentPassword, function (err, isMatch) {
-            if(isMatch) {
+            if (isMatch) {
               var token = jwt.encode(user, 'secret');
               res.json({token: token});
             } else {
               res.send(500);
             }           
-          })
+          });
         }
-    })
+      })
     .catch(function () {
       res.send(500);
-    })
+    });
   }
 };

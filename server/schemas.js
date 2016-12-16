@@ -33,11 +33,7 @@ var Comment = database.define('Comment', {
 });
 
 var Group = database.define('Group', {
-  groupname: Sequelize.STRING,
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false
-  }
+  groupname: Sequelize.STRING
 });
 
 var GroupUser = database.define('GroupUser', {
@@ -66,5 +62,7 @@ GroupUser.sync();
 exports.User = User;
 exports.Video = Video;
 exports.Comment = Comment;
+exports.Group = Group;
+exports.GroupUser = GroupUser;
 
 
