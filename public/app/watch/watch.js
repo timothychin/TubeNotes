@@ -10,7 +10,6 @@ angular.module('tubenotes.watch', [])
   $scope.videoComments = AppFactory.currentVideo.comments;
 
   $scope.inGroupMode = function() {
-    console.log(!!$scope.groupName);
     return !!$scope.groupName;
   };
 
@@ -32,7 +31,7 @@ angular.module('tubenotes.watch', [])
     // uncomment below line 'Bookmark' will be pushed to the left
     // document.getElementById('main').style.marginRight = '250px';
     // uncomment below line the page background will change
-    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
+    // document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
   };
 
   $scope.closeNav = function() {
