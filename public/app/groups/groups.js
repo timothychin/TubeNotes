@@ -23,6 +23,7 @@ angular.module('tubenotes.groups', [])
     GroupHandler.postGroup($scope.groupnameCreate)
     .then(function(newGroup) {
       $scope.setCurrentGroup(newGroup[0]);
+      GroupHandler.groups.push(GroupHandler.currentGroup);
       GroupHandler.joinGroup(GroupHandler.currentGroup.id);
     });
   };

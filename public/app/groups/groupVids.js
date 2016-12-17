@@ -9,11 +9,15 @@ angular.module('tubenotes.groupVids', [])
 
   $scope.joinGroup = function() {
     GroupHandler.joinGroup(GroupHandler.currentGroup.id);
-    GroupHandler.groups.push(GroupHandler.currentGroup);
   };
 
   $scope.isGroupMember = function() {
-    return GroupHandler.groups.indexOf($scope.group) !== -1;
+    for (var i = 0; i < GroupHandler.groups.length; i++) {
+      if (GroupHandler.groups[i].groupname === $scope.group.groupname) {
+        return true;
+      }
+    }
+    return false;
   };
 
   var initializeGroupVids = function() {

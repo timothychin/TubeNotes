@@ -47,8 +47,9 @@ module.exports = {
           GroupId: group.get('id'),
           VideoId: video[0].get('id')
         }})
-        .then(function() {
-          res.status(201).send('successfully posted video to group');
+        .then(function(data) {
+          console.log(data);
+          res.status(201).send(JSON.stringify(data));
         });
       });
     });
@@ -115,9 +116,30 @@ module.exports = {
       });
     });
   },
+
+  transferGroupComments: function(req, res) {
+    var comments = req.body.comments;
+    for (var i = 0; i < comments.length; i++) {
+      db.Comment.findOne({where: {
+        text: comments[i].text,
+        timestamp: comments[i].timestamp
+      }})
+      .then(function(comment) {
+        console.log(comment);
+        db.GroupComment.create({
+          GroupId: req.body.groupId,
+          CommentId: comment.get('id')
+        });
+      });
+    }
+  },
   
   getGroupComments: function(req, res) {
+    //what video?
     db.Comment.findAll({
+      where: {
+        VideoId: req.query.videoId
+      },
       include: [{
         model: db.Group,
         required: true,

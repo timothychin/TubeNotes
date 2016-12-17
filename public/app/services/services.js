@@ -75,7 +75,6 @@ angular.module('tubenotes.services', [])
     }); 
   };
 
-  //post from the watch page
   var postGroupVid = function(groupname, vid) {
     return $http({
       method: 'POST',
@@ -92,7 +91,6 @@ angular.module('tubenotes.services', [])
     }); 
   };
 
-  //get from the groupvids page
   var getGroupVids = function(groupId) {
     return $http({
       method: 'GET',
@@ -135,11 +133,11 @@ angular.module('tubenotes.services', [])
     });
   };
 
-  var getGroupComments = function(groupId) {
+  var getGroupComments = function(groupId, videoId) {
     return $http({
       method: 'GET',
       url: '/groupComments',
-      params: {groupId: groupId} 
+      params: {groupId: groupId, videoId: videoId} 
     }).then(function(response) {
       console.log(response.data);
       return response.data;
@@ -153,6 +151,19 @@ angular.module('tubenotes.services', [])
       method: 'GET',
       url: '/searchGroups',
       params: {groupname: groupname} 
+    }).then(function(response) {
+      console.log(response.data);
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
+  var transferGroupComments = function(commentObj, groupId) {
+    return $http({
+      method: 'POST',
+      url: '/transferGroupComments',
+      data: JSON.stringify({comments: commentObj, groupId: groupId})
     }).then(function(response) {
       console.log(response.data);
       return response.data;
@@ -177,6 +188,7 @@ angular.module('tubenotes.services', [])
     postGroupComment: postGroupComment,
     getGroupComments: getGroupComments,
 
-    searchGroups: searchGroups
+    searchGroups: searchGroups,
+    transferGroupComments: transferGroupComments
   };
 });
