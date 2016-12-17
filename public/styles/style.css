@@ -341,11 +341,23 @@ body {
 }
 
 .navigation-items a:hover {
-  background-color : #222;
+    background-color : #222;
 }
 
 .groupDropdown {
   float: right;
+}
+.sortorder:after {
+  content: '\25b2';
+}
+
+
+.navigation-items a:hover {
+  background-color : #222;
+}
+
+.userGroup:hover {
+  cursor: pointer;
 }
 
 .userGroup:hover {
