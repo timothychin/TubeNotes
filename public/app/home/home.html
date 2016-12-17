@@ -10,11 +10,11 @@
             <th></th>
             <th>
               <button ng-click="sortBy('title')">Name</button>
-              <span class="sortorder" ng-show="sortPropertyName === 'title'" ng-class="{reverse: reverse}"></span>
+              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'title'"></span>
             </th>
             <th>
               <button ng-click="sortBy('lastCommentDate')">Last Modified</button>
-              <span class="sortorder" ng-show="sortPropertyName === 'lastCommentDate'" ng-class="{reverse: reverse}"></span>
+              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'lastCommentDate'"></span>
             </th>
           </tr>
         </thead>

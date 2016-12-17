@@ -47,8 +47,8 @@ angular.module('tubenotes.services', [])
       url: '/groups',
       data: JSON.stringify({groupname: groupname}),
     })
-    .then(function (resp) {
-      console.log(resp);
+    .then(function(response) {
+      return response.data;
     });
   };
 

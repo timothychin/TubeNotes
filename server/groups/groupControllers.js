@@ -6,7 +6,7 @@ module.exports = {
     var groupname = req.body.groupname;
     db.Group.findOrCreate({where: {groupname: groupname}})
     .then(function(group) {
-      res.status(201).send('successfully posted group');
+      res.status(201).send(JSON.stringify(group));
     });
   },
 

@@ -20,7 +20,11 @@ angular.module('tubenotes.groups', [])
   };
 
   $scope.createGroup = function(groupname) {
-    GroupHandler.postGroup($scope.groupnameCreate);
+    GroupHandler.postGroup($scope.groupnameCreate)
+    .then(function(newGroup) {
+      $scope.setCurrentGroup(newGroup[0]);
+      GroupHandler.joinGroup(GroupHandler.currentGroup.id);
+    });
   };
 
   $scope.setCurrentGroup = function(group) {
