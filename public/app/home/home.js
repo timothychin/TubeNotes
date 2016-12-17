@@ -1,6 +1,6 @@
 angular.module('tubenotes.home', ['angularMoment'])
 
-.controller('HomeController', function($http, $scope, AppFactory, moment, GroupHandler) {
+.controller('HomeController', function($http, $location, $scope, AppFactory, moment, GroupHandler) {
   // Every time search.html is loaded, do a get request to the server's /videos route
   // Make sure username is sent in the get request
   $scope.username = AppFactory.username;
@@ -40,5 +40,10 @@ angular.module('tubenotes.home', ['angularMoment'])
     });
   };
   initializeUserGroups();
+
+  $scope.setCurrentGroup = function(group) {
+    GroupHandler.currentGroup = group;
+    $location.path('/groupVids');
+  };
 
 });

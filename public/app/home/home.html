@@ -33,9 +33,9 @@
 
     <div>
       <h2>Your Groups:</h2>
-      <ul ng-repeat="group in userGroups">
+      <ul ng-repeat="group in userGroups" ng-click="setCurrentGroup(group)">
         <li>
-          {{group.groupname}}
+          <h4 class="userGroup">{{group.groupname}}</h4>
         </li>
       </ul>
     </div>

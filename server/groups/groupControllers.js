@@ -130,5 +130,21 @@ module.exports = {
     }).then(function(comments) {
       res.status(200).send(JSON.stringify(comments));
     });
+  },
+
+  searchGroups: function(req, res) {
+    db.Group.findAll({where: {groupname: req.query.groupname}})
+      .then(function(groups) {
+        if (!groups) {
+          res.status(404).send('Group not found');
+        } else {
+          res.status(200).send(JSON.stringify(groups));
+        }
+      });
   }
 };
+
+
+
+
+

@@ -146,6 +146,9 @@ body {
     background-color : #222;
 }
 
+.groupDropdown {
+  float: right;
+}
 .sortorder:after {
   content: '\25b2';   // BLACK UP-POINTING TRIANGLE
 }
@@ -154,7 +157,7 @@ body {
   content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
 }
 
-.groupDropdown {
-  float: right;
+.userGroup:hover {
+  cursor: pointer;
 }
 

@@ -148,6 +148,19 @@ angular.module('tubenotes.services', [])
     });
   };
 
+  var searchGroups = function(groupname) {
+    return $http({
+      method: 'GET',
+      url: '/searchGroups',
+      params: {groupname: groupname} 
+    }).then(function(response) {
+      console.log(response.data);
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
   return {
     currentGroup: {}, //current group object
     groups: [], //list of the current user's groups
@@ -162,6 +175,8 @@ angular.module('tubenotes.services', [])
     getUserGroups: getUserGroups,
 
     postGroupComment: postGroupComment,
-    getGroupComments: getGroupComments
+    getGroupComments: getGroupComments,
+
+    searchGroups: searchGroups
   };
 });

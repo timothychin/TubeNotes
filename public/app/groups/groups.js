@@ -8,7 +8,15 @@ angular.module('tubenotes.groups', [])
   $scope.groupnameSearch = '';
   $scope.groups = [];
 
-  $scope.searchGroups = function() {
+  $scope.searchGroups = function(groupname) {
+    GroupHandler.searchGroups(groupname)
+    .then(function(data) {
+      if (typeof data === 'object') {
+        $scope.groups = data; 
+      } else {
+        $scope.groups = null;
+      }
+    });
   };
 
   $scope.createGroup = function(groupname) {
@@ -20,13 +28,11 @@ angular.module('tubenotes.groups', [])
     $location.path('/groupVids');
   };
 
-  var initializeGroups = function() {
+  $scope.initializeGroups = function() {
     GroupHandler.getGroups()
     .then(function(data) {
-      GroupHandler.groups = data;
-      $scope.groups = GroupHandler.groups;
+      $scope.groups = data;
     });
   };
 
-  initializeGroups();
 });
