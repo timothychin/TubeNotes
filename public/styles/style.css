@@ -44,11 +44,15 @@ body {
 }
 
 .img2 {
-  background: #595959;
-  height: 600px;
+  background: url('dancers.jpg');
+  background-position: center center;
+  background-size: cover;
+  height: 800px;
   width: 100%;
-
+  opacity: 0.65;
 }
+
+/*#C4A67A; #595959;*/
 
 .img3 {
   background: url('tubeNotesTeamHR.jpg');
@@ -56,7 +60,30 @@ body {
   background-size: cover;
   width: 100%;
   height: 700px;
+}
 
+.img4 {
+
+}
+
+.img5 {
+  background: black;
+  left: 20%;
+  top: 1050px;
+  width: 450px;
+  height: 250px;
+  position: absolute;
+  opacity: 0.45;
+}
+
+.img6 {
+  background: red;
+  right: 21%;
+  top: 1150px;  
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  opacity: 0.45;  
 }
 
 .sec1 {
@@ -76,11 +103,7 @@ body {
   color: #777;
   background-color: transparent;
   position: absolute;
-<<<<<<< HEAD
   top: 600px;
-=======
-  top: 80%;
->>>>>>> Adds About page and styling
   left: 32%;
   text-align: center;
   border: 2px solid white;
@@ -100,22 +123,13 @@ body {
 }
 
 .sec3 {
-  position: absolute;
   left: 22%;
-<<<<<<< HEAD
-  top: 930px;
-=======
-  top: 137%;
->>>>>>> Adds About page and styling
+  top: 1030px;
 }
 
 .sec4 {
   right: 23%;
-<<<<<<< HEAD
-  top: 1110px;
-=======
-  top: 165%;
->>>>>>> Adds About page and styling
+  top: 1210px;
 }
 
   /*color: #666666;*/
@@ -125,11 +139,7 @@ body {
   background-color: transparent;
   position: absolute;
   width: 100%;
-<<<<<<< HEAD
-  top: 1500px;
-=======
-  top: 215%;
->>>>>>> Adds About page and styling
+  top: 1700px;
   text-align: center;
 }
 
@@ -142,7 +152,6 @@ body {
 
 .creators li, .mediaLinks a {
   position: absolute;
-<<<<<<< HEAD
 }
 
 .mediaLinks a {
@@ -161,26 +170,6 @@ body {
   left: 31%;
 }
 
-=======
-}
-
-.mediaLinks a {
-  top: 200%;
-}
-
-.jenn {
-  left: 2%;
-}
-
-.viv{
-  left: 16%;
-}
-
-.tim {
-  left: 30%;
-}
-
->>>>>>> Adds About page and styling
 .wells {
   left: 45%;
 }
@@ -190,19 +179,11 @@ body {
 }
 
 .adam {
-<<<<<<< HEAD
   left: 75%;
 }
 
 .anton {
   left: 87.5%;
-=======
-  left: 74%;
-}
-
-.anton {
-  left: 86.5%;
->>>>>>> Adds About page and styling
 }
 
 .linkedicons {
@@ -259,7 +240,6 @@ body {
 .canvas {
   position: fixed;
   left: 10.5%;
-<<<<<<< HEAD
   z-index: 10;
 }
 
@@ -271,19 +251,6 @@ body {
   top: 85%;
 }
 
-=======
-  z-index: -10;
-}
-
-#canvasId > ul {
-  list-style: none;
-  z-index: 10;
-  position: fixed;
-  left: 10%;
-  top: 85%;
-}
-
->>>>>>> Adds About page and styling
 
 /* * * * * * * *
  *             *
@@ -311,8 +278,8 @@ body {
   transition: margin-left .5s;
   padding: 16px;
   position: fixed;
-  top: -10px;
-  left: 82%;
+  top: -3px;
+  right: 10px;
   transition: 225ms;
 }
 
@@ -327,7 +294,6 @@ body {
   left : 160px;
   transition : 100ms left;
 }
-
 
 .sidenav a:hover, .offcanvas a:focus{
   color: #f1f1f1;
@@ -351,7 +317,7 @@ body {
   position : absolute;
   left : 160px;
   background : rgba(3,159,244,.95);
-    color : white;
+  color : white;
   text-decoration : none;
   padding : 20px;
 }
@@ -377,6 +343,7 @@ body {
 .navigation-items a:hover {
   background-color : #222;
 }
+
 .groupDropdown {
   float: right;
 }
@@ -384,5 +351,4 @@ body {
 .userGroup:hover {
   cursor: pointer;
 }
-
 

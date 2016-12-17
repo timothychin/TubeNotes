@@ -93,6 +93,7 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
+<<<<<<< HEAD
 // uploads annotations
 app.post('/uploadAnnotation', function(req, res) {
   console.log('hits server uploadAnnotation post');
