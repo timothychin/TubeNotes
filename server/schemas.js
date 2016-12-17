@@ -29,7 +29,8 @@ var Video = database.define('Video', {
 // Define a comment schema
 var Comment = database.define('Comment', {
   text: Sequelize.STRING,
-  timestamp: Sequelize.INTEGER
+  timestamp: Sequelize.INTEGER,
+  group: Sequelize.BOOLEAN
 });
 
 var Group = database.define('Group', {
@@ -82,7 +83,6 @@ Group.sync();
 GroupUser.sync();
 GroupVideo.sync();
 GroupComment.sync();
-
 
 exports.User = User;
 exports.Video = Video;

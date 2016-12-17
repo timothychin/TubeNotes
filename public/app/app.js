@@ -40,10 +40,7 @@ angular.module('tubenotes', [
 .controller('appController', function($scope, $http, $window, $location, AppFactory, Auth, GroupHandler) {
   $scope.currentVideo = 'https://www.youtube.com/embed/4ZAEBxGipoA';
   $scope.isLoggedIn = function() {
-    if (AppFactory.username !== '') {
-      return true;
-    }
-    return false;
+    return AppFactory.username !== '';
   };
 
   // Log the user out and reset the username 
@@ -63,11 +60,15 @@ angular.module('tubenotes', [
         image: video.snippet.thumbnails.default.url
       };
     } else if (libVideo) {
+      if (!libVideo.comments) {
+        libVideo.comments = [];
+      }
       AppFactory.currentVideo = {
         title: libVideo.title,
         id: libVideo.url.slice(18),
         comments: libVideo.comments,
-        image: libVideo.image
+        image: libVideo.image,
+        videoTableId: libVideo.id
       };
     }
 

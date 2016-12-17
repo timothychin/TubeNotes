@@ -4,10 +4,7 @@ angular.module('tubenotes.groupVids', [])
   $scope.group = GroupHandler.currentGroup;
   $scope.groupVids = [];
   $scope.isLoggedIn = function() {
-    if (AppFactory.username !== '') {
-      return true;
-    }
-    return false;
+    return AppFactory.username !== '';
   };
 
   $scope.joinGroup = function() {

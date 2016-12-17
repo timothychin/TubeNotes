@@ -117,6 +117,36 @@ angular.module('tubenotes.services', [])
     });
   };
 
+  var postGroupComment = function(groupId, note, startTime) {
+    return $http({
+      method: 'POST',
+      url: '/groupComments',
+      data: JSON.stringify({
+        username: AppFactory.username, 
+        video: AppFactory.currentVideo,
+        note: note,
+        startTime: startTime,
+        groupId: groupId
+      })
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
+  var getGroupComments = function(groupId) {
+    return $http({
+      method: 'GET',
+      url: '/groupComments',
+      params: {groupId: groupId} 
+    }).then(function(response) {
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
   return {
     currentGroup: {}, //current group object
     groups: [], //list of the current user's groups
@@ -128,6 +158,9 @@ angular.module('tubenotes.services', [])
     getGroupVids: getGroupVids,
 
     joinGroup: joinGroup,
-    getUserGroups: getUserGroups
+    getUserGroups: getUserGroups,
+
+    postGroupComment: postGroupComment,
+    getGroupComments: getGroupComments
   };
 });

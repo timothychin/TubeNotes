@@ -33,6 +33,7 @@ module.exports = {
       }
     });
   },
+
   postGroupVid: function(req, res) {
     db.Video.findOrCreate({where: {
       url: 'youtube.com/embed/' + req.body.video.id,
@@ -52,6 +53,7 @@ module.exports = {
       });
     });
   },
+
   getGroupVids: function(req, res) {
     db.Video.findAll({
       include: [{
@@ -67,6 +69,7 @@ module.exports = {
       res.status(200).send(JSON.stringify(vids));
     });
   },
+
   getUserGroups: function(req, res) {
     db.User.findOne({where: {username: req.query.username}})
     .then(function(user) {
@@ -88,6 +91,44 @@ module.exports = {
           res.status(200).send(JSON.stringify(groups));
         });
       }
+    });
+  },
+
+  postGroupComments: function(req, res) {
+    db.User.findOne({username: req.body.username})
+    .then(function(user) {
+      db.Comment.create({
+        text: req.body.note,
+        timestamp: req.body.startTime,
+        UserId: user.get('id'),
+        VideoId: req.body.video.videoTableId,
+        group: true
+      })
+      .then(function(comment) {
+        db.GroupComment.create({
+          GroupId: req.body.groupId,
+          CommentId: comment.get('id')
+        })
+        .then(function() {
+          res.status(201).send('successfully posted group comment');
+        });
+      });
+    });
+  },
+  
+  getGroupComments: function(req, res) {
+    db.Comment.findAll({
+      include: [{
+        model: db.Group,
+        required: true,
+        through: {
+          where: {
+            GroupId: req.query.groupId
+          }
+        }
+      }]
+    }).then(function(comments) {
+      res.status(200).send(JSON.stringify(comments));
     });
   }
 };

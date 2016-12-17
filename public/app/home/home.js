@@ -8,10 +8,7 @@ angular.module('tubenotes.home', ['angularMoment'])
   $scope.userGroups = [];
 
   $scope.isLoggedIn = function() {
-    if (AppFactory.username !== '') {
-      return true;
-    }
-    return false;
+    return AppFactory.username !== '';
   };
   
   var initializeLibrary = function() {
@@ -19,7 +16,6 @@ angular.module('tubenotes.home', ['angularMoment'])
       method: 'GET',
       url: '/videos',
       params: {username: $scope.username} // this will pass in the username to the request as request.query
-      // params: {username: window.username} // this will pass in the username to the request as request.query
     }).then(function(response) {
       // Store the results of the get request in $scope.userVideos
       $scope.userVideos = response.data;
@@ -27,7 +23,6 @@ angular.module('tubenotes.home', ['angularMoment'])
       console.log(err);
     });
   };
-
   initializeLibrary();
 
   $scope.sortPropertyName = 'lastCommentDate';
@@ -44,7 +39,6 @@ angular.module('tubenotes.home', ['angularMoment'])
       $scope.userGroups = GroupHandler.groups;
     });
   };
-
   initializeUserGroups();
 
 });

@@ -5,12 +5,53 @@ angular.module('tubenotes.watch', [])
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
   $scope.noteTimestamp = '';
-  $scope.videoComments = AppFactory.currentVideo.comments;
   $scope.groupList = GroupHandler.groups;
-  var groupName = $location.search().group;
-  console.log(groupName);
-  console.log($scope.videoComments);
+  $scope.groupName = $location.search().group;
+  $scope.videoComments = AppFactory.currentVideo.comments;
+
+  $scope.inGroupMode = function() {
+    console.log(!!$scope.groupName);
+    return !!$scope.groupName;
+  };
+
+  var initializeGroupComments = function() {
+    GroupHandler.getGroupComments(GroupHandler.currentGroup.id)
+    .then(function(data) {
+      AppFactory.currentVideo.comments = data;
+      $scope.videoComments = AppFactory.currentVideo.comments;
+    });
+  };
+  if ($scope.inGroupMode()) {  //if in group mode, grab group comments
+    initializeGroupComments();
+  }
   
+  // nav bar
+  var navOpen = false;
+  $scope.openNav = function() {
+    document.getElementById('mySidenav').style.width = '250px';
+    // uncomment below line 'Bookmark' will be pushed to the left
+    // document.getElementById('main').style.marginRight = '250px';
+    // uncomment below line the page background will change
+    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
+  };
+
+  $scope.closeNav = function() {
+    document.getElementById('mySidenav').style.width = '0';
+    // document.getElementById('main').style.marginRight= '0';
+    document.body.style.backgroundColor = 'white';
+  };
+
+  // toggle the side bar
+  $scope.toggleNav = function() {
+    if (!navOpen) {
+      $scope.openNav();
+      navOpen = true;
+    } else {
+      $scope.closeNav();
+      navOpen = false;
+    }
+  };
+
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'
     window.player = new YT.Player('player', {
@@ -82,12 +123,14 @@ angular.module('tubenotes.watch', [])
       { text: note,
         timestamp: startTime }
     );
-
     // update scope variable to make comments render on page
     $scope.videoComments = AppFactory.currentVideo.comments;
-
     // call update to server for the current video
-    AppFactory.addNote(note, startTime);
+    if ($scope.inGroupMode()) {
+      GroupHandler.postGroupComment(GroupHandler.currentGroup.id, note, startTime);
+    } else {
+      AppFactory.addNote(note, startTime);
+    }
     $scope.resetNote();
   };
 
@@ -102,6 +145,8 @@ angular.module('tubenotes.watch', [])
   $scope.postGroupVid = function(groupname) {
     GroupHandler.postGroupVid(groupname, AppFactory.currentVideo);
   };
+
+
 
   // Canvas overlay function, invoked at the end to render
   (function() {
@@ -190,16 +235,6 @@ angular.module('tubenotes.watch', [])
     }
   })()
 
-// nav bar
-  $scope.openNav = function() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  };
-
-  $scope.closeNav = function() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
 });
 
 
