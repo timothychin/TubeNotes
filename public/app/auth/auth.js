@@ -24,7 +24,6 @@ angular.module('tubenotes.auth', [])
 
   // modal box log in
   $scope.init = function() {
-    // var cb;
     // var login = function (data) {
     //   if (!data) {
     //     console.log('Cancelled')
@@ -49,26 +48,62 @@ angular.module('tubenotes.auth', [])
     //   }
     // }
 
+
     vex.dialog.open({
       message: 'Log in with your username and password:',
       input: [
-        '<input name="username" type="text" placeholder="Username" required />',
-        '<input name="password" type="password" placeholder="Password" required />'
+        '<input id="username" name="username" type="text" placeholder="Username" required />',
+        '<input id="password" name="password" type="password" placeholder="Password" required />'
       ].join(''),
       buttons: [
         $.extend({}, vex.dialog.buttons.YES, { text: 'Login', click: function() {
-          // cb = login;
-          // console.log('cb', cb)
-          console.log('login clicked');
+          var combo = {username: document.getElementById('username').value, password: document.getElementById('password').value};
+          var login = function (data) {
+            if (!data) {
+              console.log('Cancelled')
+            } else {
+              console.log('Username', data.username, 'Password', data.password);
+              Auth.login(/*$scope.user*/ data)
+              .then(function (token) {
+                if (!token) {
+                  $location.path('/login');
+                } else {
+                  // window.username = $scope.user.username;  
+                  // console.log($scope.user.username)
+                  AppFactory.username = /*$scope.user.username*/data.username;
+                  console.log('username: ', AppFactory.username);
+                  $window.localStorage.setItem('com.tubenotes', token);
+                  $location.path('/home');
+                } 
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
+            }
+          };
+          login(combo);
         }}),
         $.extend({}, vex.dialog.buttons.NO, { text: 'Back' }),
-        $.extend({}, vex.dialog.buttons.YES, { text: 'Signup', click: function() {
-          console.log('signup clicked');
-        }}),
+        // $.extend({}, vex.dialog.buttons.YES, { text: 'Signup', click: function() {
+        //   var combo = {username: document.getElementById('username').value, password: document.getElementById('password').value};
+        //   console.log(combo);
+        //   signup = function () {
+        //     Auth.signup($scope.user)
+        //     .then(function (token) {
+        //       // Set the window username for sending data to the database
+        //       // window.username = $scope.user.username;
+        //       AppFactory.username = $scope.user.username;
+        //       console.log(AppFactory.username);
+        //       $window.localStorage.setItem('com.tubenotes', token);
+        //       $location.path('/home');
+        //     })
+        //     .catch(function (error) {
+        //       console.error(error);
+        //     });
+        //   };
+        // }}),
       ],
-      callback: function(data) {
-        console.log('data,', data)
-      }
+      // callback: function(data) {console.log('data,', data)}
     })
   }
 
