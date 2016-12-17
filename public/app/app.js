@@ -37,13 +37,10 @@ angular.module('tubenotes', [
   return globalObj;
 })
 
-.controller('appController', function($scope, $http, $window, $location, AppFactory, Auth) {
+.controller('appController', function($scope, $http, $window, $location, AppFactory, Auth, GroupHandler) {
   $scope.currentVideo = 'https://www.youtube.com/embed/4ZAEBxGipoA';
   $scope.isLoggedIn = function() {
-    if (AppFactory.username !== '') {
-      return true;
-    }
-    return false;
+    return AppFactory.username !== '';
   };
 
   // Log the user out and reset the username 
@@ -54,7 +51,7 @@ angular.module('tubenotes', [
 
   // This is to set the current video from the YouTube search and the library
   // 'video' comes from the youtube search and 'libVideo' comes from the users library of saved videos
-  $scope.setCurrentVideo = function (video, libVideo) {
+  $scope.setCurrentVideo = function (video, libVideo, groupBool) {
     if (video) {
       AppFactory.currentVideo = {
         title: video.snippet.title,
@@ -63,12 +60,20 @@ angular.module('tubenotes', [
         image: video.snippet.thumbnails.default.url
       };
     } else if (libVideo) {
+      if (!libVideo.comments) {
+        libVideo.comments = [];
+      }
       AppFactory.currentVideo = {
         title: libVideo.title,
         id: libVideo.url.slice(18),
         comments: libVideo.comments,
-        image: libVideo.image
+        image: libVideo.image,
+        videoTableId: libVideo.id
       };
+    }
+
+    if (groupBool) {
+      $location.path('/watch').search({group: GroupHandler.currentGroup.groupname});
     }
     // Redirect the page to the watch route
     $location.path('/watch');

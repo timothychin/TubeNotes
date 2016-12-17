@@ -29,7 +29,10 @@ app.get('/videos', function (req, res) {
       // Loop through every found video
       for (let i = 0; i < videos.length; i++) {
         // Find all the comments on that certain video
-        db.Comment.findAll({where: {videoId: videos[i].get('id')}}).then(function (comments) {
+        db.Comment.findAll({where: {
+          videoId: videos[i].get('id'),
+          group: null
+        }}).then(function (comments) {
           // Create a new video object that will be pushed into the results array
           var videoObject = {
             url: videos[i].url,
@@ -67,7 +70,12 @@ app.post('/comment-video', function (req, res) {
       .then(function (video) {
         // Create a new note to post to the database linked to that user and video
         // video[0].updateAttributes();
-        db.Comment.create({text: req.body.commentText, timestamp: req.body.timestamp, UserId: user[0].get('id'), VideoId: video[0].get('id') });
+        db.Comment.create({
+          text: req.body.commentText,
+          timestamp: req.body.timestamp,
+          UserId: user[0].get('id'),
+          VideoId: video[0].get('id') 
+        });
       });
     });
   res.status(201).send('sent');
@@ -80,10 +88,11 @@ app.post('/groups', groupControllers.postGroup);
 app.get('/groups', groupControllers.getGroups);
 app.post('/groupUsers', groupControllers.joinGroup);
 app.get('/groupUsers', groupControllers.getUserGroups);
-
 app.post('/groupVids', groupControllers.postGroupVid);
 app.get('/groupVids', groupControllers.getGroupVids);
 
+app.post('/groupComments', groupControllers.postGroupComments);
+app.get('/groupComments', groupControllers.getGroupComments);
 
 app.use(express.static(path.join(__dirname, '../public')));
 

@@ -15,13 +15,13 @@
   <span style="font-size:30px;cursor:pointer" ng-click="toggleNav()">&#9776; Bookmarks</span>
 </div>
 
-<div>
-  <select class='groupDropdown'>
-    <option ng-repeat='group in groupList'>
+<div ng-hide="inGroupMode()">
+  <select class='groupDropdown' ng-model='selectedGroup'>
+    <option ng-repeat='group in groupList' value="{{group.groupname}}">
       {{group.groupname}}
     </option>
   </select>
-  <button class='btn' ng-click="postGroupVid()">Post in Group</button>
+  <button class='btn' ng-click="postGroupVid(selectedGroup)">Post in Group</button>
 </div>
 
 <!-- video player -->

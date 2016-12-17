@@ -2,10 +2,7 @@ angular.module('tubenotes.groups', [])
 
 .controller('GroupController', function($location, $scope, AppFactory, GroupHandler) {
   $scope.isLoggedIn = function() {
-    if (AppFactory.username !== '') {
-      return true;
-    }
-    return false;
+    return AppFactory.username !== '';
   };
   $scope.groupnameCreate = '';
   $scope.groupnameSearch = '';
@@ -20,7 +17,6 @@ angular.module('tubenotes.groups', [])
 
   $scope.setCurrentGroup = function(group) {
     GroupHandler.currentGroup = group;
-    console.log('currentgroup is now', GroupHandler.currentGroup);
     $location.path('/groupVids');
   };
 
