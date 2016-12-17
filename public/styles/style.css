@@ -347,6 +347,7 @@ body {
 .groupDropdown {
   float: right;
 }
+
 .sortorder:after {
   content: '\25b2';
 }

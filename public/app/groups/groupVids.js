@@ -19,6 +19,7 @@ angular.module('tubenotes.groupVids', [])
       }
     }
     return false;
+
   };
 
   var initializeGroupVids = function() {
