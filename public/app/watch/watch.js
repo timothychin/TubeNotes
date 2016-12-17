@@ -27,7 +27,7 @@ angular.module('tubenotes.watch', [])
   // nav bar
   var navOpen = false;
   $scope.openNav = function() {
-    document.getElementById('mySidenav').style.width = '250px';
+    document.getElementById('mySidenav').style.width = '350px';
     // uncomment below line 'Bookmark' will be pushed to the left
     // document.getElementById('main').style.marginRight = '250px';
     // uncomment below line the page background will change
@@ -50,6 +50,18 @@ angular.module('tubenotes.watch', [])
       navOpen = false;
     }
   };
+
+  // delete a note
+  $scope.delete = function(comment) {
+    // delete the comment from the page
+    AppFactory.currentVideo.comments.forEach(function(savedComment, index) {
+      if (comment.timestamp === savedComment.timestamp) {
+        AppFactory.currentVideo.comments.splice(index, 1);
+      }
+    })
+    
+  }
+
 
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'

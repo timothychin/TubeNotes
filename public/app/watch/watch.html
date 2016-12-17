@@ -8,10 +8,16 @@
         <div>Time: {{formatTime(comment.timestamp)}}</div>
         <div>Note: {{comment.text}}</div>
       </div>
+      <!-- edit button -->
+      <button type="button" class="btn btn-default btn-sm glyphicon glyphicon-edit" style="padding-bottom:23px"> Edit</button>
+      <!-- share button -->
+      <button type="button" class="btn btn-default btn-sm glyphicon glyphicon-share" style="padding-bottom:23px"> Share</button>
+      <!-- delete button (trash can) -->
+      <button class="btn btn-default btn-sm glyphicon glyphicon-trash" style="padding:7 10 21 10px" ng-click="delete(comment)"></button>
     </div>
 </div>
 
-<div id="main">
+<div id="main" class='col-sm-9'>
   <span style="font-size:30px;cursor:pointer" ng-click="toggleNav()">&#9776; Bookmarks</span>
 </div>
 
@@ -57,6 +63,7 @@
 
       <!-- Video notes window -->
       <div class='col-sm-3 video'>
+        <h2>Notes</h2>
         <div>{{currentVideoTime}} </div>
         <div>Start Time: {{noteTimestamp}}</div>
         <form name="userNote">
