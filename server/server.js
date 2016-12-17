@@ -82,6 +82,7 @@ app.post('/groupUsers', groupControllers.joinGroup);
 app.get('/groupUsers', groupControllers.getUserGroups);
 
 app.post('/groupVids', groupControllers.postGroupVid);
+
 app.get('/groupVids', groupControllers.getGroupVids);
 
 

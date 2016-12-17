@@ -76,23 +76,33 @@ angular.module('tubenotes.services', [])
   };
 
   //post from the watch page
-  var postGroupVid = function() {
-    //need to figure out how to post groupvideos
-
-    // return $http({
-    //   method: 'POST',
-    //   url: '/groupVids',
-    //   data: JSON.stringify({username: AppFactory.username, groupId: group})
-    // }).then(function(response) {
-    //   return response.data;
-    // }).catch(function(err) {
-    //   console.log(err);
-    // }); 
+  var postGroupVid = function(groupname, vid) {
+    return $http({
+      method: 'POST',
+      url: '/groupVids',
+      data: JSON.stringify({
+        groupname: groupname, 
+        video: vid,
+        username: AppFactory.username
+      })
+    }).then(function(response) {
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    }); 
   };
 
   //get from the groupvids page
-  var getGroupVids = function() {
-
+  var getGroupVids = function(groupId) {
+    return $http({
+      method: 'GET',
+      url: '/groupVids',
+      params: {groupId: groupId} 
+    }).then(function(response) {
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
   };
 
   var getUserGroups = function(user) {
@@ -108,8 +118,8 @@ angular.module('tubenotes.services', [])
   };
 
   return {
-    currentGroup: '',
-    groups: [],
+    currentGroup: {}, //current group object
+    groups: [], //list of the current user's groups
 
     postGroup: postGroup,
     getGroups: getGroups,

@@ -1,44 +1,18 @@
 angular.module('tubenotes.watch', [])
 
-.controller('WatchController', function($scope, $sce, $interval, AppFactory, GroupHandler) {
+.controller('WatchController', function($scope, $sce, $interval, AppFactory, GroupHandler, $location) {
   var startTime = 0;
   var intervalPromise;
   $scope.currentVideoTime = '00:00';
   $scope.noteTimestamp = '';
   $scope.videoComments = AppFactory.currentVideo.comments;
-  $scope.placeholder = 'Choose your group';
   $scope.groupList = GroupHandler.groups;
-
-  // nav bar
-  var navOpen = false;
-  $scope.openNav = function() {
-    document.getElementById("mySidenav").style.width = "250px";
-    // uncomment below line 'Bookmark' will be pushed to the left
-    // document.getElementById("main").style.marginRight = "250px";
-    // uncomment below line the page background will change
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-  };
-
-  $scope.closeNav = function() {
-    document.getElementById("mySidenav").style.width = "0";
-    // document.getElementById("main").style.marginRight= "0";
-    document.body.style.backgroundColor = "white";
-  }
-
-  // toggle the side bar
-  $scope.toggleNav = function() {
-    if (!navOpen) {
-      $scope.openNav();
-      navOpen = true;
-    } else {
-      $scope.closeNav();
-      navOpen = false;
-    }
-  }
-
+  var groupName = $location.search().group;
+  console.log(groupName);
+  console.log($scope.videoComments);
+  
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'
-    // console.log('onYTIframeReady', AppFactory.currentVideo);
     window.player = new YT.Player('player', {
       width: '800',
       height: '450',
@@ -125,7 +99,9 @@ angular.module('tubenotes.watch', [])
     }
   };
 
-
+  $scope.postGroupVid = function(groupname) {
+    GroupHandler.postGroupVid(groupname, AppFactory.currentVideo);
+  };
 
   // Canvas overlay function, invoked at the end to render
   (function() {
@@ -214,6 +190,16 @@ angular.module('tubenotes.watch', [])
     }
   })()
 
+// nav bar
+  $scope.openNav = function() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  };
+
+  $scope.closeNav = function() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
 });
 
 

@@ -20,7 +20,6 @@ angular.module('tubenotes.groups', [])
 
   $scope.setCurrentGroup = function(group) {
     GroupHandler.currentGroup = group;
-    console.log('currentgroup is now', GroupHandler.currentGroup);
     $location.path('/groupVids');
   };
 

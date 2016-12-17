@@ -34,10 +34,38 @@ module.exports = {
     });
   },
   postGroupVid: function(req, res) {
-    
+    db.Video.findOrCreate({where: {
+      url: 'youtube.com/embed/' + req.body.video.id,
+      title: req.body.video.title,
+      image: req.body.video.image
+    }})
+    .then(function(video) {
+      db.Group.findOne({where: {groupname: req.body.groupname}})
+      .then(function(group) {
+        db.GroupVideo.findOrCreate({where: {
+          GroupId: group.get('id'),
+          VideoId: video[0].get('id')
+        }})
+        .then(function() {
+          res.status(201).send('successfully posted video to group');
+        });
+      });
+    });
   },
   getGroupVids: function(req, res) {
-
+    db.Video.findAll({
+      include: [{
+        model: db.Group,
+        required: true,
+        through: {
+          where: {
+            GroupId: req.query.groupId
+          }
+        }
+      }]
+    }).then(function(vids) {
+      res.status(200).send(JSON.stringify(vids));
+    });
   },
   getUserGroups: function(req, res) {
     db.User.findOne({where: {username: req.query.username}})
@@ -45,20 +73,18 @@ module.exports = {
       if (!user) {
         res.send('User does not exist!');
       } else {
-        var userid = user.get('id');
         db.Group.findAll({
           include: [{
             model: db.User,
             required: true,
             through: {
               where: {
-                UserId: userid,
+                UserId: user.get('id'),
               }
             }
           }]
         })
         .then(function(groups) {
-          console.log(groups);
           res.status(200).send(JSON.stringify(groups));
         });
       }
