@@ -122,8 +122,8 @@ angular.module('tubenotes', [
 .config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/auth/login.html',
-      controller: 'AuthController',
+      templateUrl: 'app/about/about.html',
+      controller: '',
     })
     .when('/home', {
       templateUrl: 'app/home/home.html',
@@ -159,7 +159,7 @@ angular.module('tubenotes', [
       controller: 'AuthController'
     })
     .otherwise({
-      redirectTo: '/login'
+      redirectTo: '/'
     });
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
