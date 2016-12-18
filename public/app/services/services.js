@@ -30,7 +30,7 @@ angular.module('tubenotes.services', [])
 
   var signout = function () {
     $window.localStorage.removeItem('com.tubenotes');
-    $location.path('/signin');
+    $location.path('/about');
   };
 
   return {
