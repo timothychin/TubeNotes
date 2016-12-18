@@ -139,7 +139,6 @@ angular.module('tubenotes.services', [])
       url: '/groupComments',
       params: {groupId: groupId, videoId: videoId} 
     }).then(function(response) {
-      console.log(response.data);
       return response.data;
     }).catch(function(err) {
       console.log(err);

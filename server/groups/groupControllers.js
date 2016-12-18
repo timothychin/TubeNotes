@@ -168,7 +168,6 @@ module.exports = {
   },
 
   deleteGroupComment: function(req, res) {
-    console.log(req.body.comment);
     db.Comment.findOne({where: {
       text: req.body.comment.text,
     }})

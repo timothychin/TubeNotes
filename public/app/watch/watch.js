@@ -140,8 +140,7 @@ angular.module('tubenotes.watch', [])
         timestamp: startTime, 
         username: AppFactory.username }
     );
-    console.log(AppFactory.currentVideo.comments);
-    // update scope variable to make comments render on page
+     // update scope variable to make comments render on page
     $scope.videoComments = AppFactory.currentVideo.comments;
     // call update to server for the current video
     if ($scope.inGroupMode()) {
@@ -197,7 +196,7 @@ angular.module('tubenotes.watch', [])
        if (canvas.isDrawingMode) {
          setTimeout(function() {
            grabCanvas();
-         }, interval)
+         }, interval);
        } else if (!canvas.isDrawingMode) {
          return;
        }
@@ -232,7 +231,7 @@ angular.module('tubenotes.watch', [])
      saveEl.onclick = function() {
        // Save to database
        console.log(storage);
-     }
+     };
 
     replayEl.onclick = function() {
       var i = 0;
@@ -247,7 +246,7 @@ angular.module('tubenotes.watch', [])
         }
       // $('.canvas').css('z-index', '-10');
       }, interval);
-    }
+    };
 
     if (canvas.freeDrawingBrush) {
       canvas.freeDrawingBrush.color = drawingColorEl.value;
