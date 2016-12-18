@@ -403,56 +403,16 @@ angular.module('tubenotes.watch', [])
 
     saveEl.onclick = function() {
       // Save to database
-      // canvasPlayback.clear();
-      // if (playbackStorage.length === 0) {
-      //   playbackStorage = Array.from(storage);
-      // }
-
-
-
-      // var length = player.getDuration() * 1000 / interval;
-      // for(var i = 0; i < length; i++) {
-      //   // var drawingCan = document.getElementById('c');
-      //   // var drawingCtx = drawingCan.getContext('2d');
-      //   // var playbackCan = document.getElementById('cPlayback');
-      //   // var playbackCtx = playbackCan.getContext('2d');
-      //   if (storage[i]) {
-      //     canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll(); // check if loadis async if this gives problems
-      //   } else {
-      //     canvas.clear();
-      //   }
-      //   if (playbackStorage[i]) {
-      //     canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
-      //   } else {
-      //     canvasPlayback.clear();
-      //   }
-      //   var imgData = canvas.toDataURL();
-      //   fabric.Image.fromURL(imgData, function(img) {
-      //     img.set({width: 799, height: 410, originX: 'left', originY: 'top'});
-      //     canvasPlayback.add(img);
-      //     playbackStorage[i] = JSON.stringify(canvasPlayback.toDatalessJSON());
-      //   });
-
-      //   // playbackCtx.drawImage(drawingCan, 799, 410);
-      //   // // playbackCtx.drawImage(canvasPlayback, 799, 410);
-      // }
-      // console.log(playbackStorage);
-      // storage = [];
-
-      //test
-      // var imgData = canvas.toDataURL();
-      // // console.log('imgdata', imgData);
-      // fabric.Image.fromURL(imgData, function(img) {
-      //     img.set({width: 799, height: 410, originX: 'left', originY: 'top'});
-      //     canvasPlayback.add(img);
-      //     // console.log('pbstorage[i]', playbackStorage[0]);
-      //     // canvasPlayback.clear();
-      //     setTimeout(function() {
-
-      //       playbackStorage[0] = JSON.stringify(canvasPlayback.toDatalessJSON());
-      //       canvasPlayback.loadFromDatalessJSON(`${playbackStorage[0]}`).renderAll();
-      //     }, 500);
-      //   });
+      console.log('storage: ', storage);
+      $.ajax({
+        url: '/uploadAnnotation',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(storage),
+        success: function() {
+          console.log('successfully saved');
+        }
+      });
 
     }
 
@@ -461,14 +421,6 @@ angular.module('tubenotes.watch', [])
       player.seekTo(0, true);
       player.playVideo();
 
-      // var replay = setInterval(function() {
-      //   i++;
-      //   canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
-      //   if (i === storage.length - 1 || $scope.isPaused) {
-      //     clearInterval(replay);
-      //   }
-      // // $('.canvas').css('z-index', '-10');
-      // }, interval);
     }
 
     if (canvas.freeDrawingBrush) {
