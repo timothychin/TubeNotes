@@ -84,37 +84,87 @@ angular.module('tubenotes.watch', [])
   // $scope.activeInterval = true;
   // $scope.pausedTime = null;
   $scope.isPaused = false;
+  $scope.record = false;
+  $scope.playback = false;
 
   window.onPlayerStateChange = function(event) {
     // when video is playing, show the video's time
     // on user's note taking window
 
     if (event.data === YT.PlayerState.PLAYING) {
+      console.log('hit playing loop');
       $scope.isPaused = false;
       canvas.clear();
 
-      // PLAYBACK
-      // Run a setInterval to play overlay video at correct spot
-        console.log('in not replay');
+
+      // ON PLAYBACK MODE
+      if ($scope.playback) {
         var currentIndex = Math.floor(player.getCurrentTime() * 1000 / interval);
         var i = currentIndex;
-        console.log('i: ', i);
 
-        if (playbackStorage[i]) {
-          canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+        if (storage[i]) {
+          canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
+        }
 
-          var replay = setInterval(function() {
-            $('.canvas').css('z-index', '10');
-            i++;
-            console.log('non-replay playback i: ', i);
-            canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+        var playbackInterval = setInterval(function() {
+          console.log('in playbackinterval');
+          if (storage[i]) {
+            canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
+          }
+          i++;
 
-            if (i === playbackStorage.length - 1 || $scope.isPaused) {
-              clearInterval(replay);
+          if (i === storage.length - 1 || $scope.isPaused) {
+            clearInterval(playbackInterval);
+            console.log('cleared playbackinterval');
+          }
+        }, interval);
+      }
+
+
+      // ON RECORD MODE
+      if ($scope.record) {
+        storage = [];
+        var j = Math.floor(player.getCurrentTime() * 1000 / interval); // current index
+        console.log('j: ', j);
+        var recordInterval = setInterval(function() {
+            console.log('inside recordinterval');
+            storage[j] = JSON.stringify(canvas.toDatalessJSON());
+            console.log('storage[j]: ', storage[j]);
+            j++;
+            if ($scope.isPaused) {
+              clearInterval(recordInterval);
+              console.log('clear recordinterval');
+              console.log('storage: ', storage);
             }
           }, interval);
-
       }
+
+
+
+      // // PLAYBACK
+      // // Run a setInterval to play overlay video at correct spot
+      //   var currentIndex = Math.floor(player.getCurrentTime() * 1000 / interval);
+      //   var i = currentIndex;
+      //   console.log('i: ', i);
+
+      //   if (playbackStorage[i]) {
+      //     canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+      //   }
+
+      //   var replay = setInterval(function() {
+      //     $('.canvas').css('z-index', '10');
+      //     i++;
+      //     console.log('non-replay playback i: ', i);
+      //     if (playbackStorage[i]) {
+      //       canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+      //     }
+
+      //     if (i === playbackStorage.length - 1 || $scope.isPaused) {
+      //       clearInterval(replay);
+      //     }
+      //   }, interval);
+
+
 
     /* -----------------------------------------------
        --------------- RECORD ON PLAY ----------------
@@ -152,15 +202,21 @@ angular.module('tubenotes.watch', [])
       //   }, interval);
       //   // }
       // } else {
-        var grabCanvasNew = setInterval(function() {
-            console.log('inside setInterval');
-            storage.push(JSON.stringify(canvas.toDatalessJSON()));
-            if ($scope.activeInterval === false) {
-              console.log('clear setInterval now');
-              clearInterval(grabCanvasNew);
-              $scope.activeInterval = true;
-            }
-          }, interval);
+
+
+          // var j = Math.floor(player.getCurrentTime() * 1000 / interval); // duplicate current index
+
+          // var grabCanvasNew = setInterval(function() {
+          //     console.log('inside setInterval');
+          //     storage[j] = JSON.stringify(canvas.toDatalessJSON());
+          //     j++;
+          //     if ($scope.activeInterval === false) {
+          //       console.log('clear setInterval now');
+          //       clearInterval(grabCanvasNew);
+          //       $scope.activeInterval = true;
+          //     }
+          //   }, interval);
+
         // }
       } // end if PLAYING
 
@@ -177,13 +233,16 @@ angular.module('tubenotes.watch', [])
     //   }, interval);
     // }
     if (event.data === YT.PlayerState.PAUSED) {
-      console.log('paused');
-      console.log('paused at time: ', player.getCurrentTime());
+      $scope.isPaused = true;
       console.log('storage', storage);
-      $scope.pauseTime = player.getCurrentTime(); // units are in seconds
-      $scope.activeInterval = false;
-      // if replay interval happens to be running, stop it
-      clearInterval(replay);
+      // console.log('paused');
+      // console.log('paused at time: ', player.getCurrentTime());
+      // console.log('pbStorage', playbackStorage);
+      // $scope.pauseTime = player.getCurrentTime(); // units are in seconds
+      // $scope.activeInterval = false;
+      // // if replay interval happens to be running, stop it
+      // clearInterval(replay);
+
     }
 
     if (player) {
@@ -280,11 +339,8 @@ angular.module('tubenotes.watch', [])
    var canvas = this.__canvas = new fabric.Canvas('c', {
      isDrawingMode: false
    });
-   var canvasPlayback = new fabric.Canvas('cPlayback', {
-     isDrawingMode: false
-   });
+
    var storage = [];
-   var playbackStorage = [];
    var interval = 500;
   // Canvas overlay function, invoked at the end to render
   (function() {
@@ -298,39 +354,43 @@ angular.module('tubenotes.watch', [])
          drawingLineWidthEl = _('drawing-line-width'),
          clearEl = _('clear-canvas'),
          saveEl = _('save-canvas'),
-         replayEl = _('replay-canvas');
+         replayEl = _('replay-canvas'),
+         recordEl = _('record'),
+         playbackEl = _('playback');
 
      clearEl.onclick = function() { canvas.clear() };
 
-     // var grabCanvas = function() {
+    recordEl.onclick = function() {
+      $scope.record = !$scope.record;
+      console.log('$scope.record: ', $scope.record);
+      if (!$scope.record) {
+        recordEl.innerHTML = 'Record';
+        $('#playback').attr('disabled', false);
+        $('#replay-canvas').attr('disabled', false);
+        player.pauseVideo();
+      } else {
+        recordEl.innerHTML = 'Stop Recording';
+        $('#playback').attr('disabled', true);
+        $('#replay-canvas').attr('disabled', true);
+        player.pauseVideo();
+        player.playVideo();
+      }
+    };
 
-     //   storage.push(JSON.stringify(canvas.toDatalessJSON()));
-     //   if (canvas.isDrawingMode) {
-     //     setTimeout(function() {
-     //       grabCanvas();
-     //     }, interval)
-     //   } else if (!canvas.isDrawingMode) {
-     //     return;
-     //   }
-     // }
-
-
-     drawingModeEl.onclick = function() {
-       canvas.isDrawingMode = !canvas.isDrawingMode;
-       if (canvas.isDrawingMode) {
-         drawingModeEl.innerHTML = 'Cancel drawing mode';
-         drawingOptionsEl.style.display = '';
-         $('.canvas').css('z-index', '10');
-         console.log('hit');
-         // grabCanvas();
-       }
-       else {
-         drawingModeEl.innerHTML = 'Enter drawing mode';
-         drawingOptionsEl.style.display = 'none';
-         $('.canvas').css('z-index', '-10');
-       }
-     };
-
+    playbackEl.onclick = function() {
+      $scope.playback = !$scope.playback;
+      console.log('$scope.playback: ', $scope.playback);
+      if (!$scope.playback) {
+        playbackEl.innerHTML = 'Playback Mode';
+        $('#record').attr('disabled', false);
+        player.pauseVideo();
+      } else {
+        playbackEl.innerHTML = 'Stop Playback Mode';
+        $('#record').attr('disabled', true);
+        player.pauseVideo();
+        player.playVideo();
+      }
+    }
 
      drawingColorEl.onchange = function() {
        canvas.freeDrawingBrush.color = this.value;
@@ -343,24 +403,57 @@ angular.module('tubenotes.watch', [])
 
     saveEl.onclick = function() {
       // Save to database
-      canvasPlayback.clear();
-      var length = player.getDuration() * 1000 / interval;
-      for(var i = 0; i < length; i++) {
-        var drawingCan = document.getElementById('c');
-        var playbackCan = document.getElementById('cPlayback');
-        var playbackCtx = playbackCan.getContext('2d');
-        if (storage[i]) {
-          canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll(); // check if loadis async if this gives problems
-        }
-        if (playbackStorage[i]) {
-          canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
-        }
-        playbackCtx.drawImage(drawingCan, 799, 410);
-        playbackStorage[i] = JSON.stringify(canvasPlayback.toDatalessJSON());
-      }
-      playbackStorage = Array.from(storage);
-      console.log(playbackStorage);
-      storage = [];
+      // canvasPlayback.clear();
+      // if (playbackStorage.length === 0) {
+      //   playbackStorage = Array.from(storage);
+      // }
+
+
+
+      // var length = player.getDuration() * 1000 / interval;
+      // for(var i = 0; i < length; i++) {
+      //   // var drawingCan = document.getElementById('c');
+      //   // var drawingCtx = drawingCan.getContext('2d');
+      //   // var playbackCan = document.getElementById('cPlayback');
+      //   // var playbackCtx = playbackCan.getContext('2d');
+      //   if (storage[i]) {
+      //     canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll(); // check if loadis async if this gives problems
+      //   } else {
+      //     canvas.clear();
+      //   }
+      //   if (playbackStorage[i]) {
+      //     canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+      //   } else {
+      //     canvasPlayback.clear();
+      //   }
+      //   var imgData = canvas.toDataURL();
+      //   fabric.Image.fromURL(imgData, function(img) {
+      //     img.set({width: 799, height: 410, originX: 'left', originY: 'top'});
+      //     canvasPlayback.add(img);
+      //     playbackStorage[i] = JSON.stringify(canvasPlayback.toDatalessJSON());
+      //   });
+
+      //   // playbackCtx.drawImage(drawingCan, 799, 410);
+      //   // // playbackCtx.drawImage(canvasPlayback, 799, 410);
+      // }
+      // console.log(playbackStorage);
+      // storage = [];
+
+      //test
+      // var imgData = canvas.toDataURL();
+      // // console.log('imgdata', imgData);
+      // fabric.Image.fromURL(imgData, function(img) {
+      //     img.set({width: 799, height: 410, originX: 'left', originY: 'top'});
+      //     canvasPlayback.add(img);
+      //     // console.log('pbstorage[i]', playbackStorage[0]);
+      //     // canvasPlayback.clear();
+      //     setTimeout(function() {
+
+      //       playbackStorage[0] = JSON.stringify(canvasPlayback.toDatalessJSON());
+      //       canvasPlayback.loadFromDatalessJSON(`${playbackStorage[0]}`).renderAll();
+      //     }, 500);
+      //   });
+
     }
 
     replayEl.onclick = function() {
