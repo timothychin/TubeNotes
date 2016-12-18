@@ -81,47 +81,77 @@ angular.module('tubenotes.watch', [])
     $scope.currentVideo = AppFactory.currentVideo;
   };
 
-  $scope.activeInterval = true;
-  $scope.pausedTime = null;
+  // $scope.activeInterval = true;
+  // $scope.pausedTime = null;
+  $scope.isPaused = false;
 
   window.onPlayerStateChange = function(event) {
     // when video is playing, show the video's time
     // on user's note taking window
 
     if (event.data === YT.PlayerState.PLAYING) {
-      console.log('hit play!!!!');
-      console.log('activeInterval: ', $scope.activeInterval);
+      $scope.isPaused = false;
+      canvas.clear();
+
+      // PLAYBACK
+      // Run a setInterval to play overlay video at correct spot
+        console.log('in not replay');
+        var currentIndex = Math.floor(player.getCurrentTime() * 1000 / interval);
+        var i = currentIndex;
+        console.log('i: ', i);
+
+        if (playbackStorage[i]) {
+          canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+
+          var replay = setInterval(function() {
+            $('.canvas').css('z-index', '10');
+            i++;
+            console.log('non-replay playback i: ', i);
+            canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+
+            if (i === playbackStorage.length - 1 || $scope.isPaused) {
+              clearInterval(replay);
+            }
+          }, interval);
+
+      }
+
+    /* -----------------------------------------------
+       --------------- RECORD ON PLAY ----------------
+       ----------------------------------------------- */
+
       // if storage is empty, continue as usual
       // if storage is not empty, create a new storage and splice on pause/end
-      if (storage.length > 0) {
-        console.log(player.getCurrentTime());
-        var startTime = player.getCurrentTime(); // units are in seconds
-        var editStorage = [];
-        var grabCanvasEdited = setInterval(function() {
-          console.log('inside setInterval edited');
-          editStorage.push(JSON.stringify(canvas.toDatalessJSON()));
+      // if (storage.length > 0) {
+      //   console.log(player.getCurrentTime());
+      //   var startTime = player.getCurrentTime(); // units are in seconds
+      //   var editStorage = [];
+      //   var grabCanvasEdited = setInterval(function() {
+      //     console.log('inside setInterval edited');
+      //     editStorage.push(JSON.stringify(canvas.toDatalessJSON()));
 
-          // exit out of set Interval
-          if ($scope.activeInterval === false) {
-            console.log('clear setInterval now');
-            clearInterval(grabCanvasEdited);
-            console.log('check paused time persists inside setInterval: ', $scope.pauseTime);
-            $scope.activeInterval = true;
-            // splice into original array
-            // if my interval was 500ms, that's 500/1000 ms or 1/2. if my entire video is 30s, i'd have 60 elements in the array, or 30s / 1/2.
-            // to convert the second into the index position, it's (#ofSeconds * 1000 ms / s ) / interval
-            var editStartIndex = Math.floor(startTime * 1000 / interval);
-            var editPauseIndex = Math.floor($scope.pauseTime * 1000 / interval);
-            console.log('start edited Index: ', editStartIndex);
-            console.log('pause edited Index: ', editPauseIndex);
-            console.log('original storage: ', storage);
-            console.log('edited storage', editStorage);
-            storage = storage.slice(0, editStartIndex).concat(editStorage, storage.slice(editPauseIndex));
-            // storage.splice(editStartIndex, editPauseIndex - editStartIndex + 1, editStorage)
-          }
-        }, interval);
-        // }
-      } else {
+      //     // exit out of set Interval
+      //     if ($scope.activeInterval === false) {
+      //       console.log('clear setInterval now');
+      //       clearInterval(grabCanvasEdited);
+      //       console.log('check paused time persists inside setInterval: ', $scope.pauseTime);
+      //       $scope.activeInterval = true;
+      //       // splice into original array
+      //       // if my interval was 500ms, that's 500/1000 ms or 1/2. if my entire video is 30s, i'd have 60 elements in the array, or 30s / 1/2.
+      //       // to convert the second into the index position, it's (#ofSeconds * 1000 ms / s ) / interval
+      //       var editStartIndex = Math.floor(startTime * 1000 / interval);
+      //       var editPauseIndex = Math.floor($scope.pauseTime * 1000 / interval);
+      //       console.log('start edited Index: ', editStartIndex);
+      //       console.log('pause edited Index: ', editPauseIndex);
+      //       console.log('original storage: ', storage);
+      //       console.log('edited storage', editStorage);
+      //       storage = storage.slice(0, editStartIndex).concat(editStorage, storage.slice(editPauseIndex));
+      //       console.log('new storage', storage);
+      //       // storage.splice(editStartIndex, editPauseIndex - editStartIndex + 1, editStorage)
+      //     }
+      //   }, interval);
+      //   // }
+      // } else {
         var grabCanvasNew = setInterval(function() {
             console.log('inside setInterval');
             storage.push(JSON.stringify(canvas.toDatalessJSON()));
@@ -131,7 +161,7 @@ angular.module('tubenotes.watch', [])
               $scope.activeInterval = true;
             }
           }, interval);
-        }
+        // }
       } // end if PLAYING
 
       // grab player.getcurrenttime() and convert to seconds, then convert to index
@@ -149,8 +179,11 @@ angular.module('tubenotes.watch', [])
     if (event.data === YT.PlayerState.PAUSED) {
       console.log('paused');
       console.log('paused at time: ', player.getCurrentTime());
+      console.log('storage', storage);
       $scope.pauseTime = player.getCurrentTime(); // units are in seconds
       $scope.activeInterval = false;
+      // if replay interval happens to be running, stop it
+      clearInterval(replay);
     }
 
     if (player) {
@@ -247,8 +280,12 @@ angular.module('tubenotes.watch', [])
    var canvas = this.__canvas = new fabric.Canvas('c', {
      isDrawingMode: false
    });
+   var canvasPlayback = new fabric.Canvas('cPlayback', {
+     isDrawingMode: false
+   });
    var storage = [];
-   var interval = 1000;
+   var playbackStorage = [];
+   var interval = 500;
   // Canvas overlay function, invoked at the end to render
   (function() {
      var _ = function(id) {return document.getElementById(id)};
@@ -304,26 +341,42 @@ angular.module('tubenotes.watch', [])
        this.previousSibling.innerHTML = this.value;
      };
 
-     saveEl.onclick = function() {
-       // Save to database
-       console.log(storage);
-     };
+    saveEl.onclick = function() {
+      // Save to database
+      canvasPlayback.clear();
+      var length = player.getDuration() * 1000 / interval;
+      for(var i = 0; i < length; i++) {
+        var drawingCan = document.getElementById('c');
+        var playbackCan = document.getElementById('cPlayback');
+        var playbackCtx = playbackCan.getContext('2d');
+        if (storage[i]) {
+          canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll(); // check if loadis async if this gives problems
+        }
+        if (playbackStorage[i]) {
+          canvasPlayback.loadFromDatalessJSON(`${playbackStorage[i]}`).renderAll();
+        }
+        playbackCtx.drawImage(drawingCan, 799, 410);
+        playbackStorage[i] = JSON.stringify(canvasPlayback.toDatalessJSON());
+      }
+      playbackStorage = Array.from(storage);
+      console.log(playbackStorage);
+      storage = [];
+    }
 
     replayEl.onclick = function() {
-      var i = 0;
+      canvas.clear();
+      player.seekTo(0, true);
+      player.playVideo();
 
-      var replay = setInterval(function() {
-        console.log('test');
-        $('.canvas').css('z-index', '10');
-        i++;
-        canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
-
-        if (i === storage.length - 1) {
-          clearInterval(replay);
-        }
-      // $('.canvas').css('z-index', '-10');
-      }, interval);
-    };
+      // var replay = setInterval(function() {
+      //   i++;
+      //   canvas.loadFromDatalessJSON(`${storage[i]}`).renderAll();
+      //   if (i === storage.length - 1 || $scope.isPaused) {
+      //     clearInterval(replay);
+      //   }
+      // // $('.canvas').css('z-index', '-10');
+      // }, interval);
+    }
 
     if (canvas.freeDrawingBrush) {
       canvas.freeDrawingBrush.color = drawingColorEl.value;
