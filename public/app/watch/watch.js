@@ -27,7 +27,7 @@ angular.module('tubenotes.watch', [])
   // nav bar
   var navOpen = false;
   $scope.openNav = function() {
-    document.getElementById('mySidenav').style.width = '250px';
+    document.getElementById('mySidenav').style.width = '350px';
     // uncomment below line 'Bookmark' will be pushed to the left
     // document.getElementById('main').style.marginRight = '250px';
     // uncomment below line the page background will change
@@ -50,6 +50,19 @@ angular.module('tubenotes.watch', [])
       navOpen = false;
     }
   };
+
+  // delete a note on the page and call deleteNote in app.js to send delete request to server
+  $scope.deleteNote = function(comment) {
+    // delete the comment from the page, comment is the comment object
+    AppFactory.currentVideo.comments.forEach(function(savedComment, index) {
+      if (comment.timestamp === savedComment.timestamp) {
+        AppFactory.currentVideo.comments.splice(index, 1);
+      }
+    });
+    console.log('deleted comment, ', comment);
+    AppFactory.deleteNote(comment);
+  };
+
 
   window.onYouTubeIframeAPIReady = function() {
     // append youtube iframe to html element with id of 'player'

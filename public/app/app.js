@@ -25,11 +25,26 @@ angular.module('tubenotes', [
 
     $http.post('/comment-video', note);
   };
+
+  // Send a delete request to server to delete a note 
+  var deleteNote = function(comment) {
+    $http({
+      method: 'DELETE',
+      url: '/deletecomment',
+      data: {
+        comment: comment
+      },
+      headers: {
+        'Content-type': 'application/json;charset=utf-8'
+      }
+    })
+  };
   
   // This will be accessed in all of our controllers as AppFactory
   var globalObj = {
     currentVideo: {},
     addNote: addNote,
+    deleteNote: deleteNote,
     username: '',
     searchResults: []
   };

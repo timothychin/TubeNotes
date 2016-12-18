@@ -58,7 +58,11 @@ app.get('/videos', function (req, res) {
 app.post('/comment-video', function (req, res) {
   console.log('post');
   // Find a user in the database based on the passed in username
-  db.User.findOrCreate({where: {username: req.body.username}})
+  db.User.findOrCreate({
+    where: {
+      username: req.body.username
+    }
+  })
     .then(function(user) {
       // Create a new video to post to the database linked to that user
       db.Video.findOrCreate({where: {
@@ -79,6 +83,15 @@ app.post('/comment-video', function (req, res) {
       });
     });
   res.status(201).send('sent');
+});
+
+// send delete request to DB
+app.delete('/deletecomment', function(req, res) {
+  db.Comment.destroy({
+    where: {
+      id: req.body.comment.id
+    }
+  });
 });
 
 // Look into the userControllers folder for the signup and login method

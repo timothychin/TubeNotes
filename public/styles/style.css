@@ -97,9 +97,13 @@ body {
 
 #main {
   transition: margin-left .5s;
-  /*padding: 16px;*/
-  float: right;
-  padding-right: 100px;
+  /*padding-right: 200px;*/
+  /*margin: 200px*/
+  /*float: right;*/
+  /*margin-left: 800px; */
+  /*padding-right: 100px;*/
+  margin-top: 50px;
+  left: 70%;
 }
 
 @media screen and (max-height: 450px) {
