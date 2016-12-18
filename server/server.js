@@ -4,6 +4,14 @@ var app = express();
 var jwt = require('jwt-simple');
 var userControllers = require('./users/userControllers.js');
 var groupControllers = require('./groups/groupControllers.js');
+// var cloudinary = require('cloudinary');
+var fs = require('fs');
+
+// cloudinary.config({
+//   cloud_name: 'dhdysf6qc',
+//   api_key: '299727653385491',
+//   api_secret: 'vshmxkEjzRiylUjrXi20qk67hKA'
+// });
 
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -39,7 +47,7 @@ app.get('/videos', function (req, res) {
             title: videos[i].title,
             comments: comments,
             image: videos[i].image,
-            createdAt: videos[i].createdAt, 
+            createdAt: videos[i].createdAt,
             lastCommentDate: comments[comments.length - 1].createdAt
           };
           results.push(videoObject);
@@ -78,12 +86,42 @@ app.post('/comment-video', function (req, res) {
           text: req.body.commentText,
           timestamp: req.body.timestamp,
           UserId: user[0].get('id'),
-          VideoId: video[0].get('id') 
+          VideoId: video[0].get('id')
         });
       });
     });
   res.status(201).send('sent');
 });
+
+// uploads annotations
+app.post('/uploadAnnotation', function(req, res) {
+  console.log('hits server uploadAnnotation post');
+  console.log('req.body: ', req.body);
+  fs.open('test.js', 'w', function(err, fd) {
+    if (err) {
+      throw err;
+    } else {
+      fs.writeFile(path.join(__dirname, '/test.js'), JSON.stringify(req.body), function(err, data) {
+        if (err) {
+          console.log('error');
+          throw err;
+        }
+        console.log('pathname: ', path.join(__dirname, '/test.js'));
+        // cloudinary.v2.uploader.upload(path.join(__dirname, '/test.js'),
+        //   { resource_type: "raw" },
+        //   function(error, result) {
+        //     if (error) {
+        //       throw error;
+        //     }
+        //     console.log('result: ', result);
+        //   });
+      });
+    }
+  })
+
+
+    res.send();
+  });
 
 // send delete request to DB
 app.delete('/deletecomment', function(req, res) {

@@ -48,8 +48,13 @@
         </div>
         <ul>
           <li style="margin-top:10px;">
-            <button id="drawing-mode" class="btn btn-info">Enter drawing mode</button>
-            <div style="display: none;" id="drawing-mode-options">
+            <button id="record" class="btn">Record</button>
+            <button id="playback" class="btn">Playback Mode</button>
+            <button id="save-canvas" class="btn">Save</button>
+            <button id="clear-canvas" class="btn">Clear</button>
+            <button id="replay-canvas" class="btn">Replay</button>
+            <!-- <button id="drawing-mode" class="btn btn-info">Enter drawing mode</button> -->
+            <div id="drawing-mode-options">
               <label for="drawing-line-width">Line width:</label>
               <input type="range" value="5" min="0" max="100" id="drawing-line-width" style="width: 20%"><br>
               <label for="drawing-color">Line color:</label>
