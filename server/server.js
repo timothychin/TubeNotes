@@ -4,14 +4,14 @@ var app = express();
 var jwt = require('jwt-simple');
 var userControllers = require('./users/userControllers.js');
 var groupControllers = require('./groups/groupControllers.js');
-var cloudinary = require('cloudinary');
+// var cloudinary = require('cloudinary');
 var fs = require('fs');
 
-cloudinary.config({
-  cloud_name: 'dhdysf6qc',
-  api_key: '299727653385491',
-  api_secret: 'vshmxkEjzRiylUjrXi20qk67hKA'
-});
+// cloudinary.config({
+//   cloud_name: 'dhdysf6qc',
+//   api_key: '299727653385491',
+//   api_secret: 'vshmxkEjzRiylUjrXi20qk67hKA'
+// });
 
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -107,14 +107,14 @@ app.post('/uploadAnnotation', function(req, res) {
           throw err;
         }
         console.log('pathname: ', path.join(__dirname, '/test.js'));
-        cloudinary.v2.uploader.upload(path.join(__dirname, '/test.js'),
-          { resource_type: "raw" },
-          function(error, result) {
-            if (error) {
-              throw error;
-            }
-            console.log('result: ', result);
-          });
+        // cloudinary.v2.uploader.upload(path.join(__dirname, '/test.js'),
+        //   { resource_type: "raw" },
+        //   function(error, result) {
+        //     if (error) {
+        //       throw error;
+        //     }
+        //     console.log('result: ', result);
+        //   });
       });
     }
   })
