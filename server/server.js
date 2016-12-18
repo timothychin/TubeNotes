@@ -1,22 +1,73 @@
-var express = require('express');
-var app = express();
-var jwt = require('jwt-simple');
-var userControllers = require('./users/userControllers.js');
+const express = require('express');
+const jwt = require('jwt-simple');
+const userControllers = require('./users/userControllers.js');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const pass = require('./passport.js');
 
-var path = require('path');
-var bodyParser = require('body-parser');
-var stormpath = require('express-stormpath');
+const app = express();
+
+// Middleware
+const path = require('path');
+const bodyParser = require('body-parser');
+const stormpath = require('express-stormpath');
 
 // Import the three collections from schemas
-var db = require('./schemas');
-var Sequelize = require('sequelize');
+const db = require('./schemas');
+const Sequelize = require('sequelize');
 
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(stormpath.init(app, {
-  website: true
+// app.use(stormpath.init(app, {
+//   website: true
+// }));
+
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login' }));
+
+// Google Auth
+// app.get('/', function(req, res) {
+//   res.render('index.ejs'); 
+// });
+
+// app.get('/profile', isLoggedIn, function(req, res) {
+//   res.render('profile.ejs', {
+//       user : req.user 
+//   });
+// });
+
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/auth/google', passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/plus.login'] }));
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds' });
+
+// the callback after google has authenticated the user
+app.get('/auth/google/callback',
+  passport.authenticate('google', {
+          successRedirect : '/profile',
+          failureRedirect : '/'
 }));
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}
+// End of Google Auth
+
 
 // This is the get request to get all the videos of a certain user, along with their comments
 app.get('/videos', function (req, res) {
@@ -79,12 +130,12 @@ app.post('/users/login', userControllers.login);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.on('stormpath.ready', function() {
+// app.on('stormpath.ready', function() {
 
-  app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-  });
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
   
-})
+// })
 
 

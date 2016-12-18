@@ -2,6 +2,7 @@ var db = require('../schemas');
 var jwt = require('jwt-simple');
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
+var http = require('http');
 var cipher = Promise.promisify(bcrypt.hash);
 
 
@@ -50,4 +51,11 @@ module.exports = {
       res.send(500);
     })
   }
+  // This function allows for login with Google accounts
+  // loginGoogle: function(req, res, next) {
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+
+    
+  // }
 };
