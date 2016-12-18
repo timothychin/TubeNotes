@@ -32,7 +32,7 @@ angular.module('tubenotes.groupVids', [])
   };
   initializeGroupVids();
 
-  $scope.sortPropertyName = 'lastCommentDate';
+  $scope.sortPropertyName = 'createdAt';
   $scope.reverse = true;
   $scope.sortBy = function(sortPropertyName) {
     $scope.reverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.reverse : false;

@@ -15,11 +15,11 @@
           <th></th>
           <th>
             <button ng-click="sortBy('title')">Name</button>
-            <span class="sortorder" ng-show="sortPropertyName === 'title'" ng-class="{reverse: reverse}"></span>
+              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'title'"></span>
           </th>
           <th>
-            <button ng-click="sortBy('lastCommentDate')">Last Modified</button>
-            <span class="sortorder" ng-show="sortPropertyName === 'lastCommentDate'" ng-class="{reverse: reverse}"></span>
+            <button ng-click="sortBy('createdAt')">Date Posted</button>
+            <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'createdAt'"></span>
           </th>
         </tr>
       </thead>
@@ -28,7 +28,7 @@
         <tr ng-click="setCurrentVideo(null, video, true)" ng-repeat='video in groupVids | orderBy:sortPropertyName:reverse' >
           <td><img ng-src="{{video.image}}"></td>
           <td>{{video.title}}</td>
-          <td>{{video.lastCommentDate | amCalendar:referenceTime:formats}}</td>
+          <td>{{video.createdAt | amCalendar:referenceTime:formats}}</td>
           <!-- <td>{{libVideo.comments.length}}</td> -->
           <td>
         </tr>
