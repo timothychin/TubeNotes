@@ -51,16 +51,17 @@ angular.module('tubenotes.watch', [])
     }
   };
 
-  // delete a note
-  $scope.delete = function(comment) {
-    // delete the comment from the page
+  // delete a note on the page and call deleteNote in app.js to send delete request to server
+  $scope.deleteNote = function(comment) {
+    // delete the comment from the page, comment is the comment object
     AppFactory.currentVideo.comments.forEach(function(savedComment, index) {
       if (comment.timestamp === savedComment.timestamp) {
         AppFactory.currentVideo.comments.splice(index, 1);
       }
-    })
-    
-  }
+    });
+    console.log('deleted comment, ', comment);
+    AppFactory.deleteNote(comment);
+  };
 
 
   window.onYouTubeIframeAPIReady = function() {
