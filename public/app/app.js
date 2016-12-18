@@ -37,7 +37,7 @@ angular.module('tubenotes', [
       headers: {
         'Content-type': 'application/json;charset=utf-8'
       }
-    })
+    });
   };
   
   // This will be accessed in all of our controllers as AppFactory

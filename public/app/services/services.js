@@ -139,7 +139,6 @@ angular.module('tubenotes.services', [])
       url: '/groupComments',
       params: {groupId: groupId, videoId: videoId} 
     }).then(function(response) {
-      console.log(response.data);
       return response.data;
     }).catch(function(err) {
       console.log(err);
@@ -170,6 +169,21 @@ angular.module('tubenotes.services', [])
     });
   };
 
+  var deleteGroupComment = function(comment) {
+    return $http({
+      method: 'DELETE',
+      url: '/groupComments',
+      data: JSON.stringify({comment: comment}),
+      headers: {
+        'Content-type': 'application/json;charset=utf-8'
+      }
+    }).then(function(response) {
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
   return {
     currentGroup: {}, //current group object
     groups: [], //list of the current user's groups
@@ -185,6 +199,7 @@ angular.module('tubenotes.services', [])
 
     postGroupComment: postGroupComment,
     getGroupComments: getGroupComments,
+    deleteGroupComment: deleteGroupComment,
 
     searchGroups: searchGroups,
     transferGroupComments: transferGroupComments
