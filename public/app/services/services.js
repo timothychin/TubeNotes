@@ -152,7 +152,6 @@ angular.module('tubenotes.services', [])
       url: '/searchGroups',
       params: {groupname: groupname} 
     }).then(function(response) {
-      console.log(response.data);
       return response.data;
     }).catch(function(err) {
       console.log(err);
@@ -165,7 +164,6 @@ angular.module('tubenotes.services', [])
       url: '/transferGroupComments',
       data: JSON.stringify({comments: commentObj, groupId: groupId})
     }).then(function(response) {
-      console.log(response.data);
       return response.data;
     }).catch(function(err) {
       console.log(err);

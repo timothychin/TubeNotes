@@ -11,7 +11,7 @@ angular.module('tubenotes.groups', [])
   $scope.searchGroups = function(groupname) {
     GroupHandler.searchGroups(groupname)
     .then(function(data) {
-      if (typeof data === 'object') {
+      if (data.length > 0) {
         $scope.groups = data; 
       } else {
         $scope.groups = null;

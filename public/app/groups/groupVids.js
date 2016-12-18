@@ -9,6 +9,7 @@ angular.module('tubenotes.groupVids', [])
 
   $scope.joinGroup = function() {
     GroupHandler.joinGroup(GroupHandler.currentGroup.id);
+    GroupHandler.groups.push($scope.group);
   };
 
   $scope.isGroupMember = function() {

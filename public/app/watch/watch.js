@@ -133,7 +133,8 @@ angular.module('tubenotes.watch', [])
     // add note to current video's comments array
     AppFactory.currentVideo.comments.push(
       { text: note,
-        timestamp: startTime }
+        timestamp: startTime, 
+        username: AppFactory.username }
     );
     // update scope variable to make comments render on page
     $scope.videoComments = AppFactory.currentVideo.comments;

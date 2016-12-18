@@ -7,7 +7,7 @@
     <span class='glyphicon glyphicon-ok' ng-show="isGroupMember()"></span>
   </div>
 
-  <div>
+  <div ng-show="isGroupMember()">
     <h2>{{group.groupname}}'s Video Library</h2>
     <table class="table table-hover">
       <thead>
