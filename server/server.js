@@ -108,7 +108,7 @@ app.post('/groupComments', groupControllers.postGroupComments);
 app.get('/groupComments', groupControllers.getGroupComments);
 app.get('/searchGroups', groupControllers.searchGroups);
 app.post('/transferGroupComments', groupControllers.transferGroupComments);
-app.delete('/deleteGroupComments', groupControllers.deleteGroupComment);
+app.delete('/groupComments', groupControllers.deleteGroupComment);
 
 app.use(express.static(path.join(__dirname, '../public')));
 

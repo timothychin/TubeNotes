@@ -140,6 +140,7 @@ angular.module('tubenotes.watch', [])
         timestamp: startTime, 
         username: AppFactory.username }
     );
+    console.log(AppFactory.currentVideo.comments);
     // update scope variable to make comments render on page
     $scope.videoComments = AppFactory.currentVideo.comments;
     // call update to server for the current video

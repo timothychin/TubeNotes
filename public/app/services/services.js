@@ -173,7 +173,7 @@ angular.module('tubenotes.services', [])
   var deleteGroupComment = function(comment) {
     return $http({
       method: 'DELETE',
-      url: '/deleteGroupComments',
+      url: '/groupComments',
       data: JSON.stringify({comment: comment}),
       headers: {
         'Content-type': 'application/json;charset=utf-8'
