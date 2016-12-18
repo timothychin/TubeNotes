@@ -106,9 +106,10 @@ app.post('/groupVids', groupControllers.postGroupVid);
 app.get('/groupVids', groupControllers.getGroupVids);
 app.post('/groupComments', groupControllers.postGroupComments);
 app.get('/groupComments', groupControllers.getGroupComments);
-
 app.get('/searchGroups', groupControllers.searchGroups);
 app.post('/transferGroupComments', groupControllers.transferGroupComments);
+app.delete('/deleteGroupComments', groupControllers.deleteGroupComment);
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(3000, function () {

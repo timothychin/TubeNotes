@@ -60,7 +60,11 @@ angular.module('tubenotes.watch', [])
       }
     });
     console.log('deleted comment, ', comment);
-    AppFactory.deleteNote(comment);
+    if ($scope.inGroupMode()) {  //if in group mode, grab group comments
+      (GroupHandler.deleteGroupComment(comment));
+    } else {
+      AppFactory.deleteNote(comment);
+    }
   };
 
 

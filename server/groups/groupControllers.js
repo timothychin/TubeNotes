@@ -165,6 +165,17 @@ module.exports = {
           res.status(200).send(JSON.stringify(groups));
         }
       });
+  },
+
+  deleteGroupComment: function(req, res) {
+    db.GroupComment.destroy({
+      where: {
+        CommentId: req.body.comment.id
+      }
+    })
+    .then(function(data) {
+      res.status(200).send(JSON.stringify(data));
+    });
   }
 };
 
