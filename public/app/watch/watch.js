@@ -29,7 +29,7 @@ angular.module('tubenotes.watch', [])
   $scope.openNav = function() {
     document.getElementById('mySidenav').style.width = '350px';
     // uncomment below line 'Bookmark' will be pushed to the left
-    document.getElementById('main').style.left = '72%';
+    document.getElementById('main').style.right = '230px';
 
     // uncomment below line the page background will change
     // document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
@@ -37,8 +37,7 @@ angular.module('tubenotes.watch', [])
 
   $scope.closeNav = function() {
     document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('main').style.left= '83%';
-    document.body.style.backgroundColor = 'white';
+    document.getElementById('main').style.right = '10px';
   };
 
   // toggle the side bar
