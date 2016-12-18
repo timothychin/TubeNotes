@@ -5,6 +5,7 @@
   <!-- <h3 style="color: white">Notes:</h3> -->
     <div class="notes list-group" ng-repeat="comment in videoComments">
       <div class="note list-group-item" ng-click="clickNote(comment)">
+        <div ng-show="inGroupMode()">User: {{comment.User.username || comment.username}} </div>
         <div>Time: {{formatTime(comment.timestamp)}}</div>
         <div>Note: {{comment.text}}</div>
       </div>

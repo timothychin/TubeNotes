@@ -10,11 +10,11 @@
             <th></th>
             <th>
               <button ng-click="sortBy('title')">Name</button>
-              <span class="sortorder" ng-show="sortPropertyName === 'title'" ng-class="{reverse: reverse}"></span>
+              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'title'"></span>
             </th>
             <th>
               <button ng-click="sortBy('lastCommentDate')">Last Modified</button>
-              <span class="sortorder" ng-show="sortPropertyName === 'lastCommentDate'" ng-class="{reverse: reverse}"></span>
+              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'lastCommentDate'"></span>
             </th>
           </tr>
         </thead>
@@ -33,9 +33,9 @@
 
     <div>
       <h2>Your Groups:</h2>
-      <ul ng-repeat="group in userGroups">
+      <ul ng-repeat="group in userGroups" ng-click="setCurrentGroup(group)">
         <li>
-          {{group.groupname}}
+          <h4 class="userGroup">{{group.groupname}}</h4>
         </li>
       </ul>
     </div>

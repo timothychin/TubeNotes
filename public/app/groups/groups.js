@@ -8,11 +8,24 @@ angular.module('tubenotes.groups', [])
   $scope.groupnameSearch = '';
   $scope.groups = [];
 
-  $scope.searchGroups = function() {
+  $scope.searchGroups = function(groupname) {
+    GroupHandler.searchGroups(groupname)
+    .then(function(data) {
+      if (data.length > 0) {
+        $scope.groups = data; 
+      } else {
+        $scope.groups = null;
+      }
+    });
   };
 
   $scope.createGroup = function(groupname) {
-    GroupHandler.postGroup($scope.groupnameCreate);
+    GroupHandler.postGroup($scope.groupnameCreate)
+    .then(function(newGroup) {
+      $scope.setCurrentGroup(newGroup[0]);
+      GroupHandler.groups.push(GroupHandler.currentGroup);
+      GroupHandler.joinGroup(GroupHandler.currentGroup.id);
+    });
   };
 
   $scope.setCurrentGroup = function(group) {
@@ -20,13 +33,11 @@ angular.module('tubenotes.groups', [])
     $location.path('/groupVids');
   };
 
-  var initializeGroups = function() {
+  $scope.initializeGroups = function() {
     GroupHandler.getGroups()
     .then(function(data) {
-      GroupHandler.groups = data;
-      $scope.groups = GroupHandler.groups;
+      $scope.groups = data;
     });
   };
 
-  initializeGroups();
 });

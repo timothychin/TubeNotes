@@ -54,6 +54,7 @@ angular.module('tubenotes', [
 
 .controller('appController', function($scope, $http, $window, $location, AppFactory, Auth, GroupHandler) {
   $scope.currentVideo = 'https://www.youtube.com/embed/4ZAEBxGipoA';
+  //controls ng-show/hide for protected pages
   $scope.isLoggedIn = function() {
     return AppFactory.username !== '';
   };
@@ -86,12 +87,13 @@ angular.module('tubenotes', [
         videoTableId: libVideo.id
       };
     }
-
+    //if we are in group mode, pass along the groupname as search query
     if (groupBool) {
       $location.path('/watch').search({group: GroupHandler.currentGroup.groupname});
     }
     // Redirect the page to the watch route
     $location.path('/watch');
+
     // make asynchronous call to onYouTubeIframeAPIReady
     setTimeout(window.onYouTubeIframeAPIReady, 0);
   };
@@ -107,7 +109,6 @@ angular.module('tubenotes', [
       }
     })
     .success(function(data) {
-      // $scope.videos = data.items;
       AppFactory.searchResults = data.items;
       $location.path('/search');
     })
@@ -116,6 +117,7 @@ angular.module('tubenotes', [
     });
   };
 })
+
 // Routing for app
 .config(function($routeProvider, $httpProvider) {
   $routeProvider

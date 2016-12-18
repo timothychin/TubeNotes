@@ -6,7 +6,7 @@ module.exports = {
     var groupname = req.body.groupname;
     db.Group.findOrCreate({where: {groupname: groupname}})
     .then(function(group) {
-      res.status(201).send('successfully posted group');
+      res.status(201).send(JSON.stringify(group));
     });
   },
 
@@ -47,8 +47,9 @@ module.exports = {
           GroupId: group.get('id'),
           VideoId: video[0].get('id')
         }})
-        .then(function() {
-          res.status(201).send('successfully posted video to group');
+        .then(function(data) {
+          console.log(data);
+          res.status(201).send(JSON.stringify(data));
         });
       });
     });
@@ -95,8 +96,9 @@ module.exports = {
   },
 
   postGroupComments: function(req, res) {
-    db.User.findOne({username: req.body.username})
+    db.User.findOne({where: {username: req.body.username}})
     .then(function(user) {
+      console.log(user);
       db.Comment.create({
         text: req.body.note,
         timestamp: req.body.startTime,
@@ -115,9 +117,29 @@ module.exports = {
       });
     });
   },
+
+  transferGroupComments: function(req, res) {
+    var comments = req.body.comments;
+    for (var i = 0; i < comments.length; i++) {
+      db.Comment.findOne({where: {
+        text: comments[i].text,
+        timestamp: comments[i].timestamp
+      }})
+      .then(function(comment) {
+        console.log(comment);
+        db.GroupComment.create({
+          GroupId: req.body.groupId,
+          CommentId: comment.get('id')
+        });
+      });
+    }
+  },
   
   getGroupComments: function(req, res) {
     db.Comment.findAll({
+      where: {
+        VideoId: req.query.videoId
+      },
       include: [{
         model: db.Group,
         required: true,
@@ -126,9 +148,27 @@ module.exports = {
             GroupId: req.query.groupId
           }
         }
+      }, {
+        model: db.User
       }]
     }).then(function(comments) {
       res.status(200).send(JSON.stringify(comments));
     });
+  },
+
+  searchGroups: function(req, res) {
+    db.Group.findAll({where: {groupname: req.query.groupname}})
+      .then(function(groups) {
+        if (!groups) {
+          res.status(404).send('Group not found');
+        } else {
+          res.status(200).send(JSON.stringify(groups));
+        }
+      });
   }
 };
+
+
+
+
+

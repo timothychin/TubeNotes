@@ -1,29 +1,37 @@
 <div ng-show='isLoggedIn()'>
   <h1>Welcome to the {{group.groupname}} page!</h1>
-  <button ng-click="joinGroup()">Join</button>
+  <div ng-hide="isGroupMember()">
+    <button ng-click="joinGroup()">
+      Join this group!
+    </button>
+    <span class='glyphicon glyphicon-ok' ng-show="isGroupMember()"></span>
+  </div>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th></th>
-        <th>
-          <button ng-click="sortBy('title')">Name</button>
-          <span class="sortorder" ng-show="sortPropertyName === 'title'" ng-class="{reverse: reverse}"></span>
-        </th>
-        <th>
-          <button ng-click="sortBy('lastCommentDate')">Last Modified</button>
-          <span class="sortorder" ng-show="sortPropertyName === 'lastCommentDate'" ng-class="{reverse: reverse}"></span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
-      <tr ng-click="setCurrentVideo(null, video, true)" ng-repeat='video in groupVids | orderBy:sortPropertyName:reverse' >
-        <td><img ng-src="{{video.image}}"></td>
-        <td>{{video.title}}</td>
-        <td>{{video.lastCommentDate | amCalendar:referenceTime:formats}}</td>
-        <!-- <td>{{libVideo.comments.length}}</td> -->
-        <td>
-      </tr>
-    </tbody>
-  </table>
+  <div ng-show="isGroupMember()">
+    <h2>{{group.groupname}}'s Video Library</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <button ng-click="sortBy('title')">Name</button>
+              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'title'"></span>
+          </th>
+          <th>
+            <button ng-click="sortBy('createdAt')">Date Posted</button>
+            <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'createdAt'"></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
+        <tr ng-click="setCurrentVideo(null, video, true)" ng-repeat='video in groupVids | orderBy:sortPropertyName:reverse' >
+          <td><img ng-src="{{video.image}}"></td>
+          <td>{{video.title}}</td>
+          <td>{{video.createdAt | amCalendar:referenceTime:formats}}</td>
+          <!-- <td>{{libVideo.comments.length}}</td> -->
+          <td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

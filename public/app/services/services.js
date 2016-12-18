@@ -47,8 +47,8 @@ angular.module('tubenotes.services', [])
       url: '/groups',
       data: JSON.stringify({groupname: groupname}),
     })
-    .then(function (resp) {
-      console.log(resp);
+    .then(function(response) {
+      return response.data;
     });
   };
 
@@ -75,7 +75,6 @@ angular.module('tubenotes.services', [])
     }); 
   };
 
-  //post from the watch page
   var postGroupVid = function(groupname, vid) {
     return $http({
       method: 'POST',
@@ -92,7 +91,6 @@ angular.module('tubenotes.services', [])
     }); 
   };
 
-  //get from the groupvids page
   var getGroupVids = function(groupId) {
     return $http({
       method: 'GET',
@@ -135,13 +133,37 @@ angular.module('tubenotes.services', [])
     });
   };
 
-  var getGroupComments = function(groupId) {
+  var getGroupComments = function(groupId, videoId) {
     return $http({
       method: 'GET',
       url: '/groupComments',
-      params: {groupId: groupId} 
+      params: {groupId: groupId, videoId: videoId} 
     }).then(function(response) {
       console.log(response.data);
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
+  var searchGroups = function(groupname) {
+    return $http({
+      method: 'GET',
+      url: '/searchGroups',
+      params: {groupname: groupname} 
+    }).then(function(response) {
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
+  var transferGroupComments = function(commentObj, groupId) {
+    return $http({
+      method: 'POST',
+      url: '/transferGroupComments',
+      data: JSON.stringify({comments: commentObj, groupId: groupId})
+    }).then(function(response) {
       return response.data;
     }).catch(function(err) {
       console.log(err);
@@ -162,6 +184,9 @@ angular.module('tubenotes.services', [])
     getUserGroups: getUserGroups,
 
     postGroupComment: postGroupComment,
-    getGroupComments: getGroupComments
+    getGroupComments: getGroupComments,
+
+    searchGroups: searchGroups,
+    transferGroupComments: transferGroupComments
   };
 });

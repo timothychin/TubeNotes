@@ -9,6 +9,16 @@ angular.module('tubenotes.groupVids', [])
 
   $scope.joinGroup = function() {
     GroupHandler.joinGroup(GroupHandler.currentGroup.id);
+    GroupHandler.groups.push($scope.group);
+  };
+
+  $scope.isGroupMember = function() {
+    for (var i = 0; i < GroupHandler.groups.length; i++) {
+      if (GroupHandler.groups[i].groupname === $scope.group.groupname) {
+        return true;
+      }
+    }
+    return false;
   };
 
   var initializeGroupVids = function() {
@@ -22,7 +32,7 @@ angular.module('tubenotes.groupVids', [])
   };
   initializeGroupVids();
 
-  $scope.sortPropertyName = 'lastCommentDate';
+  $scope.sortPropertyName = 'createdAt';
   $scope.reverse = true;
   $scope.sortBy = function(sortPropertyName) {
     $scope.reverse = ($scope.sortPropertyName === sortPropertyName) ? !$scope.reverse : false;

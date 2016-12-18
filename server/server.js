@@ -97,16 +97,18 @@ app.delete('/deletecomment', function(req, res) {
 // Look into the userControllers folder for the signup and login method
 app.post('/users/signup', userControllers.signup);
 app.post('/users/login', userControllers.login);
+
 app.post('/groups', groupControllers.postGroup);
 app.get('/groups', groupControllers.getGroups);
 app.post('/groupUsers', groupControllers.joinGroup);
 app.get('/groupUsers', groupControllers.getUserGroups);
 app.post('/groupVids', groupControllers.postGroupVid);
 app.get('/groupVids', groupControllers.getGroupVids);
-
 app.post('/groupComments', groupControllers.postGroupComments);
 app.get('/groupComments', groupControllers.getGroupComments);
 
+app.get('/searchGroups', groupControllers.searchGroups);
+app.post('/transferGroupComments', groupControllers.transferGroupComments);
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(3000, function () {

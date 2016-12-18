@@ -28,21 +28,22 @@
       <div class="container-fluid">
         <ul class="nav navbar-nav">
           <a class="navbar-brand mb-0" href="#home">TubeNotes</a>
-          <!-- <li><a href="#watch" class="create">Watch</a></li> -->
-          <!-- <li><a href="#search" class="searchLink">Search</a></li> -->
           <li><a href="#login" id="login">Log In</a></li>        
-          <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">Log Out</a></li>        
+          <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">Log Out</a></li>
           <li><a href="#groups" id="groups" class="searchLink">Groups</a></li>   
         </ul>
       </div>
+
       <!-- Search Bar -->
-      <div class="input-group" ng-if="isLoggedIn()">
-        <input type="text" ng-model="message" class="form-control" placeholder="Search for a video">
-        <div class="input-group-btn">
-          <button ng-click="searchYoutube(message)" class="search-btn btn btn-default" type="submit">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </div>
+      <div ng-if="isLoggedIn()">
+        <form name='searchbar' ng-submit="searchYoutube(message)" class="input-group">
+          <input type="text" ng-model="message" name='search' class="form-control" placeholder="Search for a video">
+          <div class="input-group-btn">
+            <button class="search-btn btn btn-default" type="submit">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
+        </form>
       </div>
     </nav>
 
@@ -61,13 +62,5 @@
     <script src="app/groups/groupVids.js"></script>      
     <script src="lib/moment/moment.js"></script>
     <script src="lib/angular-moment/angular-moment.js"></script>
-   <!--  <script>
-      // load youtube iframe api
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    </script> -->
   </body>
 </html>

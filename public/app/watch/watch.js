@@ -14,7 +14,7 @@ angular.module('tubenotes.watch', [])
   };
 
   var initializeGroupComments = function() {
-    GroupHandler.getGroupComments(GroupHandler.currentGroup.id)
+    GroupHandler.getGroupComments(GroupHandler.currentGroup.id, AppFactory.currentVideo.videoTableId)
     .then(function(data) {
       AppFactory.currentVideo.comments = data;
       $scope.videoComments = AppFactory.currentVideo.comments;
@@ -133,7 +133,8 @@ angular.module('tubenotes.watch', [])
     // add note to current video's comments array
     AppFactory.currentVideo.comments.push(
       { text: note,
-        timestamp: startTime }
+        timestamp: startTime, 
+        username: AppFactory.username }
     );
     // update scope variable to make comments render on page
     $scope.videoComments = AppFactory.currentVideo.comments;
@@ -155,14 +156,17 @@ angular.module('tubenotes.watch', [])
   };
 
   $scope.postGroupVid = function(groupname) {
-    GroupHandler.postGroupVid(groupname, AppFactory.currentVideo);
+    GroupHandler.postGroupVid(groupname, AppFactory.currentVideo)
+    .then(function(data) {
+      GroupHandler.transferGroupComments($scope.videoComments, data[0].GroupId);
+    });
   };
 
 
 
   // Canvas overlay function, invoked at the end to render
   (function() {
-     var _ = function(id){return document.getElementById(id)};
+     var _ = function(id) {return document.getElementById(id)};
 
      var canvas = this.__canvas = new fabric.Canvas('c', {
        isDrawingMode: false

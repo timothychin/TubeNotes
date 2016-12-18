@@ -6,11 +6,14 @@
     
     <input type="text" name="groupnameSearch" placeholder="Enter your group..." ng-model="groupnameSearch"/>
     <button class='btn' ng-click="searchGroups(groupnameSearch)">Search</button>
+    <p ng-show="groups === null">'We didn't find that group! Care to create it?'</p>
+
+    <button class='btn' ng-click="initializeGroups()">View All</button>
   </form>
 
   <ul ng-repeat="group in groups">
     <li ng-click="setCurrentGroup(group)">
-      {{group.groupname}}
+      <h4>{{group.groupname}}</h4>
     </li>
   </ul>
 
