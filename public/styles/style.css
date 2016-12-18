@@ -76,7 +76,7 @@ body {
   color: #777;
   background-color: transparent;
   position: absolute;
-  top: 80%;
+  top: 600px;
   left: 32%;
   text-align: center;
   border: 2px solid white;
@@ -98,12 +98,12 @@ body {
 .sec3 {
   position: absolute;
   left: 22%;
-  top: 137%;
+  top: 930px;
 }
 
 .sec4 {
   right: 23%;
-  top: 165%;
+  top: 1110px;
 }
 
   /*color: #666666;*/
@@ -113,7 +113,7 @@ body {
   background-color: transparent;
   position: absolute;
   width: 100%;
-  top: 215%;
+  top: 1500px;
   text-align: center;
 }
 

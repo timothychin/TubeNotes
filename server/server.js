@@ -89,7 +89,7 @@ app.post('/comment-video', function (req, res) {
 app.delete('/deletecomment', function(req, res) {
   db.Comment.destroy({
     where: {
-      id: req.body.comment.id
+      timestamp: req.body.comment.timestamp
     }
   });
 });
