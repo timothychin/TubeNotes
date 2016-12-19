@@ -25,11 +25,6 @@ body {
   color: white;
  }
 
-.giticons, .linkedicons {
-  width: 40px;
-  height: 40px;
-}
-
 .img1, .img2, .img3, .img5, .img6 {
   position: relative;
   background-attachment: fixed;
@@ -159,6 +154,11 @@ body {
   top: 200%;
 }
 
+.mediaLinks img {
+  width: 40px;
+  height: 40px;
+}
+
 .jenn {
   left: 2%;
 }
@@ -188,7 +188,7 @@ body {
 }
 
 .linkedicons {
-  position: relative;
+  position: absolute;
   left: 50px;
 }
 
