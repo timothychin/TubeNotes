@@ -93,10 +93,6 @@ app.post('/comment-video', function (req, res) {
   res.status(201).send('sent');
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Adds some of Wells' changes
 // uploads annotations
 app.post('/uploadAnnotation', function(req, res) {
   console.log('hits server uploadAnnotation post');
@@ -152,11 +148,8 @@ app.get('/searchGroups', groupControllers.searchGroups);
 app.post('/transferGroupComments', groupControllers.transferGroupComments);
 app.delete('/groupComments', groupControllers.deleteGroupComment);
 
-<<<<<<< HEAD
 app.get('/searchGroups', groupControllers.searchGroups);
 
-=======
->>>>>>> Adds some of Wells' changes
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(3000, function () {
