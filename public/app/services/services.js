@@ -30,7 +30,7 @@ angular.module('tubenotes.services', [])
 
   var signout = function () {
     $window.localStorage.removeItem('com.tubenotes');
-    $location.path('/about');
+    $location.path('/');
   };
 
   return {
@@ -178,6 +178,19 @@ angular.module('tubenotes.services', [])
         'Content-type': 'application/json;charset=utf-8'
       }
     }).then(function(response) {
+      return response.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
+
+  var searchGroups = function(groupname) {
+    return $http({
+      method: 'GET',
+      url: '/searchGroups',
+      params: {groupname: groupname} 
+    }).then(function(response) {
+      console.log(response.data);
       return response.data;
     }).catch(function(err) {
       console.log(err);

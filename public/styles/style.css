@@ -26,7 +26,7 @@ body {
   height: 40px;
 }
 
-.img1, .img2, .img3 {
+.img1, .img2, .img3, .img5, .img6 {
   position: relative;
   background-attachment: fixed;
   background-position: center;
@@ -37,18 +37,22 @@ body {
 .img1 {
   background-image: url('laptop2.jpg');
   width: 100%;
-  height: 800px;
+  height: 1000px;
   background-color: transparent;
   opacity: 0.65;
   top: 0;
 }
 
 .img2 {
-  background: #595959;
-  height: 600px;
+  background: url('dancers.jpg');
+  background-position: center center;
+  height: 1000px;
   width: 100%;
-
+  opacity: 0.65;
+  background-attachment: fixed;
 }
+
+/*#C4A67A; #595959;*/
 
 .img3 {
   background: url('tubeNotesTeamHR.jpg');
@@ -56,7 +60,28 @@ body {
   background-size: cover;
   width: 100%;
   height: 700px;
+  background-attachment: fixed;
+}
 
+.img5 {
+  background: black;
+  left: 20%;
+  top: 1400px;
+  width: 500px;
+  height: 250px;
+  position: absolute;
+  opacity: 0.45;
+}
+
+.img6 {
+  background: red;
+  right: 21%;
+  top: 1500px;  
+
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  opacity: 0.45;  
 }
 
 .sec1 {
@@ -76,8 +101,7 @@ body {
   color: #777;
   background-color: transparent;
   position: absolute;
-  top: 600px;
-
+  top: 740px;
   left: 32%;
   text-align: center;
   border: 2px solid white;
@@ -97,14 +121,13 @@ body {
 }
 
 .sec3 {
-  position: absolute;
   left: 22%;
-  top: 930px;
+  top: 1380px;
 }
 
 .sec4 {
   right: 23%;
-  top: 1110px;
+  top: 1560px;
 }
 
   /*color: #666666;*/
@@ -114,7 +137,7 @@ body {
   background-color: transparent;
   position: absolute;
   width: 100%;
-  top: 1500px;
+  top: 2100px;
   text-align: center;
 }
 
@@ -252,8 +275,8 @@ body {
   transition: margin-left .5s;
   padding: 16px;
   position: fixed;
-  top: -10px;
-  left: 82%;
+  top: -3px;
+  right: 10px;
   transition: 225ms;
 }
 
@@ -291,7 +314,7 @@ body {
   position : absolute;
   left : 160px;
   background : rgba(3,159,244,.95);
-    color : white;
+  color : white;
   text-decoration : none;
   padding : 20px;
 }
@@ -315,11 +338,24 @@ body {
 }
 
 .navigation-items a:hover {
-  background-color : #222;
+    background-color : #222;
 }
 
 .groupDropdown {
   float: right;
+}
+
+.sortorder:after {
+  content: '\25b2';
+}
+
+
+.navigation-items a:hover {
+  background-color : #222;
+}
+
+.userGroup:hover {
+  cursor: pointer;
 }
 
 .userGroup:hover {
