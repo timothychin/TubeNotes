@@ -6,10 +6,10 @@
     <title>TubeNotes</title>
     <script src="app/config/youtube.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.1/fabric.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <!-- for modal box -->
     <script src="app/modalBox/vex.combined.min.js"></script>
     <script>vex.defaultOptions.className = 'vex-theme-os'</script>
@@ -24,7 +24,7 @@
 
   <body ng-controller="appController">
 
-    <nav class="navbar navbar-default bg-faded">
+    <nav class="navbar navbar-default bg-faded" style="border-radius: 0px;">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
           <a class="navbar-brand mb-0" href="#home">TubeNotes</a>
@@ -35,19 +35,19 @@
       </div>
 
       <!-- Search Bar -->
-      <div ng-if="isLoggedIn()">
+      <div class="searchbar" ng-if="isLoggedIn()">
         <form name='searchbar' ng-submit="searchYoutube(message)" class="input-group">
           <input type="text" ng-model="message" name='search' class="form-control" placeholder="Search for a video">
           <div class="input-group-btn">
-            <button class="search-btn btn btn-default" type="submit">
+            <button class="search-btn btn btn-default searchSubmit" type="submit">
               <span class="glyphicon glyphicon-search"></span>
             </button>
           </div>
         </form>
       </div>
     </nav>
-
     <div ng-view></div>
+
 
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>

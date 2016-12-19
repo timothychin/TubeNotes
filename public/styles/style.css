@@ -6,7 +6,12 @@
 
 body {
   transition: background-color .5s;
+  background-color: #545454;
+  color: #545454;
+  font: 400 15px/1.8 "Lato", sans-serif;
 }
+
+
 
 /* * * * * * * *
  *             *
@@ -17,7 +22,6 @@ body {
  .about {
   height: 100%;
   margin: 0;
-  font: 400 15px/1.8 "Lato", sans-serif;
   color: white;
  }
 
@@ -74,7 +78,7 @@ body {
 }
 
 .img6 {
-  background: red;
+  background: #FE5656;
   right: 21%;
   top: 1500px;  
 
@@ -88,10 +92,9 @@ body {
   position: absolute;
   width: 30%;
   left: 35%;
-  top: 150px;
+  top: 160px;
   text-align: center;
-  background-color: red;
-  opacity: 0.9;
+  background-color: #FE5656;
   color: white;
   font-size: 20px;
   letter-spacing: 6px;
@@ -195,6 +198,10 @@ body {
  *             *
  * * * * * * * */
 
+ .navbar {
+  margin: 0;
+ }
+
 .navbar-brand {
   color: black !important;
   font-weight: 500;
@@ -220,6 +227,16 @@ body {
   top: 3px;
 }
 
+.searchbar {
+  position: absolute;
+  top: 8px;
+  left: 275px;
+}
+
+.searchSubmit {
+  top: 0px;
+}
+
 .glyphicon {
   height: 20px;
 }
@@ -227,6 +244,76 @@ body {
 #logout {
   float: right;
 }
+
+/* * * * * * * *
+ *             *
+ *    Home     *
+ *             *
+ * * * * * * * */
+
+.page-title {
+  background: #FE5656;
+  color: white;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+  height: 70px;
+}
+
+.page-title > h1 {
+  top: 29;
+  position: relative;
+}
+
+.page-title .library {
+  padding-left: 3px;
+}
+
+.home-button {
+  border: none;
+  background: transparent;
+}
+
+.video-library, .home-group {
+  /*margin-top: 200px;*/
+  height: 100%;
+  background: white;
+  /*border: 2px solid #545454;*/
+}
+
+.home-group h1{
+  letter-spacing: 2px;
+}
+
+.userGroup {
+  list-style: none;
+  font-size: 20px;
+}
+
+.userGroup:hover {
+  cursor: pointer;
+}
+
+.userGroup:hover {
+  cursor: pointer;
+}
+
+.video-library > th {
+  border-bottom-color: 545454;
+}
+
+.table-box {
+  position: absolute;
+  top: 20;
+  border-bottom-color: #545454 !important;
+  width: 100%;
+}
+
+.table-box td {
+  padding: 10px;
+  border-bottom: 2px solid #545454;
+  border-top: 2px solid #545454;
+}
+
 
 
 /* * * * * * * *
@@ -318,13 +405,15 @@ body {
   text-decoration : none;
   padding : 20px;
 }
+
 .show {
   left : 0;
 }
+
 .navigation {
   list-style : none;
-  padding : 0;
-  margin : 0;
+/*  padding : 0;
+  margin : 0;*/
 }
 .navigation-items a {
   display : block;
@@ -338,7 +427,7 @@ body {
 }
 
 .navigation-items a:hover {
-    background-color : #222;
+  background-color : #222;
 }
 
 .groupDropdown {
@@ -354,10 +443,3 @@ body {
   background-color : #222;
 }
 
-.userGroup:hover {
-  cursor: pointer;
-}
-
-.userGroup:hover {
-  cursor: pointer;
-}

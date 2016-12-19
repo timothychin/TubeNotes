@@ -1,43 +1,44 @@
 <div ng-show='isLoggedIn()'>
-  <h1>Welcome {{username}}!</h1>
+  <!-- <h1>Welcome {{username}}!</h1> -->
     <!-- Video Library -->
-    <div class='video-library col-sm-4'>
-      <h2>Video Library</h2>
-      
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th></th>
-            <th>
-              <button ng-click="sortBy('title')">Name</button>
-              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'title'"></span>
-            </th>
-            <th>
-              <button ng-click="sortBy('lastCommentDate')">Last Modified</button>
-              <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'lastCommentDate'"></span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
-          <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos
-            | orderBy:sortPropertyName:reverse' >
-            <td><img ng-src="{{libVideo.image}}"></td>
-            <td>{{libVideo.title}}</td>
-            <td>{{libVideo.lastCommentDate | amCalendar:referenceTime:formats}}</td>
-            <td>
-          </tr>
-        </tbody>
-      </table>
-
-    <div>
-      <h2>Your Groups:</h2>
-      <ul ng-repeat="group in userGroups" ng-click="setCurrentGroup(group)">
-        <li>
-          <h4 class="userGroup">{{group.groupname}}</h4>
-        </li>
-      </ul>
+    <div class='page-title col-sm-12'>
+      <h1 class="username" style="display: inline; color: #545454;"> {{username}}</h1><h1 class="library" style="display: inline;">Video Library </h1>
     </div>
+    <div>
+      <div class="col-sm-8 pull-left video-library">
+        <table class="table-hover table-box">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <button class="home-button" ng-click="sortBy('title')">Name</button>
+                <span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'title'"></span>
+              </th>
+              <th>
+                <button class="home-button" ng-click="sortBy('lastCommentDate')">Last Modified</button><span ng-class="reverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" ng-show="sortPropertyName === 'lastCommentDate'"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- When an item in the video library is clicked, setCurrentVideo is called with only the second argument -->
+            <tr ng-click="setCurrentVideo(null, libVideo)" ng-repeat='libVideo in userVideos
+              | orderBy:sortPropertyName:reverse' >
+              <td><img ng-src="{{libVideo.image}}"></td>
+              <td>{{libVideo.title}}</td>
+              <td>{{libVideo.lastCommentDate | amCalendar:referenceTime:formats}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class='col-sm-4 home-group'>
+        <h2 style="border-bottom: 2px solid #545454; margin-top: 10px">Groups</h2>
+        <ul ng-repeat="group in userGroups" ng-click="setCurrentGroup(group)">
+          <li class="userGroup">
+            {{group.groupname}}
+          </li>
+        </ul>
+      </div>
 
     </div>
 </div>
