@@ -118,8 +118,6 @@ app.post('/uploadAnnotation', function(req, res) {
       });
     }
   })
-
-
     res.send();
   });
 

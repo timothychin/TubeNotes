@@ -23,14 +23,7 @@
   <span style="font-size:20px;cursor:pointer" ng-click="toggleNav()">&#9776; Bookmarks</span>
 </div>
 
-<div ng-hide="inGroupMode()">
-  <select class='groupDropdown' ng-model='selectedGroup'>
-    <option ng-repeat='group in groupList' value="{{group.groupname}}">
-      {{group.groupname}}
-    </option>
-  </select>
-  <button class='btn' ng-click="postGroupVid(selectedGroup)">Post in Group</button>
-</div>
+
 
 <!-- video player -->
 
@@ -40,46 +33,52 @@
       <!-- User note taking window -->
       <div class='col-sm-9'>
         <div id="player"></div>
+        <canvas id="c" width="799" height="400" style="border:0px solid #000000"></canvas>
       </div>
 
       <!-- Canvas overlay for annotations -->
       <div id="canvasId" class="col-sm-3">
-        <div class="canvas">
-          <canvas id="c" width="799" height="410" style="border:1px solid #000000"></canvas>
-        </div>
         <ul>
           <li style="margin-top:10px;">
-            <button id="record" class="btn">Record</button>
-            <button id="playback" class="btn">Playback Mode</button>
+            <button id="recButton" class="notRec"></button>
+            <button id="record" class="btn">Record Annotations</button>
+            <button id="playback" class="btn">Show Annotations</button>
             <button id="save-canvas" class="btn">Save</button>
             <button id="clear-canvas" class="btn">Clear</button>
             <button id="replay-canvas" class="btn">Replay</button>
             <!-- <button id="drawing-mode" class="btn btn-info">Enter drawing mode</button> -->
-            <div id="drawing-mode-options">
-              <label for="drawing-line-width">Line width:</label>
-              <input type="range" value="5" min="0" max="100" id="drawing-line-width" style="width: 20%"><br>
-              <label for="drawing-color">Line color:</label>
-              <input type="color" value="#000000" id="drawing-color"><br>
-            </div>
-            <button id="save-canvas" class="btn">Save</button>
-            <button id="clear-canvas" class="btn">Clear</button>
-            <button id="replay-canvas" class="btn">Replay</button>
           </li>
         </ul>
+        <div id="drawing-mode-options">
+          <label for="drawing-line-width">Line width:</label>
+          <input type="range" value="5" min="0" max="100" id="drawing-line-width" style="width: 26.5%">
+          <label for="drawing-color">Line color:</label>
+          <input type="color" value="#000000" id="drawing-color">
+        </div>
+      </div>
+
+      <div id="groupPost" ng-hide="inGroupMode()">
+        <select class='groupDropdown' ng-model='selectedGroup'>
+          <option value="" disabled selected>Select a Group</option>
+          <option ng-repeat='group in groupList' value="{{group.groupname}}">
+            {{group.groupname}}
+          </option>
+        </select>
+        <button class='btn' ng-click="postGroupVid(selectedGroup)">Post to Group</button>
       </div>
 
       <!-- Video notes window -->
       <div class='col-sm-3 video'>
         <h2>Notes</h2>
-        <div>{{currentVideoTime}} </div>
-        <div>Start Time: {{noteTimestamp}}</div>
+        <div id="currentTime">{{currentVideoTime}} </div>
+        <div id="startTime">Start Time: {{noteTimestamp}}</div>
         <form name="userNote">
           <div id="noteTaker">
-            <textarea id='testnote' class='form-control' type="text" name="note" rows="16" cols="60" placeholder="Enter Note..."
+            <textarea id='testnote' class='form-control' type="text" name="note" placeholder="Enter Note..."
             ng-model="note" ng-keypress="setTimestamp()"
             />
           </div>
-          <button class='btn' ng-click="postNote(note)">Post</button>
+          <button class='btn' ng-click="postNote(note)">Bookmark</button>
           <button class='btn' ng-click="resetNote()">Reset</button>
         </form>
       </div>
