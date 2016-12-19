@@ -6,7 +6,7 @@
 
 body {
   transition: background-color .5s;
-  background-color: #545454;
+  background-color: white;
   color: #545454;
   font: 400 15px/1.8 "Lato", sans-serif;
 }
@@ -223,20 +223,6 @@ body {
   width: 350px;
 }
 
-.search-btn {
-  top: 3px;
-}
-
-.searchbar {
-  position: absolute;
-  top: 8px;
-  left: 275px;
-}
-
-.searchSubmit {
-  top: 0px;
-}
-
 .glyphicon {
   height: 20px;
 }
@@ -326,7 +312,7 @@ body {
   list-style: none;
   z-index: 10;
   position: fixed;
-  left: 8%;
+  left: 6%;
   top: 76%;
 }
 
@@ -346,13 +332,13 @@ ul > li > button {
 #player {
   position: fixed;
   top: 12%;
-  left: 10% + 15px;
+  left: 8% + 15px;
 }
 
 #video-player {
   position: fixed;
   top: 12%;
-  left: 10%;
+  left: 8%;
 }
 
 #record {
@@ -366,7 +352,7 @@ ul > li > button {
   align-items: center;
   position: fixed;
   top: 84%;
-  left: 12%;
+  left: 10%;
 }
 
 #drawing-line-width {
@@ -387,8 +373,8 @@ ul > li > button {
 
  .col-sm-3 {
   position: fixed;
-  right: 1%;
-  top: 10%;
+  right: 2%;
+  top: 14%;
  }
 
  .col-sm-3 > form > button {
@@ -423,6 +409,27 @@ ul > li > button {
   margin-left: 10;
 
  }
+
+/* * * * * * * *
+ *    Group    *
+ *     Btn     *
+ * * * * * * * */
+
+#groupPost {
+  position: fixed;
+  top: 11%;
+  right: 7%;
+}
+
+#groupPost > button {
+  background-color: rgba(66, 184, 221, 0.9);
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+#groupPost > button:hover {
+  opacity: 75%;
+}
 
 /* * * * * * * *
  *  Flashing   *

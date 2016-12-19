@@ -23,14 +23,7 @@
   <span style="font-size:20px;cursor:pointer" ng-click="toggleNav()">&#9776; Bookmarks</span>
 </div>
 
-<div ng-hide="inGroupMode()">
-  <select class='groupDropdown' ng-model='selectedGroup'>
-    <option ng-repeat='group in groupList' value="{{group.groupname}}">
-      {{group.groupname}}
-    </option>
-  </select>
-  <button class='btn' ng-click="postGroupVid(selectedGroup)">Post in Group</button>
-</div>
+
 
 <!-- video player -->
 
@@ -64,6 +57,16 @@
         </div>
       </div>
 
+      <div id="groupPost" ng-hide="inGroupMode()">
+        <select class='groupDropdown' ng-model='selectedGroup'>
+          <option value="" disabled selected>Select a Group</option>
+          <option ng-repeat='group in groupList' value="{{group.groupname}}">
+            {{group.groupname}}
+          </option>
+        </select>
+        <button class='btn' ng-click="postGroupVid(selectedGroup)">Post to Group</button>
+      </div>
+
       <!-- Video notes window -->
       <div class='col-sm-3 video'>
         <h2>Notes</h2>
@@ -75,7 +78,7 @@
             ng-model="note" ng-keypress="setTimestamp()"
             />
           </div>
-          <button class='btn' ng-click="postNote(note)">Post</button>
+          <button class='btn' ng-click="postNote(note)">Bookmark</button>
           <button class='btn' ng-click="resetNote()">Reset</button>
         </form>
       </div>

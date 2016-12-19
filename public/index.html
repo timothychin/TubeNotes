@@ -44,18 +44,6 @@
           </div>
         </ul>
       </div>
-
-      <!-- Search Bar -->
-      <div class="searchbar" ng-if="isLoggedIn()">
-        <form name='searchbar' ng-submit="searchYoutube(message)" class="input-group">
-          <input type="text" ng-model="message" name='search' class="form-control" placeholder="Search for a video">
-          <div class="input-group-btn">
-            <button class="search-btn btn btn-default searchSubmit" type="submit">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </div>
-        </form>
-      </div>
     </nav>
     <div ng-view></div>
 
