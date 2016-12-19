@@ -40,11 +40,26 @@ angular.module('tubenotes', [
     });
   };
   
+  // find the video
+  var deleteVideo = function(video) {
+    $http({
+      method: 'DELETE',
+      url: '/deletevideo',
+      data: {
+        video: video
+      },
+      headers: {
+        'Content-type': 'application/json;charset=utf-8'
+      }
+    })
+  };
+
   // This will be accessed in all of our controllers as AppFactory
   var globalObj = {
     currentVideo: {},
     addNote: addNote,
     deleteNote: deleteNote,
+    deleteVideo: deleteVideo,
     username: '',
     searchResults: []
   };

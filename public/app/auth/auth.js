@@ -17,6 +17,7 @@ angular.module('tubenotes.auth', [])
             if (!data) {
               console.log('Cancelled');
             } else {
+
               Auth.login(/*$scope.user*/ data)
               .then(function (token) {
                 if (!token) {
