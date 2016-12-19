@@ -28,9 +28,20 @@
       <div class="container-fluid">
         <ul class="nav navbar-nav">
           <a class="navbar-brand mb-0" href="#home">TubeNotes</a>
-          <li><a href="#login" id="login">Log In</a></li>        
+          <li><a href="#login" id="login">Log In</a></li>
           <li><a href="#login" id="logout" class="searchLink" ng-click="logout()">Log Out</a></li>
-          <li><a href="#groups" id="groups" class="searchLink">Groups</a></li>   
+          <li><a href="#groups" id="groups" class="searchLink">Groups</a></li>
+          <!-- Search Bar -->
+          <div ng-if="isLoggedIn()" id="searchbar">
+            <form name='searchbar' ng-submit="searchYoutube(message)" class="input-group">
+              <input type="text" ng-model="message" name='search' class="form-control" placeholder="Search for a video">
+              <div class="input-group-btn">
+                <button class="search-btn btn btn-default" type="submit">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </div>
+            </form>
+          </div>
         </ul>
       </div>
 
@@ -57,9 +68,9 @@
     <script src="app/watch/watch.js"></script>
     <script src="app/services/services.js"></script>
     <script src="app/app.js"></script>
-    <script src="app/home/home.js"></script>  
+    <script src="app/home/home.js"></script>
     <script src="app/groups/groups.js"></script>
-    <script src="app/groups/groupVids.js"></script>      
+    <script src="app/groups/groupVids.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/angular-moment/angular-moment.js"></script>
   </body>

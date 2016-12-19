@@ -322,12 +322,6 @@ body {
  *             *
  * * * * * * * */
 
-.canvas {
-  position: fixed;
-  left: 10.5%;
-  z-index: 10;
-}
-
 #canvasId > ul {
   list-style: none;
   z-index: 10;
@@ -349,16 +343,10 @@ ul > li > button {
   width: 149;
 }
 
-#c {
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
 #player {
   position: fixed;
   top: 12%;
-  left: 10% + 15px  ;
+  left: 10% + 15px;
 }
 
 #video-player {
@@ -403,10 +391,39 @@ ul > li > button {
   top: 10%;
  }
 
+ .col-sm-3 > form > button {
+  margin-top: 5;
+  background-color: rgba(66, 184, 221, 0.9);
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+ }
+
+.col-sm-3 > form > button:hover {
+  color: white;
+  background-color: rgba(66, 184, 221, 1);
+ }
+
+ col-sm-3 > form > button:active {
+  color: red;
+ }
+
 #noteTaker > textarea {
   height: 350px;
   width: 280px;
 }
+
+/* * * * * * * *
+ *   Search    *
+ *     Bar     *
+ * * * * * * * */
+
+ #searchbar {
+  display: inline-flex;
+  margin-top: 9;
+  margin-left: 10;
+
+ }
+
 /* * * * * * * *
  *  Flashing   *
  *   Record    *

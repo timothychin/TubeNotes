@@ -40,14 +40,11 @@
       <!-- User note taking window -->
       <div class='col-sm-9'>
         <div id="player"></div>
-        <canvas id="c" width="799" height="410" style="border:1px solid #000000"></canvas>
+        <canvas id="c" width="799" height="400" style="border:0px solid #000000"></canvas>
       </div>
 
       <!-- Canvas overlay for annotations -->
       <div id="canvasId" class="col-sm-3">
-        <div class="canvas">
-          <!-- <canvas id="c" width="799" height="410" style="border:1px solid #000000"></canvas> -->
-        </div>
         <ul>
           <li style="margin-top:10px;">
             <button id="recButton" class="notRec"></button>
@@ -70,8 +67,8 @@
       <!-- Video notes window -->
       <div class='col-sm-3 video'>
         <h2>Notes</h2>
-        <div>{{currentVideoTime}} </div>
-        <div>Start Time: {{noteTimestamp}}</div>
+        <div id="currentTime">{{currentVideoTime}} </div>
+        <div id="startTime">Start Time: {{noteTimestamp}}</div>
         <form name="userNote">
           <div id="noteTaker">
             <textarea id='testnote' class='form-control' type="text" name="note" placeholder="Enter Note..."

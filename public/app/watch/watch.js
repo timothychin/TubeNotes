@@ -80,6 +80,8 @@ angular.module('tubenotes.watch', [])
       }
     });
     $scope.currentVideo = AppFactory.currentVideo;
+    console.log('test');
+    $('#c').css('z-index', '-10');
   };
 
   // $scope.activeInterval = true;
@@ -94,6 +96,7 @@ angular.module('tubenotes.watch', [])
       console.log('hit playing loop');
       $scope.isPaused = false;
       canvas.clear();
+      $('#c').css('z-index', '10');
 
 
       // ON PLAYBACK MODE
