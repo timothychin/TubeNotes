@@ -26,7 +26,7 @@ body {
   height: 40px;
 }
 
-.img1, .img2, .img3 {
+.img1, .img2, .img3, .img5, .img6 {
   position: relative;
   background-attachment: fixed;
   background-position: center;
@@ -37,7 +37,7 @@ body {
 .img1 {
   background-image: url('laptop2.jpg');
   width: 100%;
-  height: 800px;
+  height: 1000px;
   background-color: transparent;
   opacity: 0.65;
   top: 0;
@@ -46,10 +46,10 @@ body {
 .img2 {
   background: url('dancers.jpg');
   background-position: center center;
-  background-size: cover;
-  height: 800px;
+  height: 1000px;
   width: 100%;
   opacity: 0.65;
+  background-attachment: fixed;
 }
 
 /*#C4A67A; #595959;*/
@@ -60,17 +60,15 @@ body {
   background-size: cover;
   width: 100%;
   height: 700px;
-}
-
-.img4 {
-
+  opacity: 0.85;
+  background-attachment: fixed;
 }
 
 .img5 {
   background: black;
   left: 20%;
-  top: 1050px;
-  width: 450px;
+  top: 1400px;
+  width: 500px;
   height: 250px;
   position: absolute;
   opacity: 0.45;
@@ -79,7 +77,7 @@ body {
 .img6 {
   background: red;
   right: 21%;
-  top: 1150px;  
+  top: 1500px;  
   width: 500px;
   height: 300px;
   position: absolute;
@@ -103,7 +101,7 @@ body {
   color: #777;
   background-color: transparent;
   position: absolute;
-  top: 600px;
+  top: 740px;
   left: 32%;
   text-align: center;
   border: 2px solid white;
@@ -124,12 +122,12 @@ body {
 
 .sec3 {
   left: 22%;
-  top: 1030px;
+  top: 1380px;
 }
 
 .sec4 {
   right: 23%;
-  top: 1210px;
+  top: 1560px;
 }
 
   /*color: #666666;*/
@@ -139,7 +137,7 @@ body {
   background-color: transparent;
   position: absolute;
   width: 100%;
-  top: 1700px;
+  top: 2100px;
   text-align: center;
 }
 

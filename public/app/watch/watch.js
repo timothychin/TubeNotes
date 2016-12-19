@@ -30,6 +30,7 @@ angular.module('tubenotes.watch', [])
     document.getElementById('mySidenav').style.width = '350px';
     // uncomment below line 'Bookmark' will be pushed to the left
     document.getElementById('main').style.left = '72%';
+
     // uncomment below line the page background will change
     // document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
   };
