@@ -332,8 +332,21 @@ body {
   list-style: none;
   z-index: 10;
   position: fixed;
-  left: 10%;
-  top: 80%;
+  left: 8%;
+  top: 76%;
+}
+
+#canvasId > ul > li {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul > li > button {
+  margin: 3;
+  width: 149;
 }
 
 #c {
@@ -344,13 +357,13 @@ body {
 
 #player {
   position: fixed;
-  top: 20%;
+  top: 12%;
   left: 10% + 15px  ;
 }
 
 #video-player {
   position: fixed;
-  top: 20%;
+  top: 12%;
   left: 10%;
 }
 
@@ -359,6 +372,41 @@ body {
   color: white;
 }
 
+#drawing-mode-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: fixed;
+  top: 84%;
+  left: 12%;
+}
+
+#drawing-line-width {
+  margin-left: 7;
+  margin-right: 10;
+}
+
+#drawing-color {
+  margin-left: 7;
+  margin-right: 10;
+}
+
+/* * * * * * * *
+ *             *
+ *    Notes    *
+ *             *
+ * * * * * * * */
+
+ .col-sm-3 {
+  position: fixed;
+  right: 1%;
+  top: 10%;
+ }
+
+#noteTaker > textarea {
+  height: 350px;
+  width: 280px;
+}
 /* * * * * * * *
  *  Flashing   *
  *   Record    *
@@ -374,6 +422,10 @@ body {
   border-radius: 10px;
   margin: 10px;
   outline: none;
+}
+
+#recButton:hover {
+  cursor: default;
 }
 
 .notRec{

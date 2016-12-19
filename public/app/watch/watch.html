@@ -57,14 +57,14 @@
             <button id="clear-canvas" class="btn">Clear</button>
             <button id="replay-canvas" class="btn">Replay</button>
             <!-- <button id="drawing-mode" class="btn btn-info">Enter drawing mode</button> -->
-            <div id="drawing-mode-options">
-              <label for="drawing-line-width">Line width:</label>
-              <input type="range" value="5" min="0" max="100" id="drawing-line-width" style="width: 20%"><br>
-              <label for="drawing-color">Line color:</label>
-              <input type="color" value="#000000" id="drawing-color"><br>
-            </div>
           </li>
         </ul>
+        <div id="drawing-mode-options">
+          <label for="drawing-line-width">Line width:</label>
+          <input type="range" value="5" min="0" max="100" id="drawing-line-width" style="width: 26.5%">
+          <label for="drawing-color">Line color:</label>
+          <input type="color" value="#000000" id="drawing-color">
+        </div>
       </div>
 
       <!-- Video notes window -->
@@ -74,7 +74,7 @@
         <div>Start Time: {{noteTimestamp}}</div>
         <form name="userNote">
           <div id="noteTaker">
-            <textarea id='testnote' class='form-control' type="text" name="note" rows="16" cols="60" placeholder="Enter Note..."
+            <textarea id='testnote' class='form-control' type="text" name="note" placeholder="Enter Note..."
             ng-model="note" ng-keypress="setTimestamp()"
             />
           </div>
