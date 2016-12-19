@@ -37,7 +37,8 @@ angular.module('tubenotes.watch', [])
 
   $scope.closeNav = function() {
     document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('main').style.right = '10px';
+    document.getElementById('main').style.right= '10px';
+    document.body.style.backgroundColor = 'white';
   };
 
   // toggle the side bar
@@ -431,6 +432,3 @@ angular.module('tubenotes.watch', [])
   })()
 
 });
-
-
-
