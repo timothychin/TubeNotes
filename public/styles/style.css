@@ -394,8 +394,9 @@ ul > li > button {
  }
 
 #noteTaker > textarea {
-  height: 350px;
+  height: 370px;
   width: 280px;
+  padding-bottom: 3px;
 }
 
 /* * * * * * * *
@@ -415,10 +416,12 @@ ul > li > button {
  *     Btn     *
  * * * * * * * */
 
+
+
 #groupPost {
   position: fixed;
-  top: 11%;
-  right: 7%;
+  top: 575px;
+  right: 200px;
 }
 
 #groupPost > button {
