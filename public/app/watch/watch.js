@@ -29,14 +29,15 @@ angular.module('tubenotes.watch', [])
   $scope.openNav = function() {
     document.getElementById('mySidenav').style.width = '350px';
     // uncomment below line 'Bookmark' will be pushed to the left
-    document.getElementById('main').style.left = '72%';
+    document.getElementById('main').style.right = '230px';
+
     // uncomment below line the page background will change
     // document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
   };
 
   $scope.closeNav = function() {
     document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('main').style.left= '83%';
+    document.getElementById('main').style.right= '10px';
     document.body.style.backgroundColor = 'white';
   };
 
@@ -59,13 +60,13 @@ angular.module('tubenotes.watch', [])
         AppFactory.currentVideo.comments.splice(index, 1);
       }
     });
-    console.log('deleted comment, ', comment);
     if ($scope.inGroupMode()) {  //if in group mode, grab group comments
       (GroupHandler.deleteGroupComment(comment));
     } else {
       AppFactory.deleteNote(comment);
     }
   };
+
 
 
   window.onYouTubeIframeAPIReady = function() {
@@ -431,6 +432,3 @@ angular.module('tubenotes.watch', [])
   })()
 
 });
-
-
-
