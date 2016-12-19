@@ -46,4 +46,9 @@ angular.module('tubenotes.home', ['angularMoment'])
     $location.path('/groupVids');
   };
 
+  $scope.deleteVideo = function(video) {
+    AppFactory.deleteVideo(video);
+    // $route.reload();
+  }
+
 });

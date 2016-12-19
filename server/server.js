@@ -123,14 +123,23 @@ app.post('/uploadAnnotation', function(req, res) {
     res.send();
   });
 
-// send delete request to DB
+// send delete request to DB to delete a comment by timestamp
 app.delete('/deletecomment', function(req, res) {
   db.Comment.destroy({
     where: {
       timestamp: req.body.comment.timestamp
     }
-  });
+  })
 });
+
+// send delete request to DB to delete a video by video id
+app.delete('/deletevideo', function(req, res) {
+  db.Video.destroy({
+    where: {
+      id: req.body.video.comments[0].VideoId
+    }
+  })
+})
 
 // Look into the userControllers folder for the signup and login method
 app.post('/users/signup', userControllers.signup);
