@@ -40,12 +40,13 @@
       <!-- User note taking window -->
       <div class='col-sm-9'>
         <div id="player"></div>
+        <canvas id="c" width="799" height="410" style="border:1px solid #000000"></canvas>
       </div>
 
       <!-- Canvas overlay for annotations -->
       <div id="canvasId" class="col-sm-3">
         <div class="canvas">
-          <canvas id="c" width="799" height="410" style="border:1px solid #000000"></canvas>
+          <!-- <canvas id="c" width="799" height="410" style="border:1px solid #000000"></canvas> -->
         </div>
         <ul>
           <li style="margin-top:10px;">
@@ -61,9 +62,6 @@
               <label for="drawing-color">Line color:</label>
               <input type="color" value="#000000" id="drawing-color"><br>
             </div>
-            <button id="save-canvas" class="btn">Save</button>
-            <button id="clear-canvas" class="btn">Clear</button>
-            <button id="replay-canvas" class="btn">Replay</button>
           </li>
         </ul>
       </div>

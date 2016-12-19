@@ -75,12 +75,12 @@ body {
 .img6 {
   background: #FE5656;
   right: 21%;
-  top: 1500px;  
+  top: 1500px;
 
   width: 500px;
   height: 300px;
   position: absolute;
-  opacity: 0.45;  
+  opacity: 0.45;
 }
 
 .sec1 {
@@ -334,6 +334,24 @@ body {
   position: fixed;
   left: 10%;
   top: 85%;
+}
+
+#c {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#player {
+  position: fixed;
+  top: 20%;
+  left: 10% + 15px  ;
+}
+
+#video-player {
+  position: fixed;
+  top: 20%;
+  left: 10%;
 }
 
 /* * * * * * * *
