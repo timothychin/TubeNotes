@@ -25,7 +25,7 @@
             <td><img ng-src="{{libVideo.image}}"></td>
             <td>{{libVideo.title}}</td>
             <td>{{libVideo.lastCommentDate | amCalendar:referenceTime:formats}}</td>
-            <td>
+            <td><button ng-click="deleteVideo(libVideo); $event.stopPropagation()" class="btn btn-default btn-sm glyphicon glyphicon-trash" style="border: none; padding-bottom:23px; background-color: transparent; font-size: 20px; color: #AAADAD;"></button></td>
           </tr>
         </tbody>
       </table>

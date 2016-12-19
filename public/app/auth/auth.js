@@ -39,7 +39,7 @@ angular.module('tubenotes.auth', [])
             if (!data) {
               console.log('Cancelled');
             } else {
-              console.log('Username', data.username, 'Password', data.password);
+              // console.log('Username', data.username, 'Password', data.password);
               Auth.login(/*$scope.user*/ data)
               .then(function (token) {
                 if (!token) {
